@@ -13,6 +13,14 @@ class Barang extends Model
 
     protected $guarded = ['id'];
 
+    protected $hidden = [
+        'id',
+        'kategori_id',
+        'unit_id',
+        'created_at',
+        'updated_at',
+    ];
+
     public function kategori()
     {
         return $this->belongsTo(Kategori::class);
