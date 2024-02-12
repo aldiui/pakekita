@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
+            $table->string('nama');
+            $table->text('deskripsi')->nullable();
+            $table->string('image')->nullable();
+            $table->unsignedInteger('harga');
+            $table->string('status')->default(0);
             $table->timestamps();
         });
     }

@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('stoks', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
+            $table->unsignedBigInteger('user_id');
+            $table->date('tanggal');
+            $table->enum('jenis', ['Masuk', 'Keluar'])->default('Keluar');
+            $table->string('status')->default(0);
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
