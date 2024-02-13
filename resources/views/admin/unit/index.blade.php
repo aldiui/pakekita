@@ -29,7 +29,7 @@
                             <h5 class="card-title mb-0">Data @yield('title')</h5>
                             <div>
                                 <button class="btn btn-success btn-sm" onclick="getModal('createModal')">
-                                    <i class="bx bx-plus"></i>Tambah Data
+                                    <i class="bx bx-plus"></i>Tambah
                                 </button>
                             </div>
                         </div>

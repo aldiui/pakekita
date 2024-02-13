@@ -291,3 +291,51 @@ const confirmDelete = (url, tableId) => {
         }
     });
 };
+
+const select2ToJson = (selector, url, modal = null) => {
+    const selectElem = $(selector).empty();
+
+    const successCallback = function (response) {
+        selectElem.empty();
+
+        const emptyOption = $("<option></option>");
+        emptyOption.attr("value", "");
+        emptyOption.text("-- Pilih Data --");
+        selectElem.append(emptyOption);
+
+        const responseList = response.data;
+        responseList.forEach(function (row) {
+            const option = $("<option></option>");
+            option.attr("value", row.uuid);
+            if (row.qty >= 0) {
+                option.text(
+                    row.unit.nama !== "Kosong"
+                        ? row.nama +
+                              " ( Jumlah Stok : " +
+                              row.qty +
+                              " " +
+                              row.unit.nama +
+                              " )"
+                        : row.nama + " ( Jumlah Stok : " + row.qty + " )"
+                );
+            } else {
+                option.text(row.nama);
+            }
+            selectElem.append(option);
+        });
+
+        selectElem.select2({
+			theme: 'bootstrap4',
+			width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+			placeholder: $(this).data('placeholder'),
+			allowClear: Boolean($(this).data('allow-clear')),
+            dropdownParent: $(modal),
+        });
+    };
+
+    const errorCallback = function (error) {
+        console.log(error);
+    };
+
+    ajaxCall(url, "GET", null, successCallback, errorCallback);
+};

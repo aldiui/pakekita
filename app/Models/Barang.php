@@ -21,6 +21,22 @@ class Barang extends Model
         'updated_at',
     ];
 
+    public function toArray()
+    {
+        $array = [
+            "uuid" => $this->uuid,
+            "nama" => $this->nama,
+            "qty" => $this->qty,
+            "quantity" => $this->qty . " " . $this->unit->nama,
+            "deskripsi" => $this->deskripsi,
+            "kategori_id" => $this->kategori->uuid,
+            "kategori" => $this->kategori->nama,
+            "unit_id" => $this->unit->uuid,
+        ];
+
+        return $array;
+    }
+
     public function kategori()
     {
         return $this->belongsTo(Kategori::class);

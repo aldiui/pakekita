@@ -450,7 +450,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a href="javascript:;"
-                        class="nav-link {{ Request::is('admin/kategori') || Request::is('admin/unit') ? 'active text-white' : '' }} dropdown-toggle dropdown-toggle-nocaret"
+                        class="nav-link {{ Request::is('admin/kategori') || Request::is('admin/unit') || Request::is('admin/barang') ? 'active text-white' : '' }} dropdown-toggle dropdown-toggle-nocaret"
                         data-bs-toggle="dropdown">
                         <div class="parent-icon"><i class='bx bx-cart'></i>
                         </div>
@@ -470,7 +470,8 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/">
+                            <a class="dropdown-item {{ Request::is('admin/barang') ? 'active' : '' }}"
+                                href="/admin/barang">
                                 <i class="bx bx-right-arrow-alt"></i>Barang
                             </a>
                         </li>
