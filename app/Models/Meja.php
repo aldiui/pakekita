@@ -12,6 +12,12 @@ class Meja extends Model
 
     protected $guarded = ['id'];
 
+    protected $hidden = [
+        'id',
+        'created_at',
+        'updated_at',
+    ];
+
     public function pesanMejas()
     {
         return $this->hasMany(PesanMeja::class);
