@@ -484,7 +484,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a href="javascript:;"
-                        class="nav-link {{ Request::is('admin/meja') ? 'active text-white' : '' }} dropdown-toggle dropdown-toggle-nocaret"
+                        class="nav-link {{ Request::is('admin/meja') || Request::is('admin/menu') ? 'active text-white' : '' }} dropdown-toggle dropdown-toggle-nocaret"
                         data-bs-toggle="dropdown">
                         <div class="parent-icon">
                             <i class='bx bx-wallet'></i>
@@ -493,7 +493,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="/">
+                            <a class="dropdown-item {{ Request::is('admin/menu') ? 'active' : '' }}"
+                                href="/admin/menu">
                                 <i class="bx bx-right-arrow-alt"></i>Menu
                             </a>
                         </li>
