@@ -31,8 +31,11 @@ class MenuController extends Controller
                     ->addColumn('img', function ($menu) {
                         return '<img src="/storage/image/menu/' . $menu->image . '" width="150px" alt="">';
                     })
+                    ->addColumn('rupiah', function ($menu) {
+                        return formatRupiah($menu->harga);
+                    })
                     ->addIndexColumn()
-                    ->rawColumns(['aksi', 'img', 'kategori'])
+                    ->rawColumns(['aksi', 'img', 'kategori', 'rupiah'])
                     ->make(true);
             }
 
