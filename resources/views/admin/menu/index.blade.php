@@ -45,6 +45,7 @@
                                         <th width="10%">Foto</th>
                                         <th>Nama</th>
                                         <th>Harga</th>
+                                        <th>Menu</th>
                                         <th width="15%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -85,14 +86,22 @@
                     name: 'nama'
                 },
                 {
-                    data: 'harga',
-                    name: 'harga'
+                    data: 'rupiah',
+                    name: 'rupiah'
+                },
+                {
+                    data: 'kategori',
+                    name: 'kategori'
                 },
                 {
                     data: 'aksi',
                     name: 'aksi'
                 },
             ]);
+
+            $("#createBtn").click(function() {
+                select2ToJson("#kategori_id", "/admin/kategori?jenis=Menu", "#createModal");
+            });
 
 
             $("#saveData").submit(function(e) {
@@ -110,7 +119,7 @@
                 const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-primary", false);
                     handleValidationErrors(error, "saveData", ["foto", "nama",
-                        "harga", "deskripsi"
+                        "harga", "deskripsi", "kategori_id"
                     ]);
                 };
 
@@ -134,12 +143,16 @@
                 const errorCallback = function(error) {
                     setButtonLoadingState("#updateData .btn.btn-primary", false);
                     handleValidationErrors(error, "updateData", ["foto", "nama",
-                        "harga", "deskripsi"
+                        "harga", "deskripsi", "kategori_id"
                     ]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
         });
+
+        function getSelectEdit() {
+            select2ToJson(".editKategori", "/admin/kategori?jenis=Menu", "#editModal");
+        }
     </script>
 @endpush

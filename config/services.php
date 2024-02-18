@@ -12,7 +12,7 @@ return [
     | location for this type of information, allowing packages to have
     | a conventional file to locate the various service credentials.
     |
-    */
+     */
 
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
@@ -29,6 +29,14 @@ return [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+    ],
+
+    'midtrans' => [
+        'serverKey' => env('MIDTRANS_SERVER_KEY'),
+        'clientKey' => env('MIDTRANS_CLIENT_KEY'),
+        'isProduction' => env('MIDTRANS_IS_PRODUCTION'),
+        'isSanitized' => env('MIDTRANS_IS_SANITIZED'),
+        'is3ds' => env('MIDTRANS_IS_3DS'),
     ],
 
 ];

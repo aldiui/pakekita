@@ -17,6 +17,9 @@ Route::get('/', function () {
     return view('admin.beranda.index');
 });
 
+Route::match(['get', 'post'], '/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
+Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+
 Route::prefix('admin')->group(function () {
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class)->names('admin.kategori');
     Route::resource('unit', App\Http\Controllers\Admin\UnitController::class)->names('admin.unit');

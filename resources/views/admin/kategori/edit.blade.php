@@ -15,6 +15,15 @@
                         <input type="text" class="form-control" id="nama" name="nama">
                         <small class="invalid-feedback" id="errornama"></small>
                     </div>
+                    <div class="form-group mb-3">
+                        <label for="jenis" class="form-label">Jenis <span class="text-danger">*</span></label>
+                        <select name="jenis" id="jenis" class="form-control">
+                            <option value="">Pilih Jenis</option>
+                            <option value="Barang">Barang</option>
+                            <option value="Menu">Menu</option>
+                        </select>
+                        <small class="invalid-feedback" id="errorjenis"></small>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

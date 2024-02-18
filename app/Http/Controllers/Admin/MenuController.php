@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kategori;
 use App\Models\Menu;
 use App\Traits\ApiResponder;
 use DataTables;
@@ -22,7 +23,7 @@ class MenuController extends Controller
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($menus)
                     ->addColumn('aksi', function ($menu) {
-                        $editButton = '<button class="btn btn-sm btn-warning me-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/menu/' . $menu->uuid . '`, [`uuid`,`nama`, `deskripsi`, `harga`, `image`])"><i class="bx bx-edit"></i>Edit</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning me-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/menu/' . $menu->uuid . '`, [`uuid`, `kategori_id`, `nama`, `deskripsi`, `harga`, `image`])"><i class="bx bx-edit"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/menu/' . $menu->uuid . '`, `menu-table`)"><i class="bx bx-trash"></i>Hapus</button>';
                         return $editButton . $deleteButton;
                     })
@@ -46,11 +47,14 @@ class MenuController extends Controller
             'nama' => 'required',
             'harga' => 'required|numeric',
             'image' => 'image|mimes:png,jpg,jpeg',
+            'kategori_id' => 'required|exists:kategoris,uuid',
         ]);
 
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
         }
+
+        $getKategori = Kategori::where('uuid', $request->kategori_id)->first();
 
         $uuid = Uuid::uuid4()->toString();
 
@@ -65,6 +69,7 @@ class MenuController extends Controller
             'deskripsi' => $request->input('deskripsi'),
             'harga' => $request->input('harga'),
             'image' => $image ?? null,
+            'kategori_id' => $getKategori->id,
         ]);
 
         return $this->successResponse($menu, 'Data menu ditambahkan.', 201);
@@ -87,6 +92,7 @@ class MenuController extends Controller
             'nama' => 'required',
             'harga' => 'required|numeric',
             'image' => 'image|mimes:png,jpg,jpeg',
+            'kategori_id' => 'required|exists:kategoris,uuid',
         ]);
 
         if ($validator->fails()) {
@@ -99,10 +105,13 @@ class MenuController extends Controller
             return $this->errorResponse(null, 'Data menu tidak ditemukan.', 404);
         }
 
+        $getKategori = Kategori::where('uuid', $request->kategori_id)->first();
+
         $updateMenu = [
             'nama' => $request->input('nama'),
             'deskripsi' => $request->input('deskripsi'),
             'harga' => $request->input('harga'),
+            'kategori_id' => $getKategori->id,
         ];
 
         if ($request->hasFile('image')) {

@@ -20,12 +20,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/icons.css') }}" rel="stylesheet">
-    <!-- Theme Style CSS -->
-    <link rel="stylesheet" href="{{ asset('css/dark-theme.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/semi-dark.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/header-colors.css') }}" />
 
     @stack('style')
+
+    <style>
+        .dropify-message p {
+            font-size: 14px;
+        }
+    </style>
 
     <title>@yield('title') - {{ config('app.name') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">

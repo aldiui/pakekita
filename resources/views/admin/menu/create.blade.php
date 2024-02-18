@@ -19,6 +19,12 @@
                         <small class="invalid-feedback" id="errornama"></small>
                     </div>
                     <div class="form-group mb-3">
+                        <label for="kategori_id" class="form-label">Kategori <span class="text-danger">*</span></label>
+                        <select name="kategori_id" id="kategori_id"
+                            class="single-select form-control"></select>
+                        <small class="invalid-feedback" id="errorkategori_id"></small>
+                    </div>
+                    <div class="form-group mb-3">
                         <label for="harga" class="form-label">Harga <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="harga" name="harga">
                         <small class="invalid-feedback" id="errorharga"></small>

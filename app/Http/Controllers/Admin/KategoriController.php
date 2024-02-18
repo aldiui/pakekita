@@ -21,7 +21,7 @@ class KategoriController extends Controller
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($kategoris)
                     ->addColumn('aksi', function ($kategori) {
-                        $editButton = '<button class="btn btn-sm btn-warning me-1" onclick="getModal(`editModal`, `/admin/kategori/' . $kategori->uuid . '`, [`uuid`, `nama`])"><i class="bx bx-edit"></i>Edit</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning me-1" onclick="getModal(`editModal`, `/admin/kategori/' . $kategori->uuid . '`, [`uuid`, `nama`, `jenis`])"><i class="bx bx-edit"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/kategori/' . $kategori->uuid . '`, `kategori-table`)"><i class="bx bx-trash"></i>Hapus</button>';
                         return $editButton . $deleteButton;
                     })
@@ -30,7 +30,13 @@ class KategoriController extends Controller
                     ->make(true);
             }
 
+            if ($request->input("jenis")) {
+                $kategorisByJenis = Kategori::where('jenis', $request->input("jenis"))->get();
+                return $this->successResponse($kategorisByJenis, 'Data kategori ditemukan.');
+            }
+
             return $this->successResponse($kategoris, 'Data kategori ditemukan.');
+
         }
 
         return view('admin.kategori.index');
@@ -40,6 +46,7 @@ class KategoriController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
+            'jenis' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -51,6 +58,7 @@ class KategoriController extends Controller
         $kategori = Kategori::create([
             'uuid' => $uuid,
             'nama' => $request->input('nama'),
+            'jenis' => $request->input('jenis'),
         ]);
 
         return $this->successResponse($kategori, 'Data kategori ditambahkan.', 201);
@@ -71,6 +79,7 @@ class KategoriController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
+            'jenis' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -83,7 +92,10 @@ class KategoriController extends Controller
             return $this->errorResponse(null, 'Data kategori tidak ditemukan.', 404);
         }
 
-        $kategori->update(['nama' => $request->input('nama')]);
+        $kategori->update([
+            'nama' => $request->input('nama'),
+            'jenis' => $request->input('jenis'),
+        ]);
 
         return $this->successResponse($kategori, 'Data kategori diubah.');
     }

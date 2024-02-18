@@ -32,6 +32,7 @@ class Barang extends Model
             "kategori_id" => $this->kategori->uuid,
             "kategori" => $this->kategori->nama,
             "unit_id" => $this->unit->uuid,
+            "image" => $this->image,
         ];
 
         return $array;

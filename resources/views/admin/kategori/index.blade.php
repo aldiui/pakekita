@@ -40,6 +40,7 @@
                                     <tr>
                                         <th width="5%">#</th>
                                         <th>Nama</th>
+                                        <th>Jenis</th>
                                         <th width="15%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -72,6 +73,10 @@
                     name: 'nama'
                 },
                 {
+                    data: 'jenis',
+                    name: 'jenis'
+                },
+                {
                     data: 'aksi',
                     name: 'aksi'
                 },
@@ -91,7 +96,7 @@
 
                 const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-primary", false);
-                    handleValidationErrors(error, "saveData", ["nama"]);
+                    handleValidationErrors(error, "saveData", ["nama", "jenis"]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
@@ -111,7 +116,7 @@
 
                 const errorCallback = function(error) {
                     setButtonLoadingState("#updateData .btn.btn-primary", false);
-                    handleValidationErrors(error, "updateData", ["nama"]);
+                    handleValidationErrors(error, "updateData", ["nama", "jenis"]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);

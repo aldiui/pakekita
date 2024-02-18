@@ -14,12 +14,10 @@ return new class extends Migration
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
             $table->uuid();
-            $table->unsignedBigInteger('user_id');
+            $table->string('nama');
             $table->date('tanggal');
             $table->string('status')->default(0);
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

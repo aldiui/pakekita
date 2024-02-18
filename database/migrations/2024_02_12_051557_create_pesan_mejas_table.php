@@ -14,12 +14,11 @@ return new class extends Migration
         Schema::create('pesan_mejas', function (Blueprint $table) {
             $table->id();
             $table->uuid();
-            $table->unsignedBigInteger('user_id');
+            $table->string('nama');
             $table->unsignedBigInteger('meja_id');
             $table->string('status')->default(0);
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('meja_id')->references('id')->on('mejas')->onDelete('cascade');
         });
     }

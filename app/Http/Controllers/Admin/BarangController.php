@@ -99,6 +99,7 @@ class BarangController extends Controller
             'unit_id' => 'required|exists:units,uuid',
             'image' => 'image|mimes:png,jpg,jpeg',
         ]);
+
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
         }
