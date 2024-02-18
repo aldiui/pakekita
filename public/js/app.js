@@ -307,20 +307,7 @@ const select2ToJson = (selector, url, modal = null) => {
         responseList.forEach(function (row) {
             const option = $("<option></option>");
             option.attr("value", row.uuid);
-            if (row.qty >= 0) {
-                option.text(
-                    row.unit.nama !== "Kosong"
-                        ? row.nama +
-                              " ( Jumlah Stok : " +
-                              row.qty +
-                              " " +
-                              row.unit.nama +
-                              " )"
-                        : row.nama + " ( Jumlah Stok : " + row.qty + " )"
-                );
-            } else {
-                option.text(row.nama);
-            }
+            option.text(row.nama);
             selectElem.append(option);
         });
 
