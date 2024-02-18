@@ -29,6 +29,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('menu', App\Http\Controllers\Admin\MenuController::class)->names('admin.menu');
 });
 
+
 Route::get('/storage-link', function () {
     Artisan::call('storage:link');
 
