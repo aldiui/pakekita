@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +27,10 @@ Route::prefix('admin')->group(function () {
     Route::resource('barang', App\Http\Controllers\Admin\BarangController::class)->names('admin.barang');
     Route::resource('meja', App\Http\Controllers\Admin\MejaController::class)->names('admin.meja');
     Route::resource('menu', App\Http\Controllers\Admin\MenuController::class)->names('admin.menu');
+});
+
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+
+    return 'Storage link created!';
 });
