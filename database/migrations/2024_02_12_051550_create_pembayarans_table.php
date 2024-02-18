@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
             $table->string('nama');
             $table->string('tipe');
             $table->string('no_rekening');

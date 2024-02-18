@@ -8,7 +8,7 @@
             </div>
             <form id="updateData" autocomplete="off">
                 <div class="modal-body">
-                    <input type="hidden" id="uuid">
+                    <input type="hidden" id="id">
                     @method('PUT')
                     <div class="form-group mb-3">
                         <label for="kode_meja" class="form-label">Kode Meja <span class="text-danger">*</span></label>

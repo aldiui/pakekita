@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('detail_stoks', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
             $table->unsignedBigInteger('stok_id');
             $table->unsignedBigInteger('barang_id');
             $table->unsignedInteger('qty');

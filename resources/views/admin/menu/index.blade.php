@@ -129,7 +129,7 @@
             $("#updateData").submit(function(e) {
                 setButtonLoadingState("#updateData .btn.btn-primary", true);
                 e.preventDefault();
-                const kode = $("#updateData #uuid").val();
+                const kode = $("#updateData #id").val();
                 console.log(kode)
                 const url = `/admin/menu/${kode}`;
                 const data = new FormData(this);

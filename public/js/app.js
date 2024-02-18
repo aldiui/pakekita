@@ -306,7 +306,7 @@ const select2ToJson = (selector, url, modal = null) => {
         const responseList = response.data;
         responseList.forEach(function (row) {
             const option = $("<option></option>");
-            option.attr("value", row.uuid);
+            option.attr("value", row.id);
             option.text(row.nama);
             selectElem.append(option);
         });

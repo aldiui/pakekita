@@ -12,12 +12,6 @@ class Unit extends Model
 
     protected $guarded = ['id'];
 
-    protected $hidden = [
-        'id',
-        'created_at',
-        'updated_at',
-    ];
-
     public function barangs()
     {
         return $this->hasMany(Barang::class);

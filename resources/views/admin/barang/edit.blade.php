@@ -8,7 +8,7 @@
             </div>
             <form id="updateData" autocomplete="off">
                 <div class="modal-body">
-                    <input type="hidden" id="uuid">
+                    <input type="hidden" id="id">
                     @method('PUT')
                     <div class="form-group mb-3">
                         <label for="image" class="form-label">Foto </label>
@@ -22,7 +22,8 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="kategori_id" class="form-label">Kategori <span class="text-danger">*</span></label>
-                        <select name="kategori_id" id="kategori_id" class="single-select form-control editKategori"></select>
+                        <select name="kategori_id" id="kategori_id"
+                            class="single-select form-control editKategori"></select>
                         <small class="invalid-feedback" id="errorkategori_id"></small>
                     </div>
                     <div class="form-group mb-3">

@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('detail_transaksis', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
             $table->unsignedBigInteger('transaksi_id');
             $table->unsignedBigInteger('menu_id');
             $table->unsignedInteger('qty');

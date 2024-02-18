@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
             $table->string('nama');
             $table->date('tanggal');
             $table->string('status')->default(0);

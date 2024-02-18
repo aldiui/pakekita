@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
             $table->unsignedBigInteger('kategori_id');
             $table->string('nama');
             $table->text('deskripsi')->nullable();

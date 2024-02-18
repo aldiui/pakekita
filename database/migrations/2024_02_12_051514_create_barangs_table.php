@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('barangs', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
             $table->unsignedBigInteger('kategori_id');
             $table->unsignedBigInteger('unit_id');
             $table->string('nama');

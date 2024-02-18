@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('stoks', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
             $table->unsignedBigInteger('user_id');
             $table->date('tanggal');
             $table->enum('jenis', ['Masuk', 'Keluar'])->default('Keluar');
