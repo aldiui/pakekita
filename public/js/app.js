@@ -293,30 +293,26 @@ const confirmDelete = (url, tableId) => {
 };
 
 const select2ToJson = (selector, url, modal = null) => {
-    const selectElem = $(selector).empty();
+    const selectElem = $(selector);
+    selectElem.empty();
 
     const successCallback = function (response) {
-        selectElem.empty();
 
-        const emptyOption = $("<option></option>");
-        emptyOption.attr("value", "");
-        emptyOption.text("-- Pilih Data --");
+        const emptyOption = $("<option></option>").attr("value", "").text("-- Pilih Data --");
         selectElem.append(emptyOption);
 
         const responseList = response.data;
         responseList.forEach(function (row) {
-            const option = $("<option></option>");
-            option.attr("value", row.id);
-            option.text(row.nama);
+            const option = $("<option></option>").attr("value", row.id).text(row.nama);
             selectElem.append(option);
         });
 
         selectElem.select2({
-			theme: 'bootstrap4',
-			width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-			placeholder: $(this).data('placeholder'),
-			allowClear: Boolean($(this).data('allow-clear')),
-            dropdownParent: $(modal),
+            theme: 'bootstrap4',
+            width: selectElem.data('width') ? selectElem.data('width') : selectElem.hasClass('w-100') ? '100%' : 'style',
+            placeholder: selectElem.data('placeholder'),
+            allowClear: Boolean(selectElem.data('allow-clear')),
+            dropdownParent: modal ? $(modal) : null,
         });
     };
 
