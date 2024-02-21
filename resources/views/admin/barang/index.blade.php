@@ -6,8 +6,6 @@
     <link rel="stylesheet" href="{{ asset('plugins/notifications/css/lobibox.min.css') }}" />
     <link href="{{ asset('plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('plugins/dropify/css/dropify.css') }}">
-    <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('plugins/select2/css/select2-bootstrap4.css') }}" rel="stylesheet" />
 @endpush
 
 @section('main')
@@ -68,7 +66,6 @@
     <script src="{{ asset('plugins/notifications/js/lobibox.min.js') }}"></script>
     <script src="{{ asset('plugins/notifications/js/notifications.min.js') }}"></script>
     <script src="{{ asset('plugins/dropify/js/dropify.js') }}"></script>
-    <script src="{{ asset('plugins/select2/js/select2.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('.dropify').dropify();

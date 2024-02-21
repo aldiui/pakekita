@@ -306,14 +306,6 @@ const select2ToJson = (selector, url, modal = null) => {
             const option = $("<option></option>").attr("value", row.id).text(row.nama);
             selectElem.append(option);
         });
-
-        selectElem.select2({
-            theme: 'bootstrap4',
-            width: selectElem.data('width') ? selectElem.data('width') : selectElem.hasClass('w-100') ? '100%' : 'style',
-            placeholder: selectElem.data('placeholder'),
-            allowClear: Boolean(selectElem.data('allow-clear')),
-            dropdownParent: modal ? $(modal) : null,
-        });
     };
 
     const errorCallback = function (error) {
