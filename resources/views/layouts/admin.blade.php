@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    <script src="{{ asset('static/js/initTheme.js') }}"></script>
     <div id="app">
         <div id="main" class="layout-horizontal">
             @include('components.header_admin')
@@ -21,7 +22,6 @@
         </div>
     </div>
     <script src="{{ asset('extensions/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('static/js/initTheme.js') }}"></script>
     <script src="{{ asset('static/js/pages/horizontal-layout.js') }}"></script>
     <script src="{{ asset('extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('compiled/js/app.js') }}"></script>

@@ -21,8 +21,8 @@ class MenuController extends Controller
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($menus)
                     ->addColumn('aksi', function ($menu) {
-                        $editButton = '<button class="btn btn-sm btn-warning me-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/menu/' . $menu->id . '`, [`id`, `kategori_id`, `nama`, `deskripsi`, `harga`, `image`])"><i class="bx bx-edit"></i>Edit</button>';
-                        $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/menu/' . $menu->id . '`, `menu-table`)"><i class="bx bx-trash"></i>Hapus</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning me-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/menu/' . $menu->id . '`, [`id`, `kategori_id`, `nama`, `deskripsi`, `harga`, `image`])"><i class="bI bi-pencil-square me-2"></i>Edit</button>';
+                        $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/menu/' . $menu->id . '`, `menu-table`)"><i class="bI bI-trash me-2"></i>Hapus</button>';
                         return $editButton . $deleteButton;
                     })
                     ->addColumn('kategori', function ($barang) {
