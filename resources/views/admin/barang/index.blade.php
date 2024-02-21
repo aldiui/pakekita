@@ -10,7 +10,6 @@
 @endpush
 
 @section('main')
-@section('main')
     <div class="content-wrapper container">
         <div class="page-heading">
             <div class="page-title">
