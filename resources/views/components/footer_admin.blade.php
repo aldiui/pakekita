@@ -1,7 +1,13 @@
-<div class="overlay toggle-icon"></div>
-<a href="javaScript:;" class="back-to-top">
-    <i class='bx bxs-up-arrow-alt'></i>
-</a>
-<footer class="page-footer">
-    <p class="mb-0">Copyright © {{ date('Y') }}. Pakekita.</p>
+<footer>
+    <div class="container">
+        <div class="footer clearfix mb-0 text-muted">
+            <div class="float-start">
+                <p> {{ date('Y') }} &copy; Pakekita</p>
+            </div>
+            <div class="float-end">
+                <p>Created with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="#">Maden</a>
+                </p>
+            </div>
+        </div>
+    </div>
 </footer>
