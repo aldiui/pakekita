@@ -27,8 +27,8 @@ Route::prefix('admin')->group(function () {
     Route::resource('barang', App\Http\Controllers\Admin\BarangController::class)->names('admin.barang');
     Route::resource('meja', App\Http\Controllers\Admin\MejaController::class)->names('admin.meja');
     Route::resource('menu', App\Http\Controllers\Admin\MenuController::class)->names('admin.menu');
+    Route::resource('pembayaran', App\Http\Controllers\Admin\PembayaranController::class)->names('admin.pembayaran');
 });
-
 
 Route::get('/storage-link', function () {
     Artisan::call('storage:link');

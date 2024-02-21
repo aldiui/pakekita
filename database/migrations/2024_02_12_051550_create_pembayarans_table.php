@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('nama');
             $table->string('tipe');
             $table->string('no_rekening');
+            $table->string('image')->nullable();
+            $table->string('qrcode')->nullable();
             $table->timestamps();
         });
     }

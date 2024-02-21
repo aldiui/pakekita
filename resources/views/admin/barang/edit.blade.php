@@ -22,13 +22,12 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="kategori_id" class="form-label">Kategori <span class="text-danger">*</span></label>
-                        <select name="kategori_id" id="kategori_id"
-                            class="single-select form-control editKategori"></select>
+                        <select name="kategori_id" id="kategori_id" class="form-control editKategori"></select>
                         <small class="invalid-feedback" id="errorkategori_id"></small>
                     </div>
                     <div class="form-group mb-3">
                         <label for="unit_id" class="form-label">Unit <span class="text-danger">*</span></label>
-                        <select name="unit_id" id="unit_id" class="single-select form-control editUnit"></select>
+                        <select name="unit_id" id="unit_id" class="form-control editUnit"></select>
                         <small class="invalid-feedback" id="errorunit_id"></small>
                     </div>
                     <div class="form-group mb-3">

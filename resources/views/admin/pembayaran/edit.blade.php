@@ -1,13 +1,15 @@
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data @yield('title')</h5>
+                <h5 class="modal-title" id="exampleModalLabel"> Edit Data @yield('title')</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="saveData" autocomplete="off">
+            <form id="updateData" autocomplete="off">
                 <div class="modal-body">
+                    <input type="hidden" id="id">
+                    @method('PUT')
                     <div class="form-group mb-3">
                         <label for="image" class="form-label">Foto </label>
                         <input type="file" name="image" id="image" class="dropify" data-height="200">
@@ -20,13 +22,19 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="kategori_id" class="form-label">Kategori <span class="text-danger">*</span></label>
-                        <select name="kategori_id" id="kategori_id" class="form-control"></select>
+                        <select name="kategori_id" id="kategori_id"
+                            class="single-select form-control editKategori"></select>
                         <small class="invalid-feedback" id="errorkategori_id"></small>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="harga" class="form-label">Harga <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" id="harga" name="harga">
-                        <small class="invalid-feedback" id="errorharga"></small>
+                        <label for="unit_id" class="form-label">Unit <span class="text-danger">*</span></label>
+                        <select name="unit_id" id="unit_id" class="single-select form-control editUnit"></select>
+                        <small class="invalid-feedback" id="errorunit_id"></small>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="qty" class="form-label">Qty <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="qty" name="qty">
+                        <small class="invalid-feedback" id="errorqty"></small>
                     </div>
                     <div class="form-group mb-3">
                         <label for="deskripsi" class="form-label">Deskripsi</label>
