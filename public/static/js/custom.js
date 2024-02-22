@@ -72,9 +72,7 @@ const getModal = (targetId, url = null, fields = null) => {
         const successCallback = function (response) {
             fields.forEach((field) => {
                 if (response.data[field]) {
-                    $(`#${targetId} #${field}`)
-                        .val(response.data[field])
-                        .trigger("change");
+                    $(`#${targetId} #${field}`).val(response.data[field]);
                 }
             });
         };
