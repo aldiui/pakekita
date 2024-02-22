@@ -53,15 +53,25 @@ const setButtonLoadingState = (buttonSelector, isLoading, title = "Simpan") => {
 };
 
 const notification = (type, message) => {
-    Swal.fire({
-        icon: type,
-        title: type === "success" ? "Success" : "Error",
-        text: message,
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
         showConfirmButton: false,
         timer: 1500,
         timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
     });
-}
+
+    Toast.fire({
+        icon: type,
+        title: type === "success" ? "Success" : "Error",
+        text: message
+    });
+};
+
 
 const getModal = (targetId, url = null, fields = null) => {
     $(`#${targetId}`).modal("show");
@@ -159,7 +169,11 @@ const confirmDelete = (url, tableId) => {
 
 const select2ToJson = (selector, url) => {
     const selectElem = $(selector);
-    selectElem.empty();
+
+
+if (selectElem.children().length > 0) {
+        return;
+    }
 
     const successCallback = function(response) {
         selectElem.append($('<option>', { value: '', text: '-- Pilih Data --' }));
