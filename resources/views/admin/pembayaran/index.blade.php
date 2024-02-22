@@ -46,8 +46,10 @@
                                     <thead>
                                         <tr>
                                             <th width="5%">#</th>
+                                            <th width="10%">Foto</th>
                                             <th>Nama</th>
                                             <th>Jenis</th>
+                                            <th>No. Rekening</th>
                                             <th width="15%">Aksi</th>
                                         </tr>
                                     </thead>
@@ -61,8 +63,8 @@
             </section>
         </div>
     </div>
-    @include('admin.kategori.create')
-    @include('admin.kategori.edit')
+    @include('admin.pembayaran.create')
+    @include('admin.pembayaran.edit')
 @endsection
 
 @push('scripts')
@@ -71,9 +73,13 @@
     <script src="{{ asset('extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            datatableCall('kategori-table', '{{ route('admin.pembayaran.index') }}', [{
+            datatableCall('pembayaran-table', '{{ route('admin.pembayaran.index') }}', [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
+                },
+                {
+                    data: 'img',
+                    name: 'img'
                 },
                 {
                     data: 'nama',
@@ -82,6 +88,10 @@
                 {
                     data: 'jenis',
                     name: 'jenis'
+                },
+                {
+                    data: 'no_rekening',
+                    name: 'no_rekening'
                 },
                 {
                     data: 'aksi',
@@ -103,7 +113,9 @@
 
                 const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-primary", false);
-                    handleValidationErrors(error, "saveData", ["nama", "jenis"]);
+                    handleValidationErrors(error, "saveData", ["nama", "jenis", "image",
+                        "no_rekening"
+                    ]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
@@ -118,12 +130,14 @@
 
                 const successCallback = function(response) {
                     setButtonLoadingState("#updateData .btn.btn-primary", false);
-                handleSuccess(response, "pembayaran-table", "editModal");
+                    handleSuccess(response, "pembayaran-table", "editModal");
                 };
 
                 const errorCallback = function(error) {
                     setButtonLoadingState("#updateData .btn.btn-primary", false);
-                    handleValidationErrors(error, "updateData", ["nama", "jenis"]);
+                    handleValidationErrors(error, "updateData", ["nama", "jenis", "image",
+                        "no_rekening"
+                    ]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);

@@ -21,8 +21,8 @@ class PembayaranController extends Controller
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($pembayarans)
                     ->addColumn('aksi', function ($pembayaran) {
-                        $editButton = '<button class="btn btn-sm btn-warning me-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/pembayaran/' . $pembayaran->id . '`, [`id`, ,`kategori_id`,`unit_id`,`nama`, `deskripsi`, `no_rekening`, `image`])"><i class="bi bi-pencil-square me-2"></i>Edit</button>';
-                        $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/pembayaran/' . $pembayaran->id . '`, `pembayaran-table`)"><i class="bi bi-trash me-2"></i>Hapus</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning  d-inline-flex me-1" onclick="getModal(`editModal`, `/admin/pembayaran/' . $pembayaran->id . '`, [`id`, `nama`, `jenis`, `no_rekening`, `image`])"><i class="bi bi-pencil-square me-2"></i>Edit</button>';
+                        $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex" onclick="confirmDelete(`/admin/pembayaran/' . $pembayaran->id . '`, `pembayaran-table`)"><i class="bi bi-trash me-2"></i>Hapus</button>';
                         return $editButton . $deleteButton;
                     })
                     ->addColumn('img', function ($pembayaran) {
@@ -97,7 +97,7 @@ class PembayaranController extends Controller
             return $this->errorResponse(null, 'Data pembayaran tidak ditemukan.', 404);
         }
 
-        $updateBarang = [
+        $updatePembayaran = [
             'nama' => $request->input('nama'),
             'jenis' => $request->input('jenis'),
             'no_rekening' => $request->input('no_rekening'),
@@ -109,10 +109,10 @@ class PembayaranController extends Controller
             }
             $image = $request->file('image')->hashName();
             $request->file('image')->storeAs('public/image/pembayaran', $image);
-            $updateBarang['image'] = $image;
+            $updatePembayaran['image'] = $image;
         }
 
-        $pembayaran->update($updateBarang);
+        $pembayaran->update($updatePembayaran);
 
         return $this->successResponse($pembayaran, 'Data pembayaran diubah.');
     }

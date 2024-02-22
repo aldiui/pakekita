@@ -11,6 +11,11 @@
                     <input type="hidden" id="id">
                     @method('PUT')
                     <div class="form-group mb-3">
+                        <label for="image" class="form-label">Foto </label>
+                        <input type="file" name="image" id="image" class="form-control">
+                        <small class="invalid-feedback" id="errorimage"></small>
+                    </div>
+                    <div class="form-group mb-3">
                         <label for="nama" class="form-label">Nama <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="nama" name="nama">
                         <small class="invalid-feedback" id="errornama"></small>
@@ -19,10 +24,16 @@
                         <label for="jenis" class="form-label">Jenis <span class="text-danger">*</span></label>
                         <select name="jenis" id="jenis" class="form-control">
                             <option value="">Pilih Jenis</option>
-                            <option value="Barang">Barang</option>
-                            <option value="Menu">Menu</option>
+                            <option value="Bank">Bank</option>
+                            <option value="E-Wallet">E-Wallet</option>
                         </select>
                         <small class="invalid-feedback" id="errorjenis"></small>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="no_rekening" class="form-label">No Rekening <span
+                                class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="no_rekening" name="no_rekening">
+                        <small class="invalid-feedback" id="errorno_rekening"></small>
                     </div>
                 </div>
                 <div class="modal-footer">

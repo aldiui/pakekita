@@ -133,7 +133,6 @@
                 setButtonLoadingState("#updateData .btn.btn-primary", true);
                 e.preventDefault();
                 const kode = $("#updateData #id").val();
-                console.log(kode)
                 const url = `/admin/barang/${kode}`;
                 const data = new FormData(this);
 

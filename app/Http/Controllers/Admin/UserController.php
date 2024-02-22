@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Traits\ApiResponder;
+use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -16,8 +21,8 @@ class UserController extends Controller
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($users)
                     ->addColumn('aksi', function ($user) {
-                        $editButton = '<button class="btn btn-sm btn-warning me-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/barang/' . $user->id . '`, [`id`, ,`kategori_id`,`unit_id`,`nama`, `deskripsi`, `qty`, `image`])"><i class="bx bx-edit"></i>Edit</button>';
-                        $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/barang/' . $user->id . '`, `barang-table`)"><i class="bx bx-trash"></i>Hapus</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning  d-inline-flex me-1" onclick="getModal(`editModal`, `/admin/user/' . $user->id . '`, [`id`, `nama`, `email`, `role`, `image`])"><i class="bi bi-pencil-square me-2"></i>Edit</button>';
+                        $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex" onclick="confirmDelete(`/admin/user/' . $user->id . '`, `user-table`)"><i class="bi bi-trash me-2"></i>Hapus</button>';
                         return $editButton . $deleteButton;
                     })
                     ->addColumn('img', function ($user) {
@@ -31,16 +36,16 @@ class UserController extends Controller
             return $this->successResponse($users, 'Data user ditemukan.');
         }
 
-        return view('admin.user.index'); 
+        return view('admin.user.index');
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'qty' => 'required|numeric',
-            'kategori_id' => 'required|exists:kategoris,id',
-            'unit_id' => 'required|exists:units,id',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8|confirmed',
+            'role' => 'required',
             'image' => 'image|mimes:png,jpg,jpeg',
         ]);
 
@@ -55,10 +60,9 @@ class UserController extends Controller
 
         $user = User::create([
             'nama' => $request->input('nama'),
-            'kategori_id' => $request->input('kategori_id'),
-            'unit_id' => $request->input('unit_id'),
-            'deskripsi' => $request->input('deskripsi'),
-            'qty' => $request->input('qty'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+            'role' => $request->input('role'),
             'image' => $image ?? null,
         ]);
 
@@ -77,14 +81,18 @@ class UserController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
+    {;
+        $dataValidator = [
             'nama' => 'required',
-            'qty' => 'required|numeric',
-            'kategori_id' => 'required|exists:kategoris,id',
-            'unit_id' => 'required|exists:units,id',
+            'email' => 'required|email|unique:users,email,' . $id,
             'image' => 'image|mimes:png,jpg,jpeg',
-        ]);
+        ];
+
+        if ($request->input('password') != null) {
+            $dataValidator['password'] = 'required|min:8|confirmed';
+        }
+
+        $validator = Validator::make($request->all(), $dataValidator);
 
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
@@ -96,13 +104,15 @@ class UserController extends Controller
             return $this->errorResponse(null, 'Data user tidak ditemukan.', 404);
         }
 
-        $updateBarang = [
+        $updateUser = [
             'nama' => $request->input('nama'),
-            'kategori_id' => $request->input('kategori_id'),
-            'unit_id' => $request->input('unit_id'),
-            'deskripsi' => $request->input('deskripsi'),
-            'qty' => $request->input('qty'),
+            'email' => $request->input('email'),
+            'role' => $request->input('role'),
         ];
+
+        if ($request->input('password') != null) {
+            $updateAdmin['password'] = bcrypt($request->input('password'));
+        }
 
         if ($request->hasFile('image')) {
             if (Storage::exists('public/image/user/' . $user->image)) {
@@ -110,10 +120,10 @@ class UserController extends Controller
             }
             $image = $request->file('image')->hashName();
             $request->file('image')->storeAs('public/image/user', $image);
-            $updateBarang['image'] = $image;
+            $updateUser['image'] = $image;
         }
 
-        $user->update($updateBarang);
+        $user->update($updateUser);
 
         return $this->successResponse($user, 'Data user diubah.');
     }
@@ -134,5 +144,4 @@ class UserController extends Controller
 
         return $this->successResponse(null, 'Data user dihapus.');
     }
-
 }

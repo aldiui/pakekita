@@ -28,6 +28,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('meja', App\Http\Controllers\Admin\MejaController::class)->names('admin.meja');
     Route::resource('menu', App\Http\Controllers\Admin\MenuController::class)->names('admin.menu');
     Route::resource('pembayaran', App\Http\Controllers\Admin\PembayaranController::class)->names('admin.pembayaran');
+    Route::resource('user', App\Http\Controllers\Admin\UserController::class)->names('admin.user');
 });
 
 Route::get('/storage-link', function () {

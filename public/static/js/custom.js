@@ -170,8 +170,7 @@ const confirmDelete = (url, tableId) => {
 const select2ToJson = (selector, url) => {
     const selectElem = $(selector);
 
-
-if (selectElem.children().length > 0) {
+    if (selectElem.children().length > 0) {
         return;
     }
 
