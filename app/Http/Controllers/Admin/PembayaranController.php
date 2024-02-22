@@ -43,7 +43,7 @@ class PembayaranController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'tipe' => 'required',
+            'jenis' => 'required',
             'no_rekening' => 'required|numeric',
             'image' => 'image|mimes:png,jpg,jpeg',
         ]);
@@ -59,7 +59,7 @@ class PembayaranController extends Controller
 
         $pembayaran = Pembayaran::create([
             'nama' => $request->input('nama'),
-            'tipe' => $request->input('tipe'),
+            'jenis' => $request->input('jenis'),
             'no_rekening' => $request->input('no_rekening'),
             'image' => $image ?? null,
         ]);
@@ -82,7 +82,7 @@ class PembayaranController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'tipe' => 'required',
+            'jenis' => 'required',
             'no_rekening' => 'required|numeric',
             'image' => 'image|mimes:png,jpg,jpeg',
         ]);
@@ -99,7 +99,7 @@ class PembayaranController extends Controller
 
         $updateBarang = [
             'nama' => $request->input('nama'),
-            'tipe' => $request->input('tipe'),
+            'jenis' => $request->input('jenis'),
             'no_rekening' => $request->input('no_rekening'),
         ];
 

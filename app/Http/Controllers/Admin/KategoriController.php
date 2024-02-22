@@ -57,7 +57,7 @@ class KategoriController extends Controller
     public function show($id)
     {
         if ($id == "Barang" || $id == "Menu") {
-            $kategorisByJenis = Kategori::where('jenis', 'Barang')->get();
+            $kategorisByJenis = Kategori::where('jenis', $id)->get();
             return $this->successResponse($kategorisByJenis, 'Data kategori ditemukan.');
         }
 

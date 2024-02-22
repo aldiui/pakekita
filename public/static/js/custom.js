@@ -161,22 +161,20 @@ const select2ToJson = (selector, url) => {
     const selectElem = $(selector);
     selectElem.empty();
 
-    const successCallback = function (response) {
+    const successCallback = function(response) {
+        selectElem.append($('<option>', { value: '', text: '-- Pilih Data --' }));
 
-        const emptyOption = $("<option></option>").attr("value", "").text("-- Pilih Data --");
-        selectElem.append(emptyOption);
-
-        const responseList = response.data;
-        responseList.forEach(function (row) {
-            const option = $("<option></option>").attr("value", row.id).text(row.nama);
+        response.data.forEach(function(row) {
+            const option = $('<option>', { value: row.id, text: row.nama });
             selectElem.append(option);
         });
     };
 
-    const errorCallback = function (error) {
-        console.log(error);
+    const errorCallback = function(error) {
+        console.error(error);
     };
 
-    ajaxCall(url, "GET", null, successCallback, errorCallback);
+    ajaxCall(url, 'GET', null, successCallback, errorCallback);
 };
+
 

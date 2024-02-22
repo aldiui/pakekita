@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('tipe');
+            $table->string('jenis');
             $table->string('no_rekening');
             $table->string('image')->nullable();
-            $table->string('qrcode')->nullable();
             $table->timestamps();
         });
     }
