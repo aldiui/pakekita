@@ -21,8 +21,8 @@ class MejaController extends Controller
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($mejas)
                     ->addColumn('aksi', function ($meja) {
-                        $editButton = '<button class="btn btn-sm btn-warning me-1" onclick="getModal(`editModal`, `/admin/meja/' . $meja->id . '`, [`id`, `kode_meja`])"><i class="bi bi-pencil-square me-2"></i>Edit</button>';
-                        $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/meja/' . $meja->id . '`, `meja-table`)"><i class="bi bi-trash me-2"></i>Hapus</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning me-1 d-inline-flex" onclick="getModal(`editModal`, `/admin/meja/' . $meja->id . '`, [`id`, `kode_meja`])"><i class="bi bi-pencil-square me-2"></i>Edit</button>';
+                        $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex" onclick="confirmDelete(`/admin/meja/' . $meja->id . '`, `meja-table`)"><i class="bi bi-trash me-2"></i>Hapus</button>';
                         return $editButton . $deleteButton;
                     })
                     ->addIndexColumn()

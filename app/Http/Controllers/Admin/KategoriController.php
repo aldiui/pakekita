@@ -20,8 +20,8 @@ class KategoriController extends Controller
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($kategoris)
                     ->addColumn('aksi', function ($kategori) {
-                        $editButton = '<button class="btn btn-sm btn-warning me-1" onclick="getModal(`editModal`, `/admin/kategori/' . $kategori->id . '`, [`id`, `nama`, `jenis`])"><i class="bi bi-pencil-square me-2"></i>Edit</button>';
-                        $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/kategori/' . $kategori->id . '`, `kategori-table`)"><i class="bi bi-trash me-2"></i>Hapus</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning me-1 d-inline-flex" onclick="getModal(`editModal`, `/admin/kategori/' . $kategori->id . '`, [`id`, `nama`, `jenis`])"><i class="bi bi-pencil-square me-2"></i>Edit</button>';
+                        $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex" onclick="confirmDelete(`/admin/kategori/' . $kategori->id . '`, `kategori-table`)"><i class="bi bi-trash me-2"></i>Hapus</button>';
                         return $editButton . $deleteButton;
                     })
                     ->addIndexColumn()
@@ -29,13 +29,7 @@ class KategoriController extends Controller
                     ->make(true);
             }
 
-            if ($request->input("jenis")) {
-                $kategorisByJenis = Kategori::where('jenis', $request->input("jenis"))->get();
-                return $this->successResponse($kategorisByJenis, 'Data kategori ditemukan.');
-            }
-
             return $this->successResponse($kategoris, 'Data kategori ditemukan.');
-
         }
 
         return view('admin.kategori.index');
@@ -62,6 +56,11 @@ class KategoriController extends Controller
 
     public function show($id)
     {
+        if ($id == "Barang" || $id == "Menu") {
+            $kategorisByJenis = Kategori::where('jenis', 'Barang')->get();
+            return $this->successResponse($kategorisByJenis, 'Data kategori ditemukan.');
+        }
+
         $kategori = Kategori::find($id);
 
         if (!$kategori) {

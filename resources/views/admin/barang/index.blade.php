@@ -104,7 +104,7 @@
 
             $("#createBtn").click(function() {
                 select2ToJson("#unit_id", "{{ route('admin.unit.index') }}", "#createModal");
-                select2ToJson("#kategori_id", "/admin/kategori?jenis=Barang", "#createModal");
+                select2ToJson("#kategori_id", "/admin/kategori/Barang", "#createModal");
             });
 
             $("#saveData").submit(function(e) {
@@ -157,7 +157,7 @@
 
         function getSelectEdit() {
             select2ToJson(".editUnit", "{{ route('admin.unit.index') }}", "#editModal");
-            select2ToJson(".editKategori", "/admin/kategori?jenis=Barang", "#editModal");
+            select2ToJson(".editKategori", "/admin/kategori/Barang", "#editModal");
         }
     </script>
 @endpush

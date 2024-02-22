@@ -103,7 +103,7 @@
             ]);
 
             $("#createBtn").click(function() {
-                select2ToJson("#kategori_id", "/admin/kategori?jenis=Menu", "#createModal");
+                select2ToJson("#kategori_id", "/admin/kategori/Menu", "#createModal");
             });
 
 
@@ -155,7 +155,7 @@
         });
 
         function getSelectEdit() {
-            select2ToJson(".editKategori", "/admin/kategori?jenis=Menu", "#editModal");
+            select2ToJson(".editKategori", "/admin/kategori/Menu", "#editModal");
         }
     </script>
 @endpush
