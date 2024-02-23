@@ -21,7 +21,7 @@ Route::get('/', function () {
 Route::match(['get', 'post'], '/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'checkRole:Admin'])->group(function () {
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class)->names('admin.kategori');
     Route::resource('unit', App\Http\Controllers\Admin\UnitController::class)->names('admin.unit');
     Route::resource('barang', App\Http\Controllers\Admin\BarangController::class)->names('admin.barang');
@@ -29,6 +29,8 @@ Route::prefix('admin')->group(function () {
     Route::resource('menu', App\Http\Controllers\Admin\MenuController::class)->names('admin.menu');
     Route::resource('pembayaran', App\Http\Controllers\Admin\PembayaranController::class)->names('admin.pembayaran');
     Route::resource('user', App\Http\Controllers\Admin\UserController::class)->names('admin.user');
+    Route::match(['get', 'put'], 'profil', [App\Http\Controllers\Admin\ProfilController::class, 'index'])->name('admin.profil');
+    Route::put('profil/password', [App\Http\Controllers\Admin\ProfilController::class, 'updatePassword'])->name('admin.profil.password');
 });
 
 Route::get('/storage-link', function () {

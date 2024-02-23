@@ -13,17 +13,16 @@
                             <img src="{{ asset('compiled/jpg/1.jpg') }}" alt="Avatar">
                         </div>
                         <div class="text">
-                            <h6 class="user-dropdown-name">John Ducky</h6>
-                            <p class="user-dropdown-status text-sm text-muted">Member</p>
+                            <h6 class="user-dropdown-name">{{ Auth::user()->nama ?? '' }}</h6>
+                            <p class="user-dropdown-status text-sm text-muted">{{ Auth::user()->email ?? '' }}</p>
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="topbarUserDropdown">
-                        <li><a class="dropdown-item" href="#">My Account</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="{{ route('admin.profil') }}">Profil</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="auth-login.html">Logout</a></li>
+                        <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                     </ul>
                 </div>
                 <!-- Burger button responsive -->
