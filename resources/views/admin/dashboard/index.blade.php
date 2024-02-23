@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Beranda')
+@section('title', 'Dashboard')
 
 @push('style')
 @endpush

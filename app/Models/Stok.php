@@ -18,6 +18,11 @@ class Stok extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function approval()
+    {
+        return $this->belongsTo(User::class, 'approval_id');
+    }
+
     public function detailStoks()
     {
         return $this->hasMany(DetailStok::class);

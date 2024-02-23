@@ -21,8 +21,8 @@ class PembayaranController extends Controller
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($pembayarans)
                     ->addColumn('aksi', function ($pembayaran) {
-                        $editButton = '<button class="btn btn-sm btn-warning  d-inline-flex me-1" onclick="getModal(`editModal`, `/admin/pembayaran/' . $pembayaran->id . '`, [`id`, `nama`, `jenis`, `no_rekening`, `image`])"><i class="bi bi-pencil-square me-2"></i>Edit</button>';
-                        $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex" onclick="confirmDelete(`/admin/pembayaran/' . $pembayaran->id . '`, `pembayaran-table`)"><i class="bi bi-trash me-2"></i>Hapus</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning  d-inline-flex me-1" onclick="getModal(`editModal`, `/admin/pembayaran/' . $pembayaran->id . '`, [`id`, `nama`, `jenis`, `no_rekening`, `image`])"><i class="bi bi-pencil-square me-1"></i>Edit</button>';
+                        $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex" onclick="confirmDelete(`/admin/pembayaran/' . $pembayaran->id . '`, `pembayaran-table`)"><i class="bi bi-trash me-1"></i>Hapus</button>';
                         return $editButton . $deleteButton;
                     })
                     ->addColumn('img', function ($pembayaran) {

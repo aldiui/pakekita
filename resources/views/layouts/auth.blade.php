@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title') - {{ config('app.name') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" href="{{ asset('compiled/svg/favicon.svg') }}') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('compiled/svg/favicon.svg') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('compiled/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('compiled/css/iconly.css') }}">
     <link rel="stylesheet" href="{{ asset('/compiled/css/auth.css') }}">
