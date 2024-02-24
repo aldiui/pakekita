@@ -190,4 +190,38 @@ const select2ToJson = (selector, url) => {
     ajaxCall(url, 'GET', null, successCallback, errorCallback);
 };
 
+const confirmStok = (id) => {
+    Swal.fire({
+        title: "Apakah Kamu Yakin?",
+        text: "Akan menyelesaikan proses!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, Konfirmasi!",
+    }).then((willDelete) => {
+        if (willDelete) {
+            const data = new FormData();
+            data.append("_method", "PUT");
+            data.append("status", "1");
+
+            const successCallback = function (response) {
+                handleSuccess(response, null, null, `/admin/stok/${id}`);
+            };
+
+            const errorCallback = function (error) {
+                console.log(error);
+            };
+
+            ajaxCall(
+                `/admin/stok/${id}`,
+                "POST",
+                data,
+                successCallback,
+                errorCallback
+            );
+        }
+    });
+};
+
 

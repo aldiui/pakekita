@@ -11,9 +11,19 @@
                     <input type="hidden" id="id">
                     @method('PUT')
                     <div class="form-group mb-3">
-                        <label for="nama" class="form-label">Nama <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="nama" name="nama">
-                        <small class="invalid-feedback" id="errornama"></small>
+                        <label for="barang_id" class="form-label">Barang <span class="text-danger">*</span></label>
+                        <select name="barang_id" id="barang_id" class="form-control editBarang"></select>
+                        <small class="invalid-feedback" id="errorbarang_id"></small>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="qty" class="form-label">Qty <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="qty" name="qty">
+                        <small class="invalid-feedback" id="errorqty"></small>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="deskripsi" class="form-label">Deskripsi</label>
+                        <textarea class="form-control" id="deskripsi" name="deskripsi"></textarea>
+                        <small class="invalid-feedback" id="errordeskripsi"></small>
                     </div>
                 </div>
                 <div class="modal-footer">

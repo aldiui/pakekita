@@ -31,6 +31,7 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:Admin'])->group(function 
     Route::resource('pembayaran', App\Http\Controllers\Admin\PembayaranController::class)->names('admin.pembayaran');
     Route::resource('user', App\Http\Controllers\Admin\UserController::class)->names('admin.user');
     Route::resource('stok', App\Http\Controllers\Admin\StokController::class)->names('admin.stok');
+    Route::resource('detail-stok', App\Http\Controllers\Admin\DetailStokController::class)->names('admin.detail-stok');
     Route::match(['get', 'put'], 'profil', [App\Http\Controllers\Admin\ProfilController::class, 'index'])->name('admin.profil');
     Route::put('profil/password', [App\Http\Controllers\Admin\ProfilController::class, 'updatePassword'])->name('admin.profil.password');
 });

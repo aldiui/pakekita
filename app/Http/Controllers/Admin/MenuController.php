@@ -17,7 +17,7 @@ class MenuController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $menus = Menu::all();
+            $menus = Menu::with(['kategori'])->get();
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($menus)
                     ->addColumn('aksi', function ($menu) {
@@ -26,7 +26,7 @@ class MenuController extends Controller
                         return $editButton . $deleteButton;
                     })
                     ->addColumn('kategori', function ($barang) {
-                        return $barang->load('kategori')->nama;
+                        return $barang->kategori->nama;
                     })
                     ->addColumn('img', function ($menu) {
                         return '<img src="/storage/image/menu/' . $menu->image . '" width="150px" alt="">';

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailStok;
 use App\Models\Stok;
 use App\Traits\ApiResponder;
 use DataTables;
@@ -80,8 +81,8 @@ class StokController extends Controller
                 $detailStoks = DetailStok::with(['barang', 'stok'])->where('stok_id', $id)->get();
                 return DataTables::of($detailStoks)
                     ->addColumn('aksi', function ($detailStok) {
-                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  align-items-baseline  mr-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/detail-stok/' . $detailStok->id . '`, [`id`, `barang_id`, `qty`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
-                        $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex  align-items-baseline " onclick="confirmDelete(`/admin/detail-stok/' . $detailStok->id . '`, `detailStokTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  d-inline-flex  me-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/detail-stok/' . $detailStok->id . '`, [`id`, `barang_id`, `qty`, `deskripsi`])"><i class="bi bi-pencil-square me-2"></i>Edit</button>';
+                        $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex " onclick="confirmDelete(`/admin/detail-stok/' . $detailStok->id . '`, `detail-stok-table`)"><i class="bi bi-trash me-1"></i>Hapus</button>';
 
                         return $detailStok->stok->status != 1 ? $editButton . $deleteButton : statusBadge($detailStok->stok->status);
                     })
