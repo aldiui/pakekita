@@ -15,6 +15,10 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        if (Auth::check()) {
+            return redirect('/' . Auth::user()->role);
+        }
+
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                 'email' => 'required|email',
