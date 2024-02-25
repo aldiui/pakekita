@@ -64,7 +64,6 @@
         </div>
     </div>
     @include('admin.user.create')
-    @include('admin.user.edit')
 @endsection
 
 @push('scripts')
@@ -102,9 +101,14 @@
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-primary", true);
                 e.preventDefault();
-                const url = "{{ route('admin.user.store') }}";
+                const kode = $("#saveData #id").val();
+                let url = "{{ route('admin.user.store') }}";
                 const data = new FormData(this);
 
+                if (kode !== "") {
+                    data.append("_method", "PUT");
+                    url = `/admin/user/${kode}`;
+                }
 
                 const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-primary", false);
@@ -114,28 +118,6 @@
                 const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-primary", false);
                     handleValidationErrors(error, "saveData", ["nama", "email", "password", "role",
-                        "image"
-                    ]);
-                };
-
-                ajaxCall(url, "POST", data, successCallback, errorCallback);
-            });
-
-            $("#updateData").submit(function(e) {
-                setButtonLoadingState("#updateData .btn.btn-primary", true);
-                e.preventDefault();
-                const kode = $("#updateData #id").val();
-                const url = `/admin/user/${kode}`;
-                const data = new FormData(this);
-
-                const successCallback = function(response) {
-                    setButtonLoadingState("#updateData .btn.btn-primary", false);
-                    handleSuccess(response, "user-table", "editModal");
-                };
-
-                const errorCallback = function(error) {
-                    setButtonLoadingState("#updateData .btn.btn-primary", false);
-                    handleValidationErrors(error, "updateData", ["nama", "email", "password", "role",
                         "image"
                     ]);
                 };

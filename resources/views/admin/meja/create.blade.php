@@ -3,11 +3,13 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data @yield('title')</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><span id="label-modal"></span> Data @yield('title')
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="saveData" autocomplete="off">
                 <div class="modal-body">
+                    <input type="hidden" id="id">
                     <div class="form-group mb-3">
                         <label for="kode_meja" class="form-label">Kode Meja <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="kode_meja" name="kode_meja">

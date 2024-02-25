@@ -62,7 +62,6 @@
         </div>
     </div>
     @include('admin.meja.create')
-    @include('admin.meja.edit')
 @endsection
 
 @push('scripts')
@@ -89,9 +88,14 @@
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-primary", true);
                 e.preventDefault();
-                const url = "{{ route('admin.meja.store') }}";
+                const kode = $("#saveData #id").val();
+                let url = "{{ route('admin.meja.store') }}";
                 const data = new FormData(this);
 
+                if (kode !== "") {
+                    data.append("_method", "PUT");
+                    url = `/admin/meja/${kode}`;
+                }
 
                 const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-primary", false);

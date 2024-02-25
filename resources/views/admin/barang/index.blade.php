@@ -65,7 +65,6 @@
         </div>
     </div>
     @include('admin.barang.create')
-    @include('admin.barang.edit')
 @endsection
 
 @push('scripts')
@@ -103,15 +102,20 @@
             ]);
 
             $("#createBtn").click(function() {
-                select2ToJson("#unit_id", "{{ route('admin.unit.index') }}", "#createModal");
-                select2ToJson("#kategori_id", "/admin/kategori/Barang", "#createModal");
+                getSelectEdit()
             });
 
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-primary", true);
                 e.preventDefault();
-                const url = "{{ route('admin.barang.store') }}";
+                const kode = $("#saveData #id").val();
+                let url = "{{ route('admin.barang.store') }}";
                 const data = new FormData(this);
+
+                if (kode !== "") {
+                    data.append("_method", "PUT");
+                    url = `/admin/barang/${kode}`;
+                }
 
                 const successCallback = function(response) {
                     $('#saveData #image').parent().find(".dropify-clear").trigger('click');
@@ -128,35 +132,11 @@
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
-
-            $("#updateData").submit(function(e) {
-                setButtonLoadingState("#updateData .btn.btn-primary", true);
-                e.preventDefault();
-                const kode = $("#updateData #id").val();
-                const url = `/admin/barang/${kode}`;
-                const data = new FormData(this);
-
-                const successCallback = function(response) {
-                    $('#updateData #image').parent().find(".dropify-clear").trigger('click');
-                    setButtonLoadingState("#updateData .btn.btn-primary", false);
-                    handleSuccess(response, "barang-table", "editModal");
-                };
-
-                const errorCallback = function(error) {
-                    setButtonLoadingState("#updateData .btn.btn-primary", false);
-                    handleValidationErrors(error, "updateData", ["foto", "nama", "kategori_id",
-                        "unit_id",
-                        "qty", "deskripsi"
-                    ]);
-                };
-
-                ajaxCall(url, "POST", data, successCallback, errorCallback);
-            });
         });
 
         function getSelectEdit() {
-            select2ToJson(".editUnit", "{{ route('admin.unit.index') }}", "#editModal");
-            select2ToJson(".editKategori", "/admin/kategori/Barang", "#editModal");
+            select2ToJson("#unit_id", "{{ route('admin.unit.index') }}", "#createModal");
+            select2ToJson("#kategori_id", "/admin/kategori/Barang", "#createModal");
         }
     </script>
 @endpush

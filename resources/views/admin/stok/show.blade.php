@@ -96,7 +96,6 @@
         </div>
     </div>
     @include('admin.detail-stok.create')
-    @include('admin.detail-stok.edit')
 @endsection
 
 @push('scripts')
@@ -129,15 +128,20 @@
             ]);
 
             $("#createBtn").click(function() {
-                select2ToJson("#barang_id", "/admin/barang", "#createModal");
+                getSelectEdit()
             });
 
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-primary", true);
                 e.preventDefault();
-                const url = "{{ route('admin.detail-stok.store') }}";
+                const kode = $("#saveData #id").val();
+                let url = "{{ route('admin.detail-stok.store') }}";
                 const data = new FormData(this);
 
+                if (kode !== "") {
+                    data.append("_method", "PUT");
+                    url = `/admin/detail-stok/${kode}`;
+                }
 
                 const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-primary", false);
@@ -153,32 +157,10 @@
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
-
-            $("#updateData").submit(function(e) {
-                setButtonLoadingState("#updateData .btn.btn-primary", true);
-                e.preventDefault();
-                const kode = $("#updateData #id").val();
-                const url = `/admin/detail-stok/${kode}`;
-                const data = new FormData(this);
-
-                const successCallback = function(response) {
-                    setButtonLoadingState("#updateData .btn.btn-primary", false);
-                    handleSuccess(response, "detail-stok-table", "editModal");
-                };
-
-                const errorCallback = function(error) {
-                    setButtonLoadingState("#updateData .btn.btn-primary", false);
-                    handleValidationErrors(error, "updateData", ["stok_id", "barang_id", "qty",
-                        "deskripsi"
-                    ]);
-                };
-
-                ajaxCall(url, "POST", data, successCallback, errorCallback);
-            });
         });
 
         function getSelectEdit() {
-            select2ToJson(".editBarang", "/admin/barang", "#editModal");
+            select2ToJson("#barang_id", "/admin/barang", "#createModal");
         }
     </script>
 @endpush

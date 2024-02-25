@@ -77,8 +77,15 @@ const getModal = (targetId, url = null, fields = null) => {
     $(`#${targetId}`).modal("show");
     $(`#${targetId} .form-control`).removeClass("is-invalid");
     $(`#${targetId} .invalid-feedback`).html("");
+    
+    const cekLabelModal = $("#label-modal");
+    if(cekLabelModal){
+        cekLabelModal.text('Tambah');
+    }
 
     if (url) {
+        cekLabelModal.text('Edit');
+
         const successCallback = function (response) {
             fields.forEach((field) => {
                 if (response.data[field]) {

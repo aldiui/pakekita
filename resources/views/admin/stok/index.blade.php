@@ -94,7 +94,6 @@
         </div>
     </div>
     @include('admin.stok.create')
-    @include('admin.stok.edit')
 @endsection
 
 @push('scripts')
@@ -141,9 +140,14 @@
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-primary", true);
                 e.preventDefault();
-                const url = "{{ route('admin.stok.store') }}";
+                const kode = $("#saveData #id").val();
+                let url = "{{ route('admin.stok.store') }}";
                 const data = new FormData(this);
 
+                if (kode !== "") {
+                    data.append("_method", "PUT");
+                    url = `/admin/stok/${kode}`;
+                }
 
                 const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-primary", false);
@@ -153,26 +157,6 @@
                 const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-primary", false);
                     handleValidationErrors(error, "saveData", ["tanggal", "jenis"]);
-                };
-
-                ajaxCall(url, "POST", data, successCallback, errorCallback);
-            });
-
-            $("#updateData").submit(function(e) {
-                setButtonLoadingState("#updateData .btn.btn-primary", true);
-                e.preventDefault();
-                const kode = $("#updateData #id").val();
-                const url = `/admin/stok/${kode}`;
-                const data = new FormData(this);
-
-                const successCallback = function(response) {
-                    setButtonLoadingState("#updateData .btn.btn-primary", false);
-                    handleSuccess(response, "stok-table", "editModal");
-                };
-
-                const errorCallback = function(error) {
-                    setButtonLoadingState("#updateData .btn.btn-primary", false);
-                    handleValidationErrors(error, "updateData", ["tanggal", "jenis"]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);

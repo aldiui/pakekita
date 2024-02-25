@@ -65,7 +65,6 @@
         </div>
     </div>
     @include('admin.menu.create')
-    @include('admin.menu.edit')
 @endsection
 
 @push('scripts')
@@ -103,15 +102,21 @@
             ]);
 
             $("#createBtn").click(function() {
-                select2ToJson("#kategori_id", "/admin/kategori/Menu", "#createModal");
+                getSelectEdit()
             });
 
 
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-primary", true);
                 e.preventDefault();
-                const url = "{{ route('admin.menu.store') }}";
+                const kode = $("#saveData #id").val();
+                let url = "{{ route('admin.menu.store') }}";
                 const data = new FormData(this);
+
+                if (kode !== "") {
+                    data.append("_method", "PUT");
+                    url = `/admin/menu/${kode}`;
+                }
 
                 const successCallback = function(response) {
                     $('#saveData #image').parent().find(".dropify-clear").trigger('click');
@@ -128,34 +133,10 @@
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
-
-            $("#updateData").submit(function(e) {
-                setButtonLoadingState("#updateData .btn.btn-primary", true);
-                e.preventDefault();
-                const kode = $("#updateData #id").val();
-                console.log(kode)
-                const url = `/admin/menu/${kode}`;
-                const data = new FormData(this);
-
-                const successCallback = function(response) {
-                    $('#updateData #image').parent().find(".dropify-clear").trigger('click');
-                    setButtonLoadingState("#updateData .btn.btn-primary", false);
-                    handleSuccess(response, "menu-table", "editModal");
-                };
-
-                const errorCallback = function(error) {
-                    setButtonLoadingState("#updateData .btn.btn-primary", false);
-                    handleValidationErrors(error, "updateData", ["foto", "nama",
-                        "harga", "deskripsi", "kategori_id"
-                    ]);
-                };
-
-                ajaxCall(url, "POST", data, successCallback, errorCallback);
-            });
         });
 
         function getSelectEdit() {
-            select2ToJson(".editKategori", "/admin/kategori/Menu", "#editModal");
+            select2ToJson("#kategori_id", "/admin/kategori/Menu", "#createModal");
         }
     </script>
 @endpush
