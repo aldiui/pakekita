@@ -7,36 +7,31 @@
 @endpush
 
 @section('main')
-    <div class="row h-100">
-        <div class="col-lg-5 col-12">
-            <div id="auth-left">
-                <div class="auth-logo">
-                    <a href="index.html"><img src="{{ asset('compiled/svg/logo.svg') }}" alt="Logo"></a>
-                </div>
-                <h1 class="auth-title">Log in.</h1>
-                <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
-
-                <form id="login" autocomplete="off">
-                    <div class="form-group mb-3">
-                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                        <input id="email" type="email" class="form-control" name="email">
-                        <small class="invalid-feedback" id="erroremail"></small>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                        <input id="password" type="password" class="form-control" name="password">
-                        <small class="invalid-feedback" id="errorpassword"></small>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Log in</button>
-                </form>
-                <div class="text-center mt-5 text-lg fs-4">
-                    <p class="text-gray-600">Don't have an account? <a href="#" class="font-bold">Signup</a>.</p>
-                    <p><a class="font-bold" href="#">Forgot password?</a>.</p>
-                </div>
+    <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-lg-4 col-md-7 col-12 px-4">
+            <div class="text-center mb-3">
+                <img src="{{ asset('compiled/svg/logo.svg') }}" class="img-fluid" width="120px" alt="Logo">
             </div>
-        </div>
-        <div class="col-lg-7 d-none d-lg-block">
-            <div id="auth-right">
+            <h4 class="">Log in.</h4>
+            <p class="mb-5">Log in with your data that you entered during registration.</p>
+            <form id="login" autocomplete="off">
+                <div class="form-group mb-3">
+                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                    <input id="email" type="email" class="form-control" name="email">
+                    <small class="invalid-feedback" id="erroremail"></small>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                    <input id="password" type="password" class="form-control" name="password">
+                    <small class="invalid-feedback" id="errorpassword"></small>
+                </div>
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-primary btn-block shadow-lg">Log in</button>
+                </div>
+            </form>
+            <div class="text-center mt-4">
+                <p class="text-gray-600">Don't have an account? <a href="#" class="font-bold">Signup</a>.</p>
+                <p><a class="font-bold" href="#">Forgot password?</a>.</p>
             </div>
         </div>
     </div>

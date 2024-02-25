@@ -9,13 +9,11 @@
     <link rel="shortcut icon" href="{{ asset('compiled/svg/favicon.svg') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('compiled/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('compiled/css/iconly.css') }}">
-    <link rel="stylesheet" href="{{ asset('/compiled/css/auth.css') }}">
     @stack('style')
 </head>
 
 <body>
-    <script src="{{ asset('static/js/initTheme.js') }}"></script>
-    <div id="auth">
+    <div class="container">
         @yield('main')
     </div>
     <script src="{{ asset('extensions/jquery/jquery.js') }}"></script>

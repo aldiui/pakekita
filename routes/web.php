@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
-    return view('admin.dashboard.index');
+    return redirect("/");
 });
 
 Route::match(['get', 'post'], '/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
@@ -34,6 +34,12 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
     Route::resource('detail-stok', App\Http\Controllers\Admin\DetailStokController::class)->names('admin.detail-stok');
     Route::match(['get', 'put'], 'profil', [App\Http\Controllers\Admin\ProfilController::class, 'index'])->name('admin.profil');
     Route::put('profil/password', [App\Http\Controllers\Admin\ProfilController::class, 'updatePassword'])->name('admin.profil.password');
+});
+
+Route::prefix('kasir')->middleware(['auth', 'checkRole:kasir'])->group(function () {
+    Route::get('/', [App\Http\Controllers\Kasir\DashboardController::class, 'index'])->name('kasir.dashboard');
+    Route::match(['get', 'put'], 'profil', [App\Http\Controllers\Kasir\ProfilController::class, 'index'])->name('kasir.profil');
+    Route::put('profil/password', [App\Http\Controllers\Kasir\ProfilController::class, 'updatePassword'])->name('kasir.profil.password');
 });
 
 Route::get('/storage-link', function () {

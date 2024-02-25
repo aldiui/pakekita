@@ -16,7 +16,7 @@
     <script src="{{ asset('static/js/initTheme.js') }}"></script>
     <div id="app">
         <div id="main" class="layout-horizontal">
-            @include('components.header_admin')
+            @include('components.header_kasir')
             @yield('main')
             @include('components.footer')
         </div>
