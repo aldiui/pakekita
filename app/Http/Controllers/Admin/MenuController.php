@@ -39,7 +39,7 @@ class MenuController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($menus, 'Data menu ditemukan.');
+            return $this->successResponse($menus, 'Data Menu ditemukan.');
         }
 
         return view('admin.menu.index');
@@ -71,7 +71,7 @@ class MenuController extends Controller
             'kategori_id' => $request->input('kategori_id'),
         ]);
 
-        return $this->successResponse($menu, 'Data menu ditambahkan.', 201);
+        return $this->successResponse($menu, 'Data Menu ditambahkan.', 201);
     }
 
     public function show($id)
@@ -79,10 +79,10 @@ class MenuController extends Controller
         $menu = Menu::find($id);
 
         if (!$menu) {
-            return $this->errorResponse(null, 'Data menu tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Menu tidak ditemukan.', 404);
         }
 
-        return $this->successResponse($menu, 'Data menu ditemukan.');
+        return $this->successResponse($menu, 'Data Menu ditemukan.');
     }
 
     public function update(Request $request, $id)
@@ -101,7 +101,7 @@ class MenuController extends Controller
         $menu = Menu::find($id);
 
         if (!$menu) {
-            return $this->errorResponse(null, 'Data menu tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Menu tidak ditemukan.', 404);
         }
 
         $updateMenu = [
@@ -123,7 +123,7 @@ class MenuController extends Controller
 
         $menu->update($updateMenu);
 
-        return $this->successResponse($menu, 'Data menu diubah.');
+        return $this->successResponse($menu, 'Data Menu diubah.');
     }
 
     public function destroy($id)
@@ -131,7 +131,7 @@ class MenuController extends Controller
         $menu = Menu::find($id);
 
         if (!$menu) {
-            return $this->errorResponse(null, 'Data menu tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Menu tidak ditemukan.', 404);
         }
 
         if (Storage::exists('public/image/menu/' . $menu->image)) {
@@ -140,6 +140,6 @@ class MenuController extends Controller
 
         $menu->delete();
 
-        return $this->successResponse(null, 'Data menu dihapus.');
+        return $this->successResponse(null, 'Data Menu dihapus.');
     }
 }

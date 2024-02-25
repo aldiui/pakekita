@@ -30,7 +30,7 @@ class MejaController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($mejas, 'Data meja ditemukan.');
+            return $this->successResponse($mejas, 'Data Meja ditemukan.');
         }
 
         return view('admin.meja.index');
@@ -50,7 +50,7 @@ class MejaController extends Controller
             'kode_meja' => $request->input('kode_meja'),
         ]);
 
-        return $this->successResponse($meja, 'Data meja ditambahkan.', 201);
+        return $this->successResponse($meja, 'Data Meja ditambahkan.', 201);
     }
 
     public function show($id)
@@ -58,10 +58,10 @@ class MejaController extends Controller
         $meja = Meja::find($id);
 
         if (!$meja) {
-            return $this->errorResponse(null, 'Data meja tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Meja tidak ditemukan.', 404);
         }
 
-        return $this->successResponse($meja, 'Data meja ditemukan.');
+        return $this->successResponse($meja, 'Data Meja ditemukan.');
     }
 
     public function update(Request $request, $id)
@@ -77,12 +77,12 @@ class MejaController extends Controller
         $meja = Meja::find($id);
 
         if (!$meja) {
-            return $this->errorResponse(null, 'Data meja tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Meja tidak ditemukan.', 404);
         }
 
         $meja->update(['kode_meja' => $request->input('kode_meja')]);
 
-        return $this->successResponse($meja, 'Data meja diubah.');
+        return $this->successResponse($meja, 'Data Meja diubah.');
     }
 
     public function destroy($id)
@@ -90,11 +90,11 @@ class MejaController extends Controller
         $meja = Meja::find($id);
 
         if (!$meja) {
-            return $this->errorResponse(null, 'Data meja tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Meja tidak ditemukan.', 404);
         }
 
         $meja->delete();
 
-        return $this->successResponse(null, 'Data meja dihapus.');
+        return $this->successResponse(null, 'Data Meja dihapus.');
     }
 }

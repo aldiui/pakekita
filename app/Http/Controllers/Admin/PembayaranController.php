@@ -33,7 +33,7 @@ class PembayaranController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($pembayarans, 'Data pembayaran ditemukan.');
+            return $this->successResponse($pembayarans, 'Data Pembayaran ditemukan.');
         }
 
         return view('admin.pembayaran.index');
@@ -64,7 +64,7 @@ class PembayaranController extends Controller
             'image' => $image ?? null,
         ]);
 
-        return $this->successResponse($pembayaran, 'Data pembayaran ditambahkan.', 201);
+        return $this->successResponse($pembayaran, 'Data Pembayaran ditambahkan.', 201);
     }
 
     public function show($id)
@@ -72,10 +72,10 @@ class PembayaranController extends Controller
         $pembayaran = Pembayaran::find($id);
 
         if (!$pembayaran) {
-            return $this->errorResponse(null, 'Data pembayaran tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Pembayaran tidak ditemukan.', 404);
         }
 
-        return $this->successResponse($pembayaran, 'Data pembayaran ditemukan.');
+        return $this->successResponse($pembayaran, 'Data Pembayaran ditemukan.');
     }
 
     public function update(Request $request, $id)
@@ -94,7 +94,7 @@ class PembayaranController extends Controller
         $pembayaran = Pembayaran::find($id);
 
         if (!$pembayaran) {
-            return $this->errorResponse(null, 'Data pembayaran tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Pembayaran tidak ditemukan.', 404);
         }
 
         $updatePembayaran = [
@@ -114,7 +114,7 @@ class PembayaranController extends Controller
 
         $pembayaran->update($updatePembayaran);
 
-        return $this->successResponse($pembayaran, 'Data pembayaran diubah.');
+        return $this->successResponse($pembayaran, 'Data Pembayaran diubah.');
     }
 
     public function destroy($id)
@@ -122,7 +122,7 @@ class PembayaranController extends Controller
         $pembayaran = Pembayaran::find($id);
 
         if (!$pembayaran) {
-            return $this->errorResponse(null, 'Data pembayaran tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Pembayaran tidak ditemukan.', 404);
         }
 
         if (Storage::exists('public/image/pembayaran/' . $pembayaran->image)) {
@@ -131,6 +131,6 @@ class PembayaranController extends Controller
 
         $pembayaran->delete();
 
-        return $this->successResponse(null, 'Data pembayaran dihapus.');
+        return $this->successResponse(null, 'Data Pembayaran dihapus.');
     }
 }

@@ -21,7 +21,7 @@ Route::get('/', function () {
 Route::match(['get', 'post'], '/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
-Route::prefix('admin')->middleware(['auth', 'checkRole:Admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function () {
     Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class)->names('admin.kategori');
     Route::resource('unit', App\Http\Controllers\Admin\UnitController::class)->names('admin.unit');

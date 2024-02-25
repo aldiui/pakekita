@@ -33,7 +33,7 @@ class UserController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($users, 'Data user ditemukan.');
+            return $this->successResponse($users, 'Data User ditemukan.');
         }
 
         return view('admin.user.index');
@@ -66,7 +66,7 @@ class UserController extends Controller
             'image' => $image ?? null,
         ]);
 
-        return $this->successResponse($user, 'Data user ditambahkan.', 201);
+        return $this->successResponse($user, 'Data User ditambahkan.', 201);
     }
 
     public function show($id)
@@ -74,10 +74,10 @@ class UserController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return $this->errorResponse(null, 'Data user tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data User tidak ditemukan.', 404);
         }
 
-        return $this->successResponse($user, 'Data user ditemukan.');
+        return $this->successResponse($user, 'Data User ditemukan.');
     }
 
     public function update(Request $request, $id)
@@ -101,7 +101,7 @@ class UserController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return $this->errorResponse(null, 'Data user tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data User tidak ditemukan.', 404);
         }
 
         $updateUser = [
@@ -125,7 +125,7 @@ class UserController extends Controller
 
         $user->update($updateUser);
 
-        return $this->successResponse($user, 'Data user diubah.');
+        return $this->successResponse($user, 'Data User diubah.');
     }
 
     public function destroy($id)
@@ -133,7 +133,7 @@ class UserController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return $this->errorResponse(null, 'Data user tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data User tidak ditemukan.', 404);
         }
 
         if (Storage::exists('public/image/user/' . $user->image)) {
@@ -142,6 +142,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return $this->successResponse(null, 'Data user dihapus.');
+        return $this->successResponse(null, 'Data User dihapus.');
     }
 }

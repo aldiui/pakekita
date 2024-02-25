@@ -30,7 +30,7 @@ class ProfilController extends Controller
             $user = Auth::user();
 
             if (!$user) {
-                return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);
+                return $this->errorResponse(null, 'Data Profil tidak ditemukan.', 404);
             }
 
             $updateUser = [
@@ -49,7 +49,7 @@ class ProfilController extends Controller
 
             $user->update($updateUser);
 
-            return $this->successResponse($user, 'Data profil diubah.');
+            return $this->successResponse($user, 'Data Profil diubah.');
         }
 
         return view('admin.profil.index');
@@ -69,7 +69,7 @@ class ProfilController extends Controller
         $user = Auth::user();
 
         if (!$user) {
-            return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Profil tidak ditemukan.', 404);
         }
 
         if (!Hash::check($request->input('password_lama'), $user->password)) {

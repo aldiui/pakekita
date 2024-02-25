@@ -13,12 +13,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert([
-            'nama' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => bcrypt('11221122'),
-            'role' => 'Admin',
-        ]);
+        $userData = [
+            [
+                'nama' => 'admin',
+                'email' => 'admin@gmail.com',
+                'password' => bcrypt('11221122'),
+                'role' => 'admin',
+            ],
+            [
+                'nama' => 'kasir',
+                'email' => 'kasir@gmail.com',
+                'password' => bcrypt('11221122'),
+                'role' => 'kasir',
+            ],
+        ];
+
+        DB::table('users')->insert($userData);
 
         $kategoriData = [
             ['nama' => 'Makanan', 'jenis' => 'Menu'],
@@ -39,6 +49,7 @@ class DatabaseSeeder extends Seeder
             ['nama' => 'Pcs'],
             ['nama' => 'Botol'],
             ['nama' => 'Unit'],
+            ['nama' => 'Kg'],
         ];
 
         DB::table('units')->insert($unitData);

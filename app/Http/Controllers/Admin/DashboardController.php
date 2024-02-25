@@ -1,4 +1,4 @@
-<?php
+<?phpbn  
 
 namespace App\Http\Controllers\Admin;
 

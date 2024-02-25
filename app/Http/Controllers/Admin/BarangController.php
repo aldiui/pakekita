@@ -40,7 +40,7 @@ class BarangController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($barangs, 'Data barang ditemukan.');
+            return $this->successResponse($barangs, 'Data Barang ditemukan.');
         }
 
         return view('admin.barang.index');
@@ -74,7 +74,7 @@ class BarangController extends Controller
             'image' => $image ?? null,
         ]);
 
-        return $this->successResponse($barang, 'Data barang ditambahkan.', 201);
+        return $this->successResponse($barang, 'Data Barang ditambahkan.', 201);
     }
 
     public function show($id)
@@ -82,10 +82,10 @@ class BarangController extends Controller
         $barang = Barang::find($id);
 
         if (!$barang) {
-            return $this->errorResponse(null, 'Data barang tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Barang tidak ditemukan.', 404);
         }
 
-        return $this->successResponse($barang, 'Data barang ditemukan.');
+        return $this->successResponse($barang, 'Data Barang ditemukan.');
     }
 
     public function update(Request $request, $id)
@@ -105,7 +105,7 @@ class BarangController extends Controller
         $barang = Barang::find($id);
 
         if (!$barang) {
-            return $this->errorResponse(null, 'Data barang tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Barang tidak ditemukan.', 404);
         }
 
         $updateBarang = [
@@ -127,7 +127,7 @@ class BarangController extends Controller
 
         $barang->update($updateBarang);
 
-        return $this->successResponse($barang, 'Data barang diubah.');
+        return $this->successResponse($barang, 'Data Barang diubah.');
     }
 
     public function destroy($id)
@@ -135,7 +135,7 @@ class BarangController extends Controller
         $barang = Barang::find($id);
 
         if (!$barang) {
-            return $this->errorResponse(null, 'Data barang tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Barang tidak ditemukan.', 404);
         }
 
         if (Storage::exists('public/image/barang/' . $barang->image)) {
@@ -144,6 +144,6 @@ class BarangController extends Controller
 
         $barang->delete();
 
-        return $this->successResponse(null, 'Data barang dihapus.');
+        return $this->successResponse(null, 'Data Barang dihapus.');
     }
 }
