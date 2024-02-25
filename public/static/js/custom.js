@@ -80,6 +80,7 @@ const getModal = (targetId, url = null, fields = null) => {
     
     const cekLabelModal = $("#label-modal");
     if(cekLabelModal){
+        $("#id").val("");
         cekLabelModal.text('Tambah');
     }
 
