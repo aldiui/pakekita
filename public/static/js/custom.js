@@ -55,37 +55,36 @@ const setButtonLoadingState = (buttonSelector, isLoading, title = "Simpan") => {
 const notification = (type, message) => {
     const Toast = Swal.mixin({
         toast: true,
-        position: 'top-end',
+        position: "top-end",
         showConfirmButton: false,
         timer: 1500,
         timerProgressBar: true,
         didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
-        }
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
     });
 
     Toast.fire({
         icon: type,
         title: type === "success" ? "Success" : "Error",
-        text: message
+        text: message,
     });
 };
-
 
 const getModal = (targetId, url = null, fields = null) => {
     $(`#${targetId}`).modal("show");
     $(`#${targetId} .form-control`).removeClass("is-invalid");
     $(`#${targetId} .invalid-feedback`).html("");
-    
+
     const cekLabelModal = $("#label-modal");
-    if(cekLabelModal){
+    if (cekLabelModal) {
         $("#id").val("");
-        cekLabelModal.text('Tambah');
+        cekLabelModal.text("Tambah");
     }
 
     if (url) {
-        cekLabelModal.text('Edit');
+        cekLabelModal.text("Edit");
 
         const successCallback = function (response) {
             fields.forEach((field) => {
@@ -98,7 +97,7 @@ const getModal = (targetId, url = null, fields = null) => {
         const errorCallback = function (error) {
             console.log(error);
         };
-        
+
         ajaxCall(url, "GET", null, successCallback, errorCallback);
     }
     $(`#${targetId} .form-control`).val("");
@@ -118,7 +117,7 @@ const handleValidationErrors = (error, formId = null, fields = null) => {
             }
         });
     } else {
-		notification('error', error.responseJSON.message);
+        notification("error", error.responseJSON.message);
     }
 };
 
@@ -129,7 +128,7 @@ const handleSuccess = (
     redirect = null
 ) => {
     if (dataTableId !== null) {
-		notification('success', response.message);
+        notification("success", response.message);
         $(`#${dataTableId}`).DataTable().ajax.reload();
     }
 
@@ -139,16 +138,15 @@ const handleSuccess = (
 
     if (redirect !== null) {
         if (redirect === "no") {
-			notification('success', response.message);
-
+            notification("success", response.message);
         } else {
-			notification('success', response.message);
+            notification("success", response.message);
             setTimeout(() => {
                 window.location.href = redirect;
             }, 1500);
         }
     }
-}
+};
 
 const confirmDelete = (url, tableId) => {
     Swal.fire({
@@ -183,20 +181,22 @@ const select2ToJson = (selector, url) => {
         return;
     }
 
-    const successCallback = function(response) {
-        selectElem.append($('<option>', { value: '', text: '-- Pilih Data --' }));
+    const successCallback = function (response) {
+        selectElem.append(
+            $("<option>", { value: "", text: "-- Pilih Data --" })
+        );
 
-        response.data.forEach(function(row) {
-            const option = $('<option>', { value: row.id, text: row.nama });
+        response.data.forEach(function (row) {
+            const option = $("<option>", { value: row.id, text: row.nama });
             selectElem.append(option);
         });
     };
 
-    const errorCallback = function(error) {
+    const errorCallback = function (error) {
         console.error(error);
     };
 
-    ajaxCall(url, 'GET', null, successCallback, errorCallback);
+    ajaxCall(url, "GET", null, successCallback, errorCallback);
 };
 
 const confirmStok = (id) => {
@@ -232,6 +232,3 @@ const confirmStok = (id) => {
         }
     });
 };
-
-
-

@@ -13,10 +13,17 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('kode')->unique();
+            $table->string('pesanan');
             $table->date('tanggal');
+            $table->unsignedBigInteger('pembayaran_id')->nullable();
             $table->string('status')->default(0);
+            $table->integer('bayar')->nullable();
+            $table->integer('total');
+            $table->integer('diskon')->nullable();
             $table->timestamps();
+
+            $table->foreign('pembayaran_id')->references('id')->on('pembayarans')->onDelete('cascade');
         });
     }
 

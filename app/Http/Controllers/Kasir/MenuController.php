@@ -44,4 +44,15 @@ class MenuController extends Controller
         return view('kasir.menu.index', compact('menus', 'kategori'));
     }
 
+    public function show($id)
+    {
+        $menu = Menu::find($id);
+
+        if (!$menu) {
+            return $this->errorResponse(null, 'Data Menu tidak ditemukan.', 404);
+        }
+
+        return $this->successResponse($menu, 'Data Menu ditemukan.');
+    }
+
 }
