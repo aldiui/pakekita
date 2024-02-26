@@ -232,3 +232,95 @@ const confirmStok = (id) => {
         }
     });
 };
+
+const getMenus = (page) => {
+    let search = $("#search").val();
+    let kategori = $("#kategori").val();
+    $.ajax({
+        url: "/kasir/menu?page=" + page,
+        data: {
+            search,
+            kategori,
+        },
+    }).done(function (data) {
+        $("#menus").html(data);
+    });
+};
+
+const formatRupiah = (angka) => {
+    var reverse = angka.toString().split("").reverse().join(""),
+        ribuan = reverse.match(/\d{1,3}/g);
+    ribuan = ribuan.join(".").split("").reverse().join("");
+    return "Rp " + ribuan;
+};
+
+const grandTotal = () => {
+    let totalFiks = 0;
+    $(".totalFiks").each(function () {
+        totalFiks += parseInt($(this).val());
+    });
+    $("#grandTotal").val(totalFiks);
+    $("#textGrandTotal").text(formatRupiah(totalFiks));
+};
+
+const getChart = (kode) => {
+    const successCallback = function (response) {
+        let menu = response.data;
+        let menuId = menu.id;
+
+        if ($("#menu_" + menuId).length === 0) {
+            let tableRows = `
+                <tr id="menu_${menuId}">
+                    <td><button class="border-0 bg-white text-danger" onclick="removeMenu('menu_${menuId}')">x</button> ${
+                menu.nama
+            }</td>
+                    <td>
+                        <input class="form-control" name="qty[]" value="1" oninput="changeTotal(${menuId})" type="number" id="qty_${menuId}"/>
+                    </td>
+                    <td>
+                        <input type="hidden" value="${
+                            menu.harga
+                        }" id="harga_${menuId}"/>
+                        <span id="total_${menuId}">${formatRupiah(
+                menu.harga
+            )}</span>
+                        <input type="hidden" name="total[]" class="totalFiks" value="${
+                            menu.harga
+                        }" id="totalFiks_${menuId}"/>
+                        <input type="hidden" name="menu_id[]" value="${menuId}" id="menu_${menuId}"/>
+                    </td>
+                </tr>
+            `;
+            $("#list-transaksi tbody").append(tableRows);
+
+            grandTotal();
+        }
+    };
+
+    const errorCallback = function (error) {
+        console.log(error);
+    };
+
+    ajaxCall(
+        `/kasir/menu/${kode}`,
+        "GET",
+        null,
+        successCallback,
+        errorCallback
+    );
+};
+
+const changeTotal = (menuId) => {
+    let qty = $("#qty_" + menuId).val();
+    let harga = $("#harga_" + menuId).val();
+    let total = qty * harga;
+    $("#total_" + menuId).text(formatRupiah(total));
+    $("#totalFiks_" + menuId).val(total);
+
+    grandTotal();
+};
+
+const removeMenu = (menu) => {
+    $(`#${menu}`).remove();
+    grandTotal();
+};
