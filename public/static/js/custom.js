@@ -233,12 +233,5 @@ const confirmStok = (id) => {
     });
 };
 
-const getMenus= (page) => {
-    $.ajax({
-        url: '/kasir/menu?page=' + page
-    }).done(function(data) {
-        $('#menus').html(data);
-    });
-}
 
 

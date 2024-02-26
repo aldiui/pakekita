@@ -30,6 +30,20 @@
         <div class="page-content">
             <section class="row">
                 <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-8 mb-3">
+                            <input type="text" class="form-control" id="search" name="search"
+                                placeholder="Cari menu...">
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <select class="form-select" id="kategori" name="kategori">
+                                <option value="semua" selected>Semua</option>
+                                @foreach ($kategori as $row)
+                                    <option value="{{ $row->nama }}">{{ $row->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <div class="row" id="menus">
                         @include('kasir.menu.data')
                     </div>
@@ -42,10 +56,32 @@
 @push('scripts')
     <script src="{{ asset('extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
+        $(document).ready(function() {
+            $('#search, #kategori').on('input change', function() {
+                let search = $('#search').val();
+                let kategori = $('#kategori').val();
+                getMenus(1, search, kategori);
+            });
+        });
+
         $(document).on('click', '.pagination a', function(e) {
             e.preventDefault();
-            let page = ($(this).attr('href').split('page=')[1]);
-            getMenus(page);
+            let page = $(this).attr('href').split('page=')[1];
+            let search = $('#search').val();
+            let kategori = $('#kategori').val();
+            getMenus(page, search, kategori);
         });
+
+        const getMenus = (page, search = null, kategori = 'semua') => {
+            $.ajax({
+                url: '/kasir/menu?page=' + page,
+                data: {
+                    search,
+                    kategori,
+                },
+            }).done(function(data) {
+                $('#menus').html(data);
+            });
+        }
     </script>
 @endpush
