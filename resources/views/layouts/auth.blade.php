@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="{{ asset('compiled/svg/favicon.svg') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('compiled/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('compiled/css/iconly.css') }}">
+    <link rel="stylesheet" href="{{ asset('static/css/style.css') }}">
     @stack('style')
 </head>
 
