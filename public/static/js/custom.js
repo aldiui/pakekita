@@ -98,6 +98,7 @@ const getModal = (targetId, url = null, fields = null) => {
         const errorCallback = function (error) {
             console.log(error);
         };
+        
         ajaxCall(url, "GET", null, successCallback, errorCallback);
     }
     $(`#${targetId} .form-control`).val("");
@@ -231,5 +232,13 @@ const confirmStok = (id) => {
         }
     });
 };
+
+const getMenus= (page) => {
+    $.ajax({
+        url: '/kasir/menu?page=' + page
+    }).done(function(data) {
+        $('#menus').html(data);
+    });
+}
 
 

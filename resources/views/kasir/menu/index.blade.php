@@ -30,27 +30,10 @@
         <div class="page-content">
             <section class="row">
                 <div class="col-lg-8">
-                    <div class="row">
-                        @foreach ($menus as $menu)
-                            <div class="col-lg-3 col-6 col-md-3">
-                                <div class="card">
-                                    <img src="/storage/image/menu/{{ $menu->image }}" class="card-img-top" alt="...">
-                                    <div class="card-body text-center">
-                                        <p class="card-title fw-bold">{{ $menu->nama }}</p>
-                                        <small class="d-block text-center small">{{ formatRupiah($menu->harga) }}</small>
-                                    </div>
-                                </div>
-
-                            </div>
-                        @endforeach
-                        <div class="col-12">
-                            <div class="d-flex justify-content-center">
-                                {!! $menus->links() !!}
-                            </div>
-                        </div>
+                    <div class="row" id="menus">
+                        @include('kasir.menu.data')
                     </div>
                 </div>
-
             </section>
         </div>
     </div>
@@ -58,4 +41,11 @@
 
 @push('scripts')
     <script src="{{ asset('extensions/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script>
+        $(document).on('click', '.pagination a', function(e) {
+            e.preventDefault();
+            let page = ($(this).attr('href').split('page=')[1]);
+            getMenus(page);
+        });
+    </script>
 @endpush
