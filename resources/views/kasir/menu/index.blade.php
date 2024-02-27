@@ -54,7 +54,8 @@
                             <div class="card-body p-2">
                                 <h5 class="card-title text-center py-2">Transaksi</h5>
                                 <div class="form-group mb-3">
-                                    <label for="pesanan" class="form-label">Pesanan</label>
+                                    <label for="pesanan" class="form-label">Pesanan <span
+                                            class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="pesanan" id="pesanan"
                                         placeholder="Masukan Nama Pemesan" required>
                                 </div>
@@ -75,8 +76,13 @@
                                     <div class="fw-bold">Total</div>
                                     <div id="textGrandTotal">Rp. 0</div>
                                 </div>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <div class="fw-bold">Kembalian</div>
+                                    <div id="textKembalian">Rp. 0</div>
+                                </div>
                                 <div class="form-group mb-3">
-                                    <label for="pembayaran_id" class="form-label">Pembayaran</label>
+                                    <label for="pembayaran_id" class="form-label">Pembayaran <span
+                                            class="text-danger">*</span></label>
                                     <select class="form-select" id="pembayaran_id" name="pembayaran_id" required>
                                         <option value="">Pilih Metode</option>
                                         <option value="Cash">Cash</option>
@@ -85,6 +91,7 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div id="pembayaran-deskripsi"></div>
                                 <input type="hidden" class="form-control" id="grandTotal" name="grandTotal">
                                 <button class="btn btn-success btn-sm d-block w-100" type="submit"
                                     id="proses">Proses</button>
@@ -125,6 +132,21 @@
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
+
+            $('#pembayaran_id').on('change', function() {
+                const pembayaran = $('#pembayaran_id').val();
+                if (pembayaran == 'Cash') {
+                    $('#pembayaran-deskripsi').html(`
+                        <div class="form-group mb-3">
+                            <label for="bayar" class="form-label">Bayar <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" name="bayar" id="bayar" oninput="hitungKembalian()" placeholder="Masukan Jumlah Bayar" required>
+                        </div>
+                    `);
+                } else {
+
+                }
+            });
+
         });
 
         $(document).on('click', '.pagination a', function(e) {
@@ -132,5 +154,12 @@
             let page = $(this).attr('href').split('page=')[1];
             getMenus(page);
         });
+
+        const hitungKembalian = () => {
+            const bayar = $('#bayar').val();
+            const grandTotal = $('#grandTotal').val();
+            const kembalian = bayar ? bayar - grandTotal : 0;
+            $("#textKembalian").html(formatRupiah(kembalian));
+        }
     </script>
 @endpush
