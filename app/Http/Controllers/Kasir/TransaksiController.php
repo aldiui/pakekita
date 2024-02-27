@@ -35,7 +35,7 @@ class TransaksiController extends Controller
                         return $transaksi->pembayaran->nama ?? 'Cash';
                     })
                     ->addColumn('cetak', function ($transaksi) {
-                        return '<a href="' . route('kasir.transaksi.show', $transaksi->kode) . '" class="btn btn-sm btn-info"><i class="bi bi-print me-1"></i>Cetak</a>';
+                        return '<a href="' . route('kasir.transaksi.show', $transaksi->kode) . '" class="btn btn-sm btn-info"><i class="bi bi-printer me-1"></i>Cetak</a>';
                     })
                     ->addIndexColumn()
                     ->rawColumns(['tgl', 'total_rupiah', 'pembayaran', 'cetak'])
