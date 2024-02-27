@@ -22,5 +22,4 @@ class Transaksi extends Model
     {
         return $this->belongsTo(Pembayaran::class);
     }
-
 }
