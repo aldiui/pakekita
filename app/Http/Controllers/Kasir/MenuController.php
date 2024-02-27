@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Kasir;
 use App\Http\Controllers\Controller;
 use App\Models\Kategori;
 use App\Models\Menu;
+use App\Models\Pembayaran;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 
@@ -36,12 +37,13 @@ class MenuController extends Controller
 
         $menus = $query->paginate(8);
         $kategori = Kategori::where('jenis', 'Menu')->get();
+        $pembayaran = Pembayaran::all();
 
         if ($request->ajax()) {
             return view('kasir.menu.data', compact('menus'))->render();
         }
 
-        return view('kasir.menu.index', compact('menus', 'kategori'));
+        return view('kasir.menu.index', compact('menus', 'kategori', 'pembayaran'));
     }
 
     public function show($id)

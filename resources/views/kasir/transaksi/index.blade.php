@@ -74,6 +74,7 @@
                                             <th>Pesanan</th>
                                             <th>Total Menu</th>
                                             <th>Total</th>
+                                            <th>Pembayaran</th>
                                             <th>Tanggal</th>
                                         </tr>
                                     </thead>
@@ -115,6 +116,10 @@
                 {
                     data: 'total_rupiah',
                     name: 'total_rupiah'
+                },
+                {
+                    data: 'pembayaran',
+                    name: 'pembayaran'
                 },
                 {
                     data: 'tgl',

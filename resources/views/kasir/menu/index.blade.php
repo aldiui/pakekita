@@ -75,6 +75,16 @@
                                     <div class="fw-bold">Total</div>
                                     <div id="textGrandTotal">Rp. 0</div>
                                 </div>
+                                <div class="form-group mb-3">
+                                    <label for="pembayaran_id" class="form-label">Pembayaran</label>
+                                    <select class="form-select" id="pembayaran_id" name="pembayaran_id" required>
+                                        <option value="">Pilih Metode</option>
+                                        <option value="Cash">Cash</option>
+                                        @foreach ($pembayaran as $row)
+                                            <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <input type="hidden" class="form-control" id="grandTotal" name="grandTotal">
                                 <button class="btn btn-success btn-sm d-block w-100" type="submit"
                                     id="proses">Proses</button>
