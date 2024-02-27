@@ -142,8 +142,29 @@
                             <input type="number" class="form-control" name="bayar" id="bayar" oninput="hitungKembalian()" placeholder="Masukan Jumlah Bayar" required>
                         </div>
                     `);
-                } else {
+                } else if (pembayaran > 0) {
+                    const successCallback = function(response) {
+                        $('#pembayaran-deskripsi').html(`
+                            <div class="mb-3 text-center">
+                                <div class="mb-3 fw-bold">${response.data.nama}</div>
+                                <div class="mb-3">No Rekening : ${response.data.no_rekening}</div>
+                            </div>
+                        `);
+                    };
 
+                    const errorCallback = function(error) {
+                        console.log(error);
+                    };
+
+                    ajaxCall(
+                        `/kasir/pembayaran/${pembayaran}`,
+                        "GET",
+                        null,
+                        successCallback,
+                        errorCallback
+                    );
+                } else {
+                    $('#pembayaran-deskripsi').html('');
                 }
             });
 

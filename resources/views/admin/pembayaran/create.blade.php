@@ -25,6 +25,7 @@
                         <select name="jenis" id="jenis" class="form-control">
                             <option value="">Pilih Jenis</option>
                             <option value="Bank">Bank</option>
+                            <option value="Qris">Qris</option>
                             <option value="E-Wallet">E-Wallet</option>
                         </select>
                         <small class="invalid-feedback" id="errorjenis"></small>
