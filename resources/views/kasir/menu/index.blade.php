@@ -175,12 +175,5 @@
             let page = $(this).attr('href').split('page=')[1];
             getMenus(page);
         });
-
-        const hitungKembalian = () => {
-            const bayar = $('#bayar').val();
-            const grandTotal = $('#grandTotal').val();
-            const kembalian = bayar ? (bayar >= grandTotal ? bayar - grandTotal : 0) : 0;
-            $("#textKembalian").html(formatRupiah(kembalian));
-        }
     </script>
 @endpush
