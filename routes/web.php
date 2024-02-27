@@ -30,6 +30,8 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
     Route::resource('user', App\Http\Controllers\Admin\UserController::class)->names('admin.user');
     Route::resource('stok', App\Http\Controllers\Admin\StokController::class)->names('admin.stok');
     Route::resource('detail-stok', App\Http\Controllers\Admin\DetailStokController::class)->names('admin.detail-stok');
+    Route::resource('transaksi', App\Http\Controllers\Admin\TransaksiController::class)->names('admin.transaksi');
+
     Route::match(['get', 'put'], 'profil', [App\Http\Controllers\Admin\ProfilController::class, 'index'])->name('admin.profil');
     Route::put('profil/password', [App\Http\Controllers\Admin\ProfilController::class, 'updatePassword'])->name('admin.profil.password');
 });
@@ -38,6 +40,7 @@ Route::prefix('kasir')->middleware(['auth', 'checkRole:kasir'])->group(function 
     Route::get('/', [App\Http\Controllers\Kasir\DashboardController::class, 'index'])->name('kasir.dashboard');
     Route::match(['get', 'put'], 'profil', [App\Http\Controllers\Kasir\ProfilController::class, 'index'])->name('kasir.profil');
     Route::resource('menu', App\Http\Controllers\Kasir\MenuController::class)->names('kasir.menu');
+    Route::resource('transaksi', App\Http\Controllers\Kasir\TransaksiController::class)->names('kasir.transaksi');
     Route::put('profil/password', [App\Http\Controllers\Kasir\ProfilController::class, 'updatePassword'])->name('kasir.profil.password');
 });
 

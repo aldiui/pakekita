@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('kode')->unique();
             $table->string('pesanan');
             $table->date('tanggal');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('pembayaran_id')->nullable();
             $table->string('status')->default(0);
             $table->integer('bayar')->nullable();
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->integer('diskon')->nullable();
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('pembayaran_id')->references('id')->on('pembayarans')->onDelete('cascade');
         });
     }

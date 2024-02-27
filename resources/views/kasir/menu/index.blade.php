@@ -101,12 +101,12 @@
             $("#createTransaksi").submit(function(e) {
                 setButtonLoadingState("#createTransaksi .btn.btn-success", true, "Proses");
                 e.preventDefault();
-                const url = `{{ route('kasir.menu.create') ?? '' }}`;
+                const url = `{{ route('kasir.transaksi.store') ?? '' }}`;
                 const data = new FormData(this);
 
                 const successCallback = function(response) {
                     setButtonLoadingState("#createTransaksi .btn.btn-success", false, "Proses");
-                    handleSuccess(response, null, null, "no");
+                    handleSuccess(response, null, null, "/kasir/transaksi");
                 };
 
                 const errorCallback = function(error) {
