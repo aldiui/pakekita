@@ -48,6 +48,7 @@
                                             <th width="5%">#</th>
                                             <th width="10%">Foto</th>
                                             <th>Nama</th>
+                                            <th>Atas Nama</th>
                                             <th>Jenis</th>
                                             <th>No. Rekening</th>
                                             <th width="15%">Aksi</th>
@@ -85,6 +86,10 @@
                     name: 'nama'
                 },
                 {
+                    data: 'atas_nama',
+                    name: 'atas_nama'
+                },
+                {
                     data: 'jenis',
                     name: 'jenis'
                 },
@@ -117,7 +122,7 @@
 
                 const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-primary", false);
-                    handleValidationErrors(error, "saveData", ["nama", "jenis", "image",
+                    handleValidationErrors(error, "saveData", ["nama", "atas_nama", "jenis", "image",
                         "no_rekening"
                     ]);
                 };

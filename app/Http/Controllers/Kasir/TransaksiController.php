@@ -9,6 +9,8 @@ use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\Printer;
 
 class TransaksiController extends Controller
 {
@@ -32,8 +34,11 @@ class TransaksiController extends Controller
                     ->addColumn('pembayaran', function ($transaksi) {
                         return $transaksi->pembayaran->nama ?? 'Cash';
                     })
+                    ->addColumn('cetak', function ($transaksi) {
+                        return '<a href="' . route('kasir.transaksi.show', $transaksi->kode) . '" class="btn btn-sm btn-info">Cetak</a>';
+                    })
                     ->addIndexColumn()
-                    ->rawColumns(['tgl', 'total_rupiah', 'pembayaran'])
+                    ->rawColumns(['tgl', 'total_rupiah', 'pembayaran', 'cetak'])
                     ->make(true);
             }
         }
@@ -76,5 +81,42 @@ class TransaksiController extends Controller
         $transaksi->detailTransaksis()->createMany($detailPesanan);
 
         return $this->successResponse($transaksi, 'Data Transaksi ditambahkan.', 201);
+    }
+
+    public function show($kode)
+    {
+        $transaksi = Transaksi::where('kode', $kode)->with('pembayaran', 'detailTransaksis')->first();
+
+        if (!$transaksi) {
+            return $this->errorResponse(null, 'Data Transaksi tidak ditemukan.', 404);
+        }
+
+        $content = "";
+        $content .= buatBaris1Kolom("Pakekita", "tengah");
+        $content .= buatBaris1Kolom("Tasikmalaya, Jawa Barat", "tengah");
+        $content .= buatBaris1Kolom("");
+        $content .= buatBaris1Kolom("Tanggal : " . formatTanggal($transaksi->tanggal, 'd F Y'));
+        $content .= buatBaris1Kolom("Kode Transaksi : " . $transaksi->kode);
+        $content .= buatBaris1Kolom("Pesanan : " . $transaksi->pesanan);
+        $content .= buatBaris1Kolom("Pembayaran : " . ($transaksi->pembayaran_id == null ? "Cash" : $transaksi->pembayaran->nama));
+        $content .= buatBaris1Kolom("");
+        $content .= buatBaris1Kolom("-----------------------------------");
+        $content .= buatBaris3Kolom("Menu", "Qty", "Total");
+        $content .= buatBaris1Kolom("-----------------------------------");
+        foreach ($transaksi->detailTransaksis as $detailTransaksi) {
+            $content .= buatBaris3Kolom($detailTransaksi->menu->nama, $detailTransaksi->qty, formatRupiah($detailTransaksi->total_harga));
+        }
+        $content .= buatBaris1Kolom("-----------------------------------");
+        $content .= buatBaris3Kolom("Total", "", formatRupiah($transaksi->total));
+        $content .= buatBaris1Kolom("");
+        $content .= buatBaris1Kolom("Terima kasih sudah memesan ke cafe kami, ditunggu kedatangannya kembali", "tengah");
+
+        $connector = new FilePrintConnector("php://stdout");
+        $printer = new Printer($connector);
+        $printer->text($content);
+        $printer->cut();
+        $printer->close();
+
+        return response()->make($content, 200)->header('Content-Type', 'text/plain');
     }
 }

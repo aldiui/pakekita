@@ -76,6 +76,7 @@
                                             <th>Total</th>
                                             <th>Pembayaran</th>
                                             <th>Tanggal</th>
+                                            <th width="5%">Cetak</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -124,6 +125,10 @@
                 {
                     data: 'tgl',
                     name: 'tgl'
+                },
+                {
+                    data: 'cetak',
+                    name: 'cetak'
                 },
             ]);
 

@@ -88,9 +88,9 @@ class DatabaseSeeder extends Seeder
         DB::table('menus')->insert($menuData);
 
         $pembayaranData = [
-            ['nama' => 'OVO', 'jenis' => 'E-Wallet', 'no_rekening' => '08'],
-            ['nama' => 'GOPAY', 'jenis' => 'E-Wallet', 'no_rekening' => '08'],
-            ['nama' => 'DANA', 'jenis' => 'E-Wallet', 'no_rekening' => '08'],
+            ['nama' => 'OVO', 'atas_nama' => 'Bayar Saja', 'jenis' => 'E-Wallet', 'no_rekening' => '0812345678'],
+            ['nama' => 'GOPAY', 'atas_nama' => 'Bayar Saja', 'jenis' => 'E-Wallet', 'no_rekening' => '0812345678'],
+            ['nama' => 'DANA', 'atas_nama' => 'Bayar Saja', 'jenis' => 'E-Wallet', 'no_rekening' => '0812345678'],
         ];
 
         DB::table('pembayarans')->insert($pembayaranData);

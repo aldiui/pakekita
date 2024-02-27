@@ -85,9 +85,6 @@
                                     <a href="/admin/pembayaran" class='submenu-link'>Pembayaran</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href="/admin/pesan-meja" class='submenu-link'>Pesan Meja</a>
-                                </li>
-                                <li class="submenu-item">
                                     <a href="/admin/transaksi" class='submenu-link'>Transaksi</a>
                                 </li>
                             </ul>

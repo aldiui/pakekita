@@ -21,7 +21,7 @@ class PembayaranController extends Controller
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($pembayarans)
                     ->addColumn('aksi', function ($pembayaran) {
-                        $editButton = '<button class="btn btn-sm btn-warning  d-inline-flex me-1" onclick="getModal(`createModal`, `/admin/pembayaran/' . $pembayaran->id . '`, [`id`, `nama`, `jenis`, `no_rekening`, `image`])"><i class="bi bi-pencil-square me-1"></i>Edit</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning  d-inline-flex me-1" onclick="getModal(`createModal`, `/admin/pembayaran/' . $pembayaran->id . '`, [`id`, `nama`,  `atas_nama`, `jenis`, `no_rekening`, `image`])"><i class="bi bi-pencil-square me-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex" onclick="confirmDelete(`/admin/pembayaran/' . $pembayaran->id . '`, `pembayaran-table`)"><i class="bi bi-trash me-1"></i>Hapus</button>';
                         return $editButton . $deleteButton;
                     })
@@ -43,6 +43,7 @@ class PembayaranController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
+            'atas_nama' => 'required',
             'jenis' => 'required',
             'no_rekening' => 'required|numeric',
             'image' => 'image|mimes:png,jpg,jpeg',
@@ -59,6 +60,7 @@ class PembayaranController extends Controller
 
         $pembayaran = Pembayaran::create([
             'nama' => $request->input('nama'),
+            'atas_nama' => $request->input('atas_nama'),
             'jenis' => $request->input('jenis'),
             'no_rekening' => $request->input('no_rekening'),
             'image' => $image ?? null,
@@ -82,6 +84,7 @@ class PembayaranController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
+            'atas_nama' => 'required',
             'jenis' => 'required',
             'no_rekening' => 'required|numeric',
             'image' => 'image|mimes:png,jpg,jpeg',
@@ -99,6 +102,7 @@ class PembayaranController extends Controller
 
         $updatePembayaran = [
             'nama' => $request->input('nama'),
+            'atas_nama' => $request->input('atas_nama'),
             'jenis' => $request->input('jenis'),
             'no_rekening' => $request->input('no_rekening'),
         ];

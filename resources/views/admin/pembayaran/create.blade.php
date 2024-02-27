@@ -21,6 +21,11 @@
                         <small class="invalid-feedback" id="errornama"></small>
                     </div>
                     <div class="form-group mb-3">
+                        <label for="atas_nama" class="form-label">Atas Nama <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="atas_nama" name="atas_nama">
+                        <small class="invalid-feedback" id="erroratas_nama"></small>
+                    </div>
+                    <div class="form-group mb-3">
                         <label for="jenis" class="form-label">Jenis <span class="text-danger">*</span></label>
                         <select name="jenis" id="jenis" class="form-control">
                             <option value="">Pilih Jenis</option>

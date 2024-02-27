@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('pembayaran_id')->nullable();
+            $table->unsignedBigInteger('meja_id')->nullable();
             $table->string('status')->default(0);
             $table->integer('bayar')->nullable();
             $table->integer('total');
@@ -26,6 +27,7 @@ return new class extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('pembayaran_id')->references('id')->on('pembayarans')->onDelete('cascade');
+            $table->foreign('meja_id')->references('id')->on('mejas')->onDelete('cascade');
         });
     }
 

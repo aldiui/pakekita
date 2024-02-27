@@ -49,9 +49,9 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <form id="createTransaksi">
+                    <form id="createTransaksi" autocomplete="off">
                         <div class="card">
-                            <div class="card-body p-2">
+                            <div class="card-body p-3">
                                 <h5 class="card-title text-center py-2">Transaksi</h5>
                                 <div class="form-group mb-3">
                                     <label for="pesanan" class="form-label">Pesanan <span
@@ -71,7 +71,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="card-footer p-2">
+                            <div class="card-footer p-3">
                                 <div class="d-flex justify-content-between mb-3">
                                     <div class="fw-bold">Total</div>
                                     <div id="textGrandTotal">Rp. 0</div>
@@ -146,7 +146,8 @@
                     const successCallback = function(response) {
                         $('#pembayaran-deskripsi').html(`
                             <div class="mb-3 text-center">
-                                <div class="mb-3 fw-bold">${response.data.nama}</div>
+                                <div class="mb-3">Metode Pembayaran : ${response.data.nama}</div>
+                                <div class="mb-3">Atas Nama : ${response.data.atas_nama}</div>
                                 <div class="mb-3">No Rekening : ${response.data.no_rekening}</div>
                             </div>
                         `);
