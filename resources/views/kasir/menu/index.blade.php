@@ -158,7 +158,7 @@
         const hitungKembalian = () => {
             const bayar = $('#bayar').val();
             const grandTotal = $('#grandTotal').val();
-            const kembalian = bayar ? bayar - grandTotal : 0;
+            const kembalian = bayar ? (bayar >= grandTotal ? bayar - grandTotal : 0) : 0;
             $("#textKembalian").html(formatRupiah(kembalian));
         }
     </script>
