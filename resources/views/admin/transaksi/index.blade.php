@@ -22,7 +22,7 @@
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="/kasir">Dashboard</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
                             </ol>
                         </nav>
@@ -74,6 +74,7 @@
                                             <th>Pesanan</th>
                                             <th>Total Menu</th>
                                             <th>Total</th>
+                                            <th>Pembayaran</th>
                                             <th>Tanggal</th>
                                         </tr>
                                     </thead>
@@ -115,6 +116,10 @@
                 {
                     data: 'total_rupiah',
                     name: 'total_rupiah'
+                },
+                {
+                    data: 'pembayaran',
+                    name: 'pembayaran'
                 },
                 {
                     data: 'tgl',
