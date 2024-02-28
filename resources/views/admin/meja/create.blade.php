@@ -11,9 +11,9 @@
                 <div class="modal-body">
                     <input type="hidden" id="id">
                     <div class="form-group mb-3">
-                        <label for="kode_meja" class="form-label">Kode Meja <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="kode_meja" name="kode_meja">
-                        <small class="invalid-feedback" id="errorkode_meja"></small>
+                        <label for="nama" class="form-label">Kode Meja <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="nama" name="nama">
+                        <small class="invalid-feedback" id="errornama"></small>
                     </div>
                 </div>
                 <div class="modal-footer">

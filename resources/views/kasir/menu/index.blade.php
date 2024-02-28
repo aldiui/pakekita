@@ -81,9 +81,19 @@
                                     <div id="textKembalian">Rp. 0</div>
                                 </div>
                                 <div class="form-group mb-3">
+                                    <label for="meja_id" class="form-label">Meja</label>
+                                    <select class="form-select" id="meja_id" name="meja_id">
+                                        <option value="">Pilih Meja</option>
+                                        @foreach ($meja as $row)
+                                            <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group mb-3">
                                     <label for="pembayaran_id" class="form-label">Pembayaran <span
                                             class="text-danger">*</span></label>
-                                    <select class="form-select" id="pembayaran_id" name="pembayaran_id" required>
+                                    <select class="form-select" id="pembayaran_id" name="pembayaran_id"
+                                        onchange="selectPembayaran(this.value)" required>
                                         <option value="">Pilih Metode</option>
                                         <option value="Cash">Cash</option>
                                         @foreach ($pembayaran as $row)
@@ -131,42 +141,6 @@
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
-            });
-
-            $('#pembayaran_id').on('change', function() {
-                const pembayaran = $('#pembayaran_id').val();
-                if (pembayaran == 'Cash') {
-                    $('#pembayaran-deskripsi').html(`
-                        <div class="form-group mb-3">
-                            <label for="bayar" class="form-label">Bayar <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" name="bayar" id="bayar" oninput="hitungKembalian()" placeholder="Masukan Jumlah Bayar" required>
-                        </div>
-                    `);
-                } else if (pembayaran > 0) {
-                    const successCallback = function(response) {
-                        $('#pembayaran-deskripsi').html(`
-                            <div class="mb-3 text-center">
-                                <div class="mb-3">Metode Pembayaran : ${response.data.nama}</div>
-                                <div class="mb-3">Atas Nama : ${response.data.atas_nama}</div>
-                                <div class="mb-3">No Rekening : ${response.data.no_rekening}</div>
-                            </div>
-                        `);
-                    };
-
-                    const errorCallback = function(error) {
-                        console.log(error);
-                    };
-
-                    ajaxCall(
-                        `/kasir/pembayaran/${pembayaran}`,
-                        "GET",
-                        null,
-                        successCallback,
-                        errorCallback
-                    );
-                } else {
-                    $('#pembayaran-deskripsi').html('');
-                }
             });
 
         });

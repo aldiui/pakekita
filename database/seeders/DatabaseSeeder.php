@@ -54,6 +54,18 @@ class DatabaseSeeder extends Seeder
 
         DB::table('units')->insert($unitData);
 
+        $mejaData = [
+            ['nama' => 'M01'],
+            ['nama' => 'M02'],
+            ['nama' => 'M03'],
+            ['nama' => 'M04'],
+            ['nama' => 'M05'],
+            ['nama' => 'M06'],
+            ['nama' => 'M07'],
+        ];
+
+        DB::table('mejas')->insert($mejaData);
+
         $menuData = [
             ['nama' => 'Nasi Goreng', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '10000'],
             ['nama' => 'Ayam Goreng', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '12000'],

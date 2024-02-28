@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mejas', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_meja')->unique();
+            $table->string('nama')->unique();
             $table->string('status')->default(0);
             $table->timestamps();
         });

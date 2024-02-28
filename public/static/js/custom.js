@@ -316,6 +316,7 @@ const changeTotal = (menuId) => {
     let total = qty * harga;
     $("#total_" + menuId).text(formatRupiah(total));
     $("#totalFiks_" + menuId).val(total);
+    hitungKembalian();
 
     grandTotal();
 };
@@ -334,4 +335,39 @@ const hitungKembalian = () => {
             : 0
         : 0;
     $("#textKembalian").html(formatRupiah(kembalian));
+};
+
+const selectPembayaran = (pembayaran) => {
+    if (pembayaran == "Cash") {
+        $("#pembayaran-deskripsi").html(`
+            <div class="form-group mb-3">
+                <label for="bayar" class="form-label">Bayar <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" name="bayar" id="bayar" oninput="hitungKembalian()" placeholder="Masukan Jumlah Bayar" required>
+            </div>
+        `);
+    } else if (pembayaran > 0) {
+        const successCallback = function (response) {
+            $("#pembayaran-deskripsi").html(`
+                <div class="mb-3 text-center">
+                    <div class="mb-3">Metode Pembayaran : ${response.data.nama}</div>
+                    <div class="mb-3">Atas Nama : ${response.data.atas_nama}</div>
+                    <div class="mb-3">No Rekening : ${response.data.no_rekening}</div>
+                </div>
+            `);
+        };
+
+        const errorCallback = function (error) {
+            console.log(error);
+        };
+
+        ajaxCall(
+            `/kasir/pembayaran/${pembayaran}`,
+            "GET",
+            null,
+            successCallback,
+            errorCallback
+        );
+    } else {
+        $("#pembayaran-deskripsi").html("");
+    }
 };

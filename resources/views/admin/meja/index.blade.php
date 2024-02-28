@@ -76,8 +76,8 @@
                     name: 'DT_RowIndex'
                 },
                 {
-                    data: 'kode_meja',
-                    name: 'kode_meja'
+                    data: 'nama',
+                    name: 'nama'
                 },
                 {
                     data: 'aksi',
@@ -104,7 +104,7 @@
 
                 const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-primary", false);
-                    handleValidationErrors(error, "saveData", ["kode_meja"]);
+                    handleValidationErrors(error, "saveData", ["nama"]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
@@ -124,7 +124,7 @@
 
                 const errorCallback = function(error) {
                     setButtonLoadingState("#updateData .btn.btn-primary", false);
-                    handleValidationErrors(error, "updateData", ["kode_meja"]);
+                    handleValidationErrors(error, "updateData", ["nama"]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);

@@ -21,7 +21,7 @@ class MejaController extends Controller
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($mejas)
                     ->addColumn('aksi', function ($meja) {
-                        $editButton = '<button class="btn btn-sm btn-warning me-1 d-inline-flex" onclick="getModal(`createModal`, `/admin/meja/' . $meja->id . '`, [`id`, `kode_meja`])"><i class="bi bi-pencil-square me-1"></i>Edit</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning me-1 d-inline-flex" onclick="getModal(`createModal`, `/admin/meja/' . $meja->id . '`, [`id`, `nama`])"><i class="bi bi-pencil-square me-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex" onclick="confirmDelete(`/admin/meja/' . $meja->id . '`, `meja-table`)"><i class="bi bi-trash me-1"></i>Hapus</button>';
                         return $editButton . $deleteButton;
                     })
@@ -39,7 +39,7 @@ class MejaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'kode_meja' => 'required|unique:mejas',
+            'nama' => 'required|unique:mejas',
         ]);
 
         if ($validator->fails()) {
@@ -47,7 +47,7 @@ class MejaController extends Controller
         }
 
         $meja = Meja::create([
-            'kode_meja' => $request->input('kode_meja'),
+            'nama' => $request->input('nama'),
         ]);
 
         return $this->successResponse($meja, 'Data Meja ditambahkan.', 201);
@@ -67,7 +67,7 @@ class MejaController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'kode_meja' => 'required|unique:mejas,kode_meja,' . $id . ',id',
+            'nama' => 'required|unique:mejas,nama,' . $id . ',id',
         ]);
 
         if ($validator->fails()) {
@@ -80,7 +80,7 @@ class MejaController extends Controller
             return $this->errorResponse(null, 'Data Meja tidak ditemukan.', 404);
         }
 
-        $meja->update(['kode_meja' => $request->input('kode_meja')]);
+        $meja->update(['nama' => $request->input('nama')]);
 
         return $this->successResponse($meja, 'Data Meja diubah.');
     }

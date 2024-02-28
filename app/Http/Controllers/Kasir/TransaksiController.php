@@ -59,9 +59,11 @@ class TransaksiController extends Controller
 
         $transaksi = Transaksi::create([
             'pesanan' => $request->input('pesanan'),
+            'bayar' => $request->input('bayar'),
             'total' => $request->input('grandTotal'),
             'user_id' => Auth::user()->id,
             'pembayaran_id' => $request->input('pembayaran_id') == "Cash" ? null : $request->input('pembayaran_id'),
+            'meja_id' => $request->input('meja_id'),
             'kode' => 'TRX-' . uniqid(),
             'tanggal' => now()->toDateString(),
         ]);
@@ -99,6 +101,7 @@ class TransaksiController extends Controller
         $content .= buatBaris1Kolom("Kode Transaksi : " . $transaksi->kode);
         $content .= buatBaris1Kolom("Pesanan : " . $transaksi->pesanan);
         $content .= buatBaris1Kolom("Pembayaran : " . ($transaksi->pembayaran_id == null ? "Cash" : $transaksi->pembayaran->nama));
+        $content .= buatBaris1Kolom("Meja : " . ($transaksi->meja_id == null ? "Umum" : $transaksi->meja->nama));
         $content .= buatBaris1Kolom("");
         $content .= buatBaris1Kolom("-----------------------------------");
         $content .= buatBaris3Kolom("Menu", "Qty", "Total");
@@ -108,6 +111,10 @@ class TransaksiController extends Controller
         }
         $content .= buatBaris1Kolom("-----------------------------------");
         $content .= buatBaris3Kolom("Total", "", formatRupiah($transaksi->total));
+        if ($transaksi->pembayaran_id == null) {
+            $content .= buatBaris3Kolom("Dibayar", "", formatRupiah($transaksi->bayar));
+            $content .= buatBaris3Kolom("Kembalian", "", formatRupiah($transaksi->bayar - $transaksi->total));
+        }
         $content .= buatBaris1Kolom("");
         $content .= buatBaris1Kolom("Terima kasih sudah memesan ke cafe kami, ditunggu kedatangannya kembali", "tengah");
 
