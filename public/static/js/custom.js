@@ -261,6 +261,16 @@ const grandTotal = () => {
     });
     $("#grandTotal").val(totalFiks);
     $("#textGrandTotal").text(formatRupiah(totalFiks));
+
+    if (totalFiks > 0) {
+        $(`#proses`).removeClass("d-none");
+        $(`#meja-input`).removeClass("d-none");
+        $(`#pembayaran-input`).removeClass("d-none");
+    } else {
+        $(`#proses`).addClass("d-none");
+        $(`#meja-input`).addClass("d-none");
+        $(`#pembayaran-input`).addClass("d-none");
+    }
 };
 
 const getChart = (kode) => {
@@ -271,9 +281,7 @@ const getChart = (kode) => {
         if ($("#menu_" + menuId).length === 0) {
             let tableRows = `
                 <tr id="menu_${menuId}">
-                    <td><button class="border-0 bg-white text-danger" onclick="removeMenu('menu_${menuId}')">x</button> ${
-                menu.nama
-            }</td>
+                    <td><button class="border-0 bg-white text-danger" onclick="removeMenu('menu_${menuId}')">x</button> ${menu.nama}</td>
                     <td>
                         <input class="form-control" name="qty[]" value="1" oninput="changeTotal(${menuId})" type="number" id="qty_${menuId}"/>
                     </td>
@@ -347,13 +355,23 @@ const selectPembayaran = (pembayaran) => {
         `);
     } else if (pembayaran > 0) {
         const successCallback = function (response) {
-            $("#pembayaran-deskripsi").html(`
-                <div class="mb-3 text-center">
-                    <div class="mb-3">Metode Pembayaran : ${response.data.nama}</div>
-                    <div class="mb-3">Atas Nama : ${response.data.atas_nama}</div>
-                    <div class="mb-3">No Rekening : ${response.data.no_rekening}</div>
-                </div>
-            `);
+            if (response.data.jenis == "Qris") {
+                $("#pembayaran-deskripsi").html(`
+                    <div class="mb-3 text-center">
+                        <div class="mb-3">Metode Pembayaran : ${response.data.nama}</div>
+                        <div class="mb-3">Atas Nama : ${response.data.atas_nama}</div>
+                        <div class="mb-3"><img src="/storage/image/pembayaran/${response.data.image}" class="img-fluid" alt="QRIS" /></div>
+                    </div>
+                `);
+            } else {
+                $("#pembayaran-deskripsi").html(`
+                    <div class="mb-3 text-center">
+                        <div class="mb-3">Metode Pembayaran : ${response.data.nama}</div>
+                        <div class="mb-3">Atas Nama : ${response.data.atas_nama}</div>
+                        <div class="mb-3">No Rekening : ${response.data.no_rekening}</div>
+                    </div>
+                `);
+            }
         };
 
         const errorCallback = function (error) {

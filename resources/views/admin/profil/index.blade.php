@@ -115,7 +115,9 @@
 
                 const successCallback = function(response) {
                     $('#image').parent().find(".dropify-clear").trigger('click');
-                    $("#foto-profil").attr("src", `/storage/image/user/${response.data.image}`);
+                    if (response.data.image != null) {
+                        $("#foto-profil").attr("src", `/storage/image/user/${response.data.image}`);
+                    }
                     setButtonLoadingState("#updateData .btn.btn-primary", false);
                     handleSuccess(response, null, null, "no");
                 };

@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="page-content">
-            <section class="row">
+            <section class="row  flex-column-reverse flex-lg-row">
                 <div class="col-lg-8">
                     <div class="row">
                         <div class="col-lg-8 mb-3">
@@ -80,7 +80,7 @@
                                     <div class="fw-bold">Kembalian</div>
                                     <div id="textKembalian">Rp. 0</div>
                                 </div>
-                                <div class="form-group mb-3">
+                                <div class="form-group mb-3 d-none" id="meja-input">
                                     <label for="meja_id" class="form-label">Meja</label>
                                     <select class="form-select" id="meja_id" name="meja_id">
                                         <option value="">Pilih Meja</option>
@@ -89,7 +89,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group mb-3">
+                                <div class="form-group mb-3 d-none" id="pembayaran-input">
                                     <label for="pembayaran_id" class="form-label">Pembayaran <span
                                             class="text-danger">*</span></label>
                                     <select class="form-select" id="pembayaran_id" name="pembayaran_id"
@@ -103,7 +103,7 @@
                                 </div>
                                 <div id="pembayaran-deskripsi"></div>
                                 <input type="hidden" class="form-control" id="grandTotal" name="grandTotal">
-                                <button class="btn btn-success btn-sm d-block w-100" type="submit"
+                                <button class="btn btn-success btn-sm d-block w-100 d-none" type="submit"
                                     id="proses">Proses</button>
                             </div>
                         </div>
