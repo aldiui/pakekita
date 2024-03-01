@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ asset('extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('compiled/css/table-datatable-jquery.css') }}">
     <link rel="stylesheet" href="{{ asset('extensions/sweetalert2/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('extensions/dropify/css/dropify.css') }}">
 @endpush
 
 @section('main')
@@ -37,10 +38,9 @@
                         <div class="card-body">
                             <form id="updateData">
                                 @method('PUT')
-                                <div class="form-group mb-3">
+                                <div class="form-group">
                                     <label for="image" class="form-label">Foto </label>
-                                    <input type="file" name="image" id="image" class="form-control"
-                                        data-height="200">
+                                    <input type="file" name="image" id="image" class="dropify" data-height="200">
                                     <small class="invalid-feedback" id="errorimage"></small>
                                 </div>
                                 <div class="form-group mb-3">
@@ -102,8 +102,10 @@
 
 @push('scripts')
     <script src="{{ asset('extensions/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('extensions/dropify/js/dropify.js') }}"></script>
     <script>
         $(document).ready(function() {
+            $('.dropify').dropify();
 
             $("#updateData").submit(function(e) {
                 setButtonLoadingState("#updateData .btn.btn-primary", true);
@@ -112,6 +114,8 @@
                 const data = new FormData(this);
 
                 const successCallback = function(response) {
+                    $('#image').parent().find(".dropify-clear").trigger('click');
+                    $("#foto-profil").attr("src", `/storage/image/user/${response.data.image}`);
                     setButtonLoadingState("#updateData .btn.btn-primary", false);
                     handleSuccess(response, null, null, "no");
                 };

@@ -10,9 +10,9 @@
             <form id="saveData" autocomplete="off">
                 <div class="modal-body">
                     <input type="hidden" id="id">
-                    <div class="form-group mb-3">
+                    <div class="form-group">
                         <label for="image" class="form-label">Foto </label>
-                        <input type="file" name="image" id="image" class="form-control">
+                        <input type="file" name="image" id="image" class="dropify" data-height="200">
                         <small class="invalid-feedback" id="errorimage"></small>
                     </div>
                     <div class="form-group mb-3">

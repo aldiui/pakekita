@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ asset('extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('compiled/css/table-datatable-jquery.css') }}">
     <link rel="stylesheet" href="{{ asset('extensions/sweetalert2/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('extensions/dropify/css/dropify.css') }}">
 @endpush
 
 @section('main')
@@ -71,8 +72,12 @@
     <script src="{{ asset('extensions/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
     <script src="{{ asset('extensions/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('extensions/dropify/js/dropify.js') }}"></script>
+
     <script>
         $(document).ready(function() {
+            $('.dropify').dropify();
+
             datatableCall('pembayaran-table', '{{ route('admin.pembayaran.index') }}', [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
@@ -116,6 +121,7 @@
                 }
 
                 const successCallback = function(response) {
+                    $('#saveData #image').parent().find(".dropify-clear").trigger('click');
                     setButtonLoadingState("#saveData .btn.btn-primary", false);
                     handleSuccess(response, "pembayaran-table", "createModal");
                 };

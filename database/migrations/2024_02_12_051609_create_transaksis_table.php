@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('kode')->unique();
             $table->string('pesanan');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('pembayaran_id')->nullable();
             $table->unsignedBigInteger('meja_id')->nullable();
             $table->string('status')->default(0);

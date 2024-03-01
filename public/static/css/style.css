@@ -5,3 +5,8 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.dropify-message p {
+    font-size: 14px; 
+}
+  

@@ -39,11 +39,11 @@ class ProfilController extends Controller
             ];
 
             if ($request->hasFile('image')) {
-                if ($user->image != 'default.png' && Storage::exists('public/img/user' . $user->image)) {
-                    Storage::delete('public/img/user' . $user->image);
+                if ($user->image != 'default.png' && Storage::exists('public/image/user/' . $user->image)) {
+                    Storage::delete('public/image/user/' . $user->image);
                 }
                 $image = $request->file('image')->hashName();
-                $request->file('image')->storeAs('public/img/user' . $image);
+                $request->file('image')->storeAs('public/image/user', $image);
                 $updateUser['image'] = $image;
             }
 

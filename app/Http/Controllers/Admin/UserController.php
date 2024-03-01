@@ -81,7 +81,7 @@ class UserController extends Controller
     }
 
     public function update(Request $request, $id)
-    {;
+    {
         $dataValidator = [
             'nama' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,

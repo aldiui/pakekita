@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('compiled/css/table-datatable-jquery.css') }}">
     <link rel="stylesheet" href="{{ asset('extensions/sweetalert2/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('extensions/choices.js/public/assets/styles/choices.css') }}">
+    <link rel="stylesheet" href="{{ asset('extensions/dropify/css/dropify.css') }}">
 @endpush
 
 @section('main')
@@ -73,8 +74,12 @@
     <script src="{{ asset('extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('extensions/choices.js/public/assets/scripts/choices.js') }}"></script>
     <script src="{{ asset('static/js/pages/form-element-select.js') }}"></script>
+    <script src="{{ asset('extensions/dropify/js/dropify.js') }}"></script>
+
     <script>
         $(document).ready(function() {
+            $('.dropify').dropify();
+
             datatableCall('barang-table', '{{ route('admin.barang.index') }}', [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'

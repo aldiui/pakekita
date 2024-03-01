@@ -10,7 +10,7 @@
     <div class="row justify-content-center align-items-center min-vh-100">
         <div class="col-lg-4 col-md-7 col-12 px-4">
             <div class="text-center mb-3">
-                <img src="{{ asset('compiled/svg/logo.svg') }}" class="img-fluid" width="120px" alt="Logo">
+                <img src="{{ asset('static/images/logo/logo.png') }}" class="img-fluid" width="200px" alt="Logo">
             </div>
             <h4 class="">Log in.</h4>
             <p class="mb-5">Log in with your data that you entered during registration.</p>
