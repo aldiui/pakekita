@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kategori;
+use App\Models\Meja;
 use App\Models\Menu;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -34,11 +36,13 @@ class HomeController extends Controller
 
         $menus = $query->paginate(8);
         $kategori = Kategori::where('jenis', 'Menu')->get();
+        $pembayaran = Pembayaran::all();
+        $meja = Meja::all();
 
         if ($request->ajax()) {
             return view('home.data', compact('menus'))->render();
         }
 
-        return view('home.index', compact('menus', 'kategori'));
+        return view('home.index', compact('menus', 'kategori', 'pembayaran', 'meja'));
     }
 }

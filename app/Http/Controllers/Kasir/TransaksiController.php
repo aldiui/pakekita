@@ -61,7 +61,7 @@ class TransaksiController extends Controller
             'pesanan' => $request->input('pesanan'),
             'bayar' => $request->input('bayar'),
             'total' => $request->input('grandTotal'),
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::user()->id ?? null,
             'pembayaran_id' => $request->input('pembayaran_id') == "Cash" ? null : $request->input('pembayaran_id'),
             'meja_id' => $request->input('meja_id'),
             'kode' => 'TRX-' . uniqid(),

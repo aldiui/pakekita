@@ -45,6 +45,10 @@ Route::prefix('kasir')->middleware(['auth', 'checkRole:kasir'])->group(function 
     Route::put('profil/password', [App\Http\Controllers\Kasir\ProfilController::class, 'updatePassword'])->name('kasir.profil.password');
 });
 
+Route::resource('menu', App\Http\Controllers\Kasir\MenuController::class)->names('menu');
+Route::resource('transaksi', App\Http\Controllers\Kasir\TransaksiController::class)->names('transaksi');
+Route::resource('pembayaran', App\Http\Controllers\Kasir\PembayaranController::class)->names('pembayaran');
+
 Route::get('/storage-link', function () {
     Artisan::call('storage:link');
 
