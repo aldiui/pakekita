@@ -4,6 +4,7 @@
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('extensions/sweetalert2/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('extensions/choices.js/choices.css') }}">
 @endpush
 
 @section('main')
@@ -22,7 +23,7 @@
                                 placeholder="Cari menu...">
                         </div>
                         <div class="col-lg-4 mb-3">
-                            <select class="form-select" id="kategori" name="kategori">
+                            <select class="choices" id="kategori" name="kategori">
                                 <option value="semua" selected>Semua</option>
                                 @foreach ($kategori as $row)
                                     <option value="{{ $row->nama }}">{{ $row->nama }}</option>
@@ -68,7 +69,7 @@
                                 </div>
                                 <div class="form-group mb-3 d-none" id="meja-input">
                                     <label for="meja_id" class="form-label">Meja</label>
-                                    <select class="form-select" id="meja_id" name="meja_id">
+                                    <select class="choices" id="meja_id" name="meja_id">
                                         <option value="">Pilih Meja</option>
                                         @foreach ($meja as $row)
                                             <option value="{{ $row->id }}">{{ $row->nama }}</option>
@@ -78,7 +79,7 @@
                                 <div class="form-group mb-3 d-none" id="pembayaran-input">
                                     <label for="pembayaran_id" class="form-label">Pembayaran <span
                                             class="text-danger">*</span></label>
-                                    <select class="form-select" id="pembayaran_id" name="pembayaran_id"
+                                    <select class="choices" id="pembayaran_id" name="pembayaran_id"
                                         onchange="selectPembayaran(this.value, 'free')" required>
                                         <option value="">Pilih Metode</option>
                                         <option value="Cash">Cash</option>
@@ -102,6 +103,8 @@
 
 @push('scripts')
     <script src="{{ asset('extensions/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('extensions/choices.js/choices.js') }}"></script>
+    <script src="{{ asset('static/js/pages/form-element-select.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#search, #kategori').on('input change', function() {
