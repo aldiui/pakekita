@@ -73,7 +73,6 @@
     <script src="{{ asset('extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
     <script src="{{ asset('extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('extensions/choices.js/public/assets/scripts/choices.js') }}"></script>
-    <script src="{{ asset('static/js/pages/form-element-select.js') }}"></script>
     <script src="{{ asset('extensions/dropify/js/dropify.js') }}"></script>
 
     <script>

@@ -190,6 +190,13 @@ const select2ToJson = (selector, url) => {
             const option = $("<option>", { value: row.id, text: row.nama });
             selectElem.append(option);
         });
+
+        const initChoice = new Choices(selector, {
+            delimiter: ",",
+            editItems: true,
+            maxItemCount: -1,
+            removeItemButton: true,
+        });
     };
 
     const errorCallback = function (error) {
