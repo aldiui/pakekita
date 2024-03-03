@@ -37,7 +37,7 @@
                                 placeholder="Cari menu...">
                         </div>
                         <div class="col-lg-4 mb-3">
-                            <select class="choices" id="kategori" name="kategori">
+                            <select class="form-select" id="kategori" name="kategori">
                                 <option value="semua" selected>Semua</option>
                                 @foreach ($kategori as $row)
                                     <option value="{{ $row->nama }}">{{ $row->nama }}</option>
