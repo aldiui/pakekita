@@ -240,11 +240,11 @@ const confirmStok = (id) => {
     });
 };
 
-const getMenus = (page) => {
+const getMenus = (page, mode = null) => {
     let search = $("#search").val();
     let kategori = $("#kategori").val();
     $.ajax({
-        url: "/kasir/menu?page=" + page,
+        url: mode ? `/?page=${page}` : "/kasir/menu?page=" + page,
         data: {
             search,
             kategori,

@@ -23,7 +23,7 @@
                                 placeholder="Cari menu...">
                         </div>
                         <div class="col-lg-4 mb-3">
-                            <select class="choices" id="kategori" name="kategori">
+                            <select class="form-select" id="kategori" name="kategori">
                                 <option value="semua" selected>Semua</option>
                                 @foreach ($kategori as $row)
                                     <option value="{{ $row->nama }}">{{ $row->nama }}</option>
@@ -108,10 +108,10 @@
     <script>
         $(document).ready(function() {
             $('#search, #kategori').on('input change', function() {
-                getMenus(1);
+                getMenus(1, "ada");
             });
 
-            getMenus(1);
+            getMenus(1, "ada");
 
             $("#createTransaksi").submit(function(e) {
                 setButtonLoadingState("#createTransaksi .btn.btn-success", true, "Proses");
