@@ -16,9 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('kategori_id');
             $table->string('nama');
             $table->text('deskripsi')->nullable();
-            $table->text('resep')->nullable();
             $table->string('image')->nullable();
-            $table->unsignedInteger('harga');
+            $table->unsignedInteger('harga_pokok');
+            $table->unsignedInteger('harga_jual');
             $table->string('status')->default(0);
             $table->timestamps();
 

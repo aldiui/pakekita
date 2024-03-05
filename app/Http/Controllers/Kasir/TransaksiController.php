@@ -22,7 +22,7 @@ class TransaksiController extends Controller
         $tahun = $request->input("tahun");
 
         if ($request->ajax()) {
-            $transaksis = Transaksi::with('pembayaran')->withCount('detailTransaksis')->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->latest()->get();
+            $transaksis = Transaksi::withCount('detailTransaksis')->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->latest()->get();
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($transaksis)
                     ->addColumn('total_rupiah', function ($transaksi) {
@@ -32,7 +32,7 @@ class TransaksiController extends Controller
                         return formatTanggal($transaksi->created_at);
                     })
                     ->addColumn('pembayaran', function ($transaksi) {
-                        return $transaksi->pembayaran->nama ?? 'Cash';
+                        return 'Cash';
                     })
                     ->addColumn('cetak', function ($transaksi) {
                         return '<a href="' . route('kasir.transaksi.show', $transaksi->kode) . '" class="btn btn-sm btn-info"><i class="bi bi-printer"></i></a>';
@@ -60,9 +60,10 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::create([
             'pesanan' => $request->input('pesanan'),
             'bayar' => $request->input('bayar'),
+            'pembayaran' => 'Cash',
+            'json' => '[]',
             'total' => $request->input('grandTotal'),
             'user_id' => Auth::user()->id ?? null,
-            'pembayaran_id' => $request->input('pembayaran_id') == "Cash" ? null : $request->input('pembayaran_id'),
             'meja_id' => $request->input('meja_id'),
             'kode' => 'TRX-' . uniqid(),
         ]);
@@ -99,7 +100,6 @@ class TransaksiController extends Controller
         $content .= buatBaris1Kolom("Tanggal : " . formatTanggal($transaksi->created_at, 'd/m/Y H:i:s'));
         $content .= buatBaris1Kolom("Kode Transaksi : " . $transaksi->kode);
         $content .= buatBaris1Kolom("Pesanan : " . $transaksi->pesanan);
-        $content .= buatBaris1Kolom("Pembayaran : " . ($transaksi->pembayaran_id == null ? "Cash" : $transaksi->pembayaran->nama));
         $content .= buatBaris1Kolom("Meja : " . ($transaksi->meja_id == null ? "Umum" : $transaksi->meja->nama));
         $content .= buatBaris1Kolom("");
         $content .= buatBaris1Kolom("-----------------------------------");

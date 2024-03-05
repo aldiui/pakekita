@@ -5,7 +5,7 @@
             </div>
             <div class="card-body text-center">
                 <p class="card-title fw-bold">{{ $menu->nama }}</p>
-                <small class="d-block text-center small mb-3">{{ formatRupiah($menu->harga) }}</small>
+                <small class="d-block text-center small mb-3">{{ formatRupiah($menu->harga_jual) }}</small>
                 <button class="btn btn-outline-primary btn-sm px-3" onclick="getChart({{ $menu->id }}, 'free')">+
                     Tambah</button>
             </div>

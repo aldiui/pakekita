@@ -272,11 +272,9 @@ const grandTotal = () => {
     if (totalFiks > 0) {
         $(`#proses`).removeClass("d-none");
         $(`#meja-input`).removeClass("d-none");
-        $(`#pembayaran-input`).removeClass("d-none");
     } else {
         $(`#proses`).addClass("d-none");
         $(`#meja-input`).addClass("d-none");
-        $(`#pembayaran-input`).addClass("d-none");
     }
 };
 
@@ -292,17 +290,17 @@ const getChart = (kode, free = null) => {
                 menu.nama
             }</td>
                     <td>
-                        <input class="form-control" name="qty[]" value="1" oninput="changeTotal(${menuId})" type="number" id="qty_${menuId}"/>
+                        <input class="form-control" name="qty[]" min="1" value="1" oninput="changeTotal(${menuId})" type="number" id="qty_${menuId}"/>
                     </td>
                     <td>
                         <input type="hidden" value="${
-                            menu.harga
+                            menu.harga_jual
                         }" id="harga_${menuId}"/>
                         <span id="total_${menuId}">${formatRupiah(
-                menu.harga
+                menu.harga_jual
             )}</span>
                         <input type="hidden" name="total[]" class="totalFiks" value="${
-                            menu.harga
+                            menu.harga_jual
                         }" id="totalFiks_${menuId}"/>
                         <input type="hidden" name="menu_id[]" value="${menuId}" id="menu_${menuId}"/>
                     </td>
@@ -352,51 +350,4 @@ const hitungKembalian = () => {
             : 0
         : 0;
     $("#textKembalian").html(formatRupiah(kembalian));
-};
-
-const selectPembayaran = (pembayaran, free = null) => {
-    if (pembayaran == "Cash") {
-        $("#pembayaran-deskripsi").html(`
-            <div class="form-group mb-3">
-                <label for="bayar" class="form-label">Bayar <span class="text-danger">*</span></label>
-                <input type="number" class="form-control" name="bayar" id="bayar" oninput="hitungKembalian()" placeholder="Masukan Jumlah Bayar" required>
-            </div>
-        `);
-    } else if (pembayaran > 0) {
-        const successCallback = function (response) {
-            if (response.data.jenis == "Qris") {
-                $("#pembayaran-deskripsi").html(`
-                    <div class="mb-3 text-center">
-                        <div class="mb-3">Metode Pembayaran : ${response.data.nama}</div>
-                        <div class="mb-3">Atas Nama : ${response.data.atas_nama}</div>
-                        <div class="mb-3"><img src="/storage/image/pembayaran/${response.data.image}" class="img-fluid" alt="QRIS" /></div>
-                    </div>
-                `);
-            } else {
-                $("#pembayaran-deskripsi").html(`
-                    <div class="mb-3 text-center">
-                        <div class="mb-3">Metode Pembayaran : ${response.data.nama}</div>
-                        <div class="mb-3">Atas Nama : ${response.data.atas_nama}</div>
-                        <div class="mb-3">No Rekening : ${response.data.no_rekening}</div>
-                    </div>
-                `);
-            }
-        };
-
-        const errorCallback = function (error) {
-            console.log(error);
-        };
-
-        ajaxCall(
-            free
-                ? `/pembayaran/${pembayaran}`
-                : `/kasir/pembayaran/${pembayaran}`,
-            "GET",
-            null,
-            successCallback,
-            errorCallback
-        );
-    } else {
-        $("#pembayaran-deskripsi").html("");
-    }
 };

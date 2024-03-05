@@ -50,7 +50,8 @@
                                             <th width="5%">#</th>
                                             <th width="10%">Foto</th>
                                             <th>Nama</th>
-                                            <th>Harga</th>
+                                            <th>Harga Pokok</th>
+                                            <th>Harga Jual</th>
                                             <th>Menu</th>
                                             <th width="15%">Aksi</th>
                                         </tr>
@@ -92,8 +93,12 @@
                     name: 'nama'
                 },
                 {
-                    data: 'rupiah',
-                    name: 'rupiah'
+                    data: 'pokok',
+                    name: 'pokok'
+                },
+                {
+                    data: 'jual',
+                    name: 'jual'
                 },
                 {
                     data: 'kategori',
@@ -131,7 +136,7 @@
                 const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-primary", false);
                     handleValidationErrors(error, "saveData", ["foto", "nama",
-                        "harga", "deskripsi", "kategori_id"
+                        "harga_pokok", "harga_jual", "deskripsi", "kategori_id"
                     ]);
                 };
 

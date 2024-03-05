@@ -26,9 +26,15 @@
                         <small class="invalid-feedback" id="errorkategori_id"></small>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="harga" class="form-label">Harga <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" id="harga" name="harga">
-                        <small class="invalid-feedback" id="errorharga"></small>
+                        <label for="harga_pokok" class="form-label">Harga Pokok <span
+                                class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="harga_pokok" name="harga_pokok">
+                        <small class="invalid-feedback" id="errorharga_pokok"></small>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="harga_jual" class="form-label">Harga Jual <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="harga_jual" name="harga_jual">
+                        <small class="invalid-feedback" id="errorharga_jual"></small>
                     </div>
                     <div class="form-group mb-3">
                         <label for="deskripsi" class="form-label">Deskripsi</label>

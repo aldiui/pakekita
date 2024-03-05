@@ -18,7 +18,7 @@ class TransaksiController extends Controller
         $tahun = $request->input("tahun");
 
         if ($request->ajax()) {
-            $transaksis = Transaksi::with('pembayaran')->withCount('detailTransaksis')->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->latest()->get();
+            $transaksis = Transaksi::withCount('detailTransaksis')->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->latest()->get();
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($transaksis)
                     ->addColumn('total_rupiah', function ($transaksi) {
@@ -28,7 +28,7 @@ class TransaksiController extends Controller
                         return formatTanggal($transaksi->created_at);
                     })
                     ->addColumn('pembayaran', function ($transaksi) {
-                        return $transaksi->pembayaran->nama ?? 'Cash';
+                        return 'Cash';
                     })
                     ->addIndexColumn()
                     ->rawColumns(['tgl', 'total_rupiah', 'pembayaran'])

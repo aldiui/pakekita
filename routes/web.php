@@ -26,7 +26,6 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
     Route::resource('barang', App\Http\Controllers\Admin\BarangController::class)->names('admin.barang');
     Route::resource('meja', App\Http\Controllers\Admin\MejaController::class)->names('admin.meja');
     Route::resource('menu', App\Http\Controllers\Admin\MenuController::class)->names('admin.menu');
-    Route::resource('pembayaran', App\Http\Controllers\Admin\PembayaranController::class)->names('admin.pembayaran');
     Route::resource('user', App\Http\Controllers\Admin\UserController::class)->names('admin.user');
     Route::resource('stok', App\Http\Controllers\Admin\StokController::class)->names('admin.stok');
     Route::resource('detail-stok', App\Http\Controllers\Admin\DetailStokController::class)->names('admin.detail-stok');
@@ -41,13 +40,11 @@ Route::prefix('kasir')->middleware(['auth', 'checkRole:kasir'])->group(function 
     Route::match(['get', 'put'], 'profil', [App\Http\Controllers\Kasir\ProfilController::class, 'index'])->name('kasir.profil');
     Route::resource('menu', App\Http\Controllers\Kasir\MenuController::class)->names('kasir.menu');
     Route::resource('transaksi', App\Http\Controllers\Kasir\TransaksiController::class)->names('kasir.transaksi');
-    Route::resource('pembayaran', App\Http\Controllers\Kasir\PembayaranController::class)->names('kasir.pembayaran');
     Route::put('profil/password', [App\Http\Controllers\Kasir\ProfilController::class, 'updatePassword'])->name('kasir.profil.password');
 });
 
 Route::resource('menu', App\Http\Controllers\Kasir\MenuController::class)->names('menu');
 Route::resource('transaksi', App\Http\Controllers\Kasir\TransaksiController::class)->names('transaksi');
-Route::resource('pembayaran', App\Http\Controllers\Kasir\PembayaranController::class)->names('pembayaran');
 
 Route::get('/storage-link', function () {
     Artisan::call('storage:link');

@@ -21,7 +21,7 @@ class MenuController extends Controller
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($menus)
                     ->addColumn('aksi', function ($menu) {
-                        $editButton = '<button class="btn btn-sm btn-warning me-1 d-inline-flex" onclick="getSelectEdit(), getModal(`createModal`, `/admin/menu/' . $menu->id . '`, [`id`, `kategori_id`, `nama`, `deskripsi`, `harga`, `image`])"><i class="bI bi-pencil-square me-1"></i>Edit</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning me-1 d-inline-flex" onclick="getSelectEdit(), getModal(`createModal`, `/admin/menu/' . $menu->id . '`, [`id`, `kategori_id`, `nama`, `deskripsi`, `harga_pokok`, `harga_jual`, `image`])"><i class="bI bi-pencil-square me-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex" onclick="confirmDelete(`/admin/menu/' . $menu->id . '`, `menu-table`)"><i class="bi bi-trash me-1"></i>Hapus</button>';
                         return $editButton . $deleteButton;
                     })
@@ -31,11 +31,14 @@ class MenuController extends Controller
                     ->addColumn('img', function ($menu) {
                         return '<img src="/storage/image/menu/' . $menu->image . '" width="150px" alt="">';
                     })
-                    ->addColumn('rupiah', function ($menu) {
-                        return formatRupiah($menu->harga);
+                    ->addColumn('pokok', function ($menu) {
+                        return formatRupiah($menu->harga_pokok);
+                    })
+                    ->addColumn('jual', function ($menu) {
+                        return formatRupiah($menu->harga_jual);
                     })
                     ->addIndexColumn()
-                    ->rawColumns(['aksi', 'img', 'kategori', 'rupiah'])
+                    ->rawColumns(['aksi', 'img', 'kategori', 'pokok', 'jual'])
                     ->make(true);
             }
 
@@ -49,7 +52,8 @@ class MenuController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'harga' => 'required|numeric',
+            'harga_pokok' => 'required|numeric',
+            'harga_jual' => 'required|numeric',
             'image' => 'image|mimes:png,jpg,jpeg',
             'kategori_id' => 'required|exists:kategoris,id',
         ]);
@@ -66,7 +70,8 @@ class MenuController extends Controller
         $menu = Menu::create([
             'nama' => $request->input('nama'),
             'deskripsi' => $request->input('deskripsi'),
-            'harga' => $request->input('harga'),
+            'harga_pokok' => $request->input('harga_pokok'),
+            'harga_jual' => $request->input('harga_jual'),
             'image' => $image ?? null,
             'kategori_id' => $request->input('kategori_id'),
         ]);
@@ -89,7 +94,8 @@ class MenuController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'harga' => 'required|numeric',
+            'harga_pokok' => 'required|numeric',
+            'harga_jual' => 'required|numeric',
             'image' => 'image|mimes:png,jpg,jpeg',
             'kategori_id' => 'required|exists:kategoris,id',
         ]);
@@ -107,7 +113,8 @@ class MenuController extends Controller
         $updateMenu = [
             'nama' => $request->input('nama'),
             'deskripsi' => $request->input('deskripsi'),
-            'harga' => $request->input('harga'),
+            'harga_pokok' => $request->input('harga_pokok'),
+            'harga_jual' => $request->input('harga_jual'),
             'kategori_id' => $request->input('kategori_id'),
 
         ];

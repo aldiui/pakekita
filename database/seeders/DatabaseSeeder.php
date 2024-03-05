@@ -67,44 +67,36 @@ class DatabaseSeeder extends Seeder
         DB::table('mejas')->insert($mejaData);
 
         $menuData = [
-            ['nama' => 'Nasi Goreng', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '10000'],
-            ['nama' => 'Ayam Goreng', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '12000'],
-            ['nama' => 'Mie Goreng', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '11000'],
-            ['nama' => 'Sate Ayam', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '15000'],
-            ['nama' => 'Bakso', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '13000'],
-            ['nama' => 'Soto Ayam', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '14000'],
-            ['nama' => 'Nasi Kuning', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '12000'],
-            ['nama' => 'Rendang', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '20000'],
-            ['nama' => 'Gado-Gado', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '15000'],
-            ['nama' => 'Capcay', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '13000'],
-            ['nama' => 'Ikan Bakar', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '18000'],
-            ['nama' => 'Sayur Asem', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '12000'],
-            ['nama' => 'Rawon', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '16000'],
-            ['nama' => 'Sambal Goreng', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga' => '17000'],
-            ['nama' => 'Es Teh Manis', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga' => '5000'],
-            ['nama' => 'Es Jeruk', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga' => '6000'],
-            ['nama' => 'Es Campur', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga' => '8000'],
-            ['nama' => 'Es Cincau', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga' => '7000'],
-            ['nama' => 'Es Doger', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga' => '10000'],
-            ['nama' => 'Es Buah', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga' => '12000'],
-            ['nama' => 'Es Teler', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga' => '11000'],
-            ['nama' => 'Es Kelapa Muda', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga' => '9000'],
-            ['nama' => 'Es Kopyor', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga' => '15000'],
-            ['nama' => 'Es Campina', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga' => '13000'],
-            ['nama' => 'Es Blewah', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga' => '8000'],
-            ['nama' => 'Es Kacang Hijau', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga' => '7000'],
-            ['nama' => 'Es Selendang Mayang', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga' => '10000'],
-            ['nama' => 'Es Degan', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga' => '6000'],
+            ['nama' => 'Nasi Goreng', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga_pokok' => '10000', 'harga_jual' => '10000'],
+            ['nama' => 'Ayam Goreng', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga_pokok' => '10000', 'harga_jual' => '12000'],
+            ['nama' => 'Mie Goreng', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga_pokok' => '10000', 'harga_jual' => '11000'],
+            ['nama' => 'Sate Ayam', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga_pokok' => '10000', 'harga_jual' => '15000'],
+            ['nama' => 'Bakso', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga_pokok' => '10000', 'harga_jual' => '13000'],
+            ['nama' => 'Soto Ayam', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga_pokok' => '10000', 'harga_jual' => '14000'],
+            ['nama' => 'Nasi Kuning', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga_pokok' => '10000', 'harga_jual' => '12000'],
+            ['nama' => 'Rendang', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga_pokok' => '10000', 'harga_jual' => '20000'],
+            ['nama' => 'Gado-Gado', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga_pokok' => '10000', 'harga_jual' => '15000'],
+            ['nama' => 'Capcay', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga_pokok' => '10000', 'harga_jual' => '13000'],
+            ['nama' => 'Ikan Bakar', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga_pokok' => '10000', 'harga_jual' => '18000'],
+            ['nama' => 'Sayur Asem', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga_pokok' => '10000', 'harga_jual' => '12000'],
+            ['nama' => 'Rawon', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga_pokok' => '10000', 'harga_jual' => '16000'],
+            ['nama' => 'Sambal Goreng', 'kategori_id' => '1', 'image' => 'makanan.webp', 'harga_pokok' => '10000', 'harga_jual' => '17000'],
+            ['nama' => 'Es Teh Manis', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga_pokok' => '10000', 'harga_jual' => '5000'],
+            ['nama' => 'Es Jeruk', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga_pokok' => '10000', 'harga_jual' => '6000'],
+            ['nama' => 'Es Campur', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga_pokok' => '10000', 'harga_jual' => '8000'],
+            ['nama' => 'Es Cincau', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga_pokok' => '10000', 'harga_jual' => '7000'],
+            ['nama' => 'Es Doger', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga_pokok' => '10000', 'harga_jual' => '10000'],
+            ['nama' => 'Es Buah', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga_pokok' => '10000', 'harga_jual' => '12000'],
+            ['nama' => 'Es Teler', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga_pokok' => '10000', 'harga_jual' => '11000'],
+            ['nama' => 'Es Kelapa Muda', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga_pokok' => '10000', 'harga_jual' => '9000'],
+            ['nama' => 'Es Kopyor', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga_pokok' => '10000', 'harga_jual' => '15000'],
+            ['nama' => 'Es Campina', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga_pokok' => '10000', 'harga_jual' => '13000'],
+            ['nama' => 'Es Blewah', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga_pokok' => '10000', 'harga_jual' => '8000'],
+            ['nama' => 'Es Kacang Hijau', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga_pokok' => '10000', 'harga_jual' => '7000'],
+            ['nama' => 'Es Selendang Mayang', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga_pokok' => '10000', 'harga_jual' => '10000'],
+            ['nama' => 'Es Degan', 'kategori_id' => '2', 'image' => 'minuman.webp', 'harga_pokok' => '10000', 'harga_jual' => '6000'],
         ];
 
         DB::table('menus')->insert($menuData);
-
-        $pembayaranData = [
-            ['nama' => 'OVO', 'atas_nama' => 'Bayar Saja', 'jenis' => 'E-Wallet', 'no_rekening' => '0812345678'],
-            ['nama' => 'GOPAY', 'atas_nama' => 'Bayar Saja', 'jenis' => 'E-Wallet', 'no_rekening' => '0812345678'],
-            ['nama' => 'DANA', 'atas_nama' => 'Bayar Saja', 'jenis' => 'E-Wallet', 'no_rekening' => '0812345678'],
-        ];
-
-        DB::table('pembayarans')->insert($pembayaranData);
     }
 }
