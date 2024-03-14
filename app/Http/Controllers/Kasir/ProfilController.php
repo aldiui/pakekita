@@ -34,8 +34,8 @@ class ProfilController extends Controller
             }
 
             $updateUser = [
-                'nama' => $request->input('nama'),
-                'email' => $request->input('email'),
+                'nama' => $request->nama,
+                'email' => $request->email,
             ];
 
             if ($request->hasFile('image')) {
@@ -72,12 +72,12 @@ class ProfilController extends Controller
             return $this->errorResponse(null, 'Data Profil tidak ditemukan.', 404);
         }
 
-        if (!Hash::check($request->input('password_lama'), $user->password)) {
+        if (!Hash::check($request->password_lama, $user->password)) {
             return $this->errorResponse(null, 'Password lama tidak sesuai.', 422);
         }
 
         $user->update([
-            'password' => bcrypt($request->input('password')),
+            'password' => bcrypt($request->password),
         ]);
 
         return $this->successResponse($user, 'Data password diubah.');

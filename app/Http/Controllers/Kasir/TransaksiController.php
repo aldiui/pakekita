@@ -18,12 +18,12 @@ class TransaksiController extends Controller
 
     public function index(Request $request)
     {
-        $bulan = $request->input("bulan");
-        $tahun = $request->input("tahun");
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
 
         if ($request->ajax()) {
             $transaksis = Transaksi::withCount('detailTransaksis')->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->latest()->get();
-            if ($request->input("mode") == "datatable") {
+            if ($request->mode == "datatable") {
                 return DataTables::of($transaksis)
                     ->addColumn('total_rupiah', function ($transaksi) {
                         return formatRupiah($transaksi->total);
@@ -58,13 +58,13 @@ class TransaksiController extends Controller
         }
 
         $transaksi = Transaksi::create([
-            'pesanan' => $request->input('pesanan'),
-            'bayar' => $request->input('bayar'),
+            'pesanan' => $request->pesanan,
+            'bayar' => $request->bayar,
             'pembayaran' => 'Cash',
             'json' => '[]',
-            'total' => $request->input('grandTotal'),
+            'total' => $request->grandTotal,
             'user_id' => Auth::user()->id ?? null,
-            'meja_id' => $request->input('meja_id'),
+            'meja_id' => $request->meja_id,
             'kode' => 'TRX-' . uniqid(),
         ]);
 

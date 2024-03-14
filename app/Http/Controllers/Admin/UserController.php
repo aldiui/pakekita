@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         if ($request->ajax()) {
             $users = User::all();
-            if ($request->input("mode") == "datatable") {
+            if ($request->mode == "datatable") {
                 return DataTables::of($users)
                     ->addColumn('aksi', function ($user) {
                         $editButton = '<button class="btn btn-sm btn-warning  d-inline-flex me-1" onclick="getModal(`createModal`, `/admin/user/' . $user->id . '`, [`id`, `nama`, `email`, `role`, `image`])"><i class="bi bi-pencil-square me-1"></i>Edit</button>';
@@ -59,10 +59,10 @@ class UserController extends Controller
         }
 
         $user = User::create([
-            'nama' => $request->input('nama'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-            'role' => $request->input('role'),
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => $request->role,
             'image' => $image ?? null,
         ]);
 
@@ -88,7 +88,7 @@ class UserController extends Controller
             'image' => 'image|mimes:png,jpg,jpeg',
         ];
 
-        if ($request->input('password') != null) {
+        if ($request->password != null) {
             $dataValidator['password'] = 'required|min:8|confirmed';
         }
 
@@ -105,13 +105,13 @@ class UserController extends Controller
         }
 
         $updateUser = [
-            'nama' => $request->input('nama'),
-            'email' => $request->input('email'),
-            'role' => $request->input('role'),
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'role' => $request->role,
         ];
 
-        if ($request->input('password') != null) {
-            $updateAdmin['password'] = bcrypt($request->input('password'));
+        if ($request->password != null) {
+            $updateAdmin['password'] = bcrypt($request->password);
         }
 
         if ($request->hasFile('image')) {

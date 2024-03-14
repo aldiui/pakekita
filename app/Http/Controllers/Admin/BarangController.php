@@ -66,11 +66,11 @@ class BarangController extends Controller
         }
 
         $barang = Barang::create([
-            'nama' => $request->input('nama'),
-            'kategori_id' => $request->input('kategori_id'),
-            'unit_id' => $request->input('unit_id'),
-            'deskripsi' => $request->input('deskripsi'),
-            'qty' => $request->input('qty'),
+            'nama' => $request->nama,
+            'kategori_id' => $request->kategori_id,
+            'unit_id' => $request->unit_id,
+            'deskripsi' => $request->deskripsi,
+            'qty' => $request->qty,
             'image' => $image ?? null,
         ]);
 
@@ -109,11 +109,11 @@ class BarangController extends Controller
         }
 
         $updateBarang = [
-            'nama' => $request->input('nama'),
-            'kategori_id' => $request->input('kategori_id'),
-            'unit_id' => $request->input('unit_id'),
-            'deskripsi' => $request->input('deskripsi'),
-            'qty' => $request->input('qty'),
+            'nama' => $request->nama,
+            'kategori_id' => $request->kategori_id,
+            'unit_id' => $request->unit_id,
+            'deskripsi' => $request->deskripsi,
+            'qty' => $request->qty,
         ];
 
         if ($request->hasFile('image')) {

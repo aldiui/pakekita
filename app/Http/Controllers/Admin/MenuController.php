@@ -18,7 +18,7 @@ class MenuController extends Controller
     {
         if ($request->ajax()) {
             $menus = Menu::with(['kategori'])->get();
-            if ($request->input("mode") == "datatable") {
+            if ($request->mode == "datatable") {
                 return DataTables::of($menus)
                     ->addColumn('aksi', function ($menu) {
                         $editButton = '<button class="btn btn-sm btn-warning me-1 d-inline-flex" onclick="getSelectEdit(), getModal(`createModal`, `/admin/menu/' . $menu->id . '`, [`id`, `kategori_id`, `nama`, `deskripsi`, `harga_pokok`, `harga_jual`, `image`])"><i class="bI bi-pencil-square me-1"></i>Edit</button>';
@@ -68,12 +68,12 @@ class MenuController extends Controller
         }
 
         $menu = Menu::create([
-            'nama' => $request->input('nama'),
-            'deskripsi' => $request->input('deskripsi'),
-            'harga_pokok' => $request->input('harga_pokok'),
-            'harga_jual' => $request->input('harga_jual'),
+            'nama' => $request->nama,
+            'deskripsi' => $request->deskripsi,
+            'harga_pokok' => $request->harga_pokok,
+            'harga_jual' => $request->harga_jual,
             'image' => $image ?? null,
-            'kategori_id' => $request->input('kategori_id'),
+            'kategori_id' => $request->kategori_id,
         ]);
 
         return $this->successResponse($menu, 'Data Menu ditambahkan.', 201);
@@ -111,11 +111,11 @@ class MenuController extends Controller
         }
 
         $updateMenu = [
-            'nama' => $request->input('nama'),
-            'deskripsi' => $request->input('deskripsi'),
-            'harga_pokok' => $request->input('harga_pokok'),
-            'harga_jual' => $request->input('harga_jual'),
-            'kategori_id' => $request->input('kategori_id'),
+            'nama' => $request->nama,
+            'deskripsi' => $request->deskripsi,
+            'harga_pokok' => $request->harga_pokok,
+            'harga_jual' => $request->harga_jual,
+            'kategori_id' => $request->kategori_id,
 
         ];
 

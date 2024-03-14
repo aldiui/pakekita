@@ -12,8 +12,8 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $bulan = $request->input("bulan");
-            $tahun = $request->input("tahun");
+            $bulan = $request->bulan;
+            $tahun = $request->tahun;
             $startDate = Carbon::createFromDate($tahun, $bulan, 1)->startOfMonth();
             $endDate = Carbon::createFromDate($tahun, $bulan, 1)->endOfMonth();
 
