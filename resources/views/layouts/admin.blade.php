@@ -16,10 +16,13 @@
 <body>
     <script src="{{ asset('static/js/initTheme.js') }}"></script>
     <div id="app">
-        <div id="main" class="layout-horizontal">
+        @include('components.sidebar_admin')
+        <div id="main" class='layout-navbar navbar-fixed'>
             @include('components.header_admin')
-            @yield('main')
-            @include('components.footer')
+            <div id="main-content">
+                @yield('main')
+                @include('components.footer')
+            </div>
         </div>
     </div>
     <script src="{{ asset('extensions/jquery/jquery.js') }}"></script>

@@ -13,7 +13,7 @@
                     <input type="hidden" name="stok_id" value="{{ $stok->id }}">
                     <div class="form-group mb-3">
                         <label for="barang_id" class="form-label">Barang <span class="text-danger">*</span></label>
-                        <select name="barang_id" id="barang_id"></select>
+                        <select name="barang_id" class="form-control" id="barang_id"></select>
                         <small class="text-danger" id="errorbarang_id"></small>
                     </div>
                     <div class="form-group mb-3">

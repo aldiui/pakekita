@@ -38,6 +38,26 @@ if (!function_exists('jenisBadge')) {
     }
 }
 
+if (!function_exists('bulan')) {
+    function bulan()
+    {
+        return [
+            'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember',
+        ];
+    }
+}
+
 function buatBaris1Kolom($kolom1, $posisi = 'kiri')
 {
     $lebar_kolom_1 = 35;

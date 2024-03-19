@@ -40,7 +40,7 @@
                 </li>
                 <li class="menu-item">
                     <a href="/kasir/menu" class='menu-link'>
-                        <span><i class="bi bi-archive-fill"></i> Menu</span>
+                        <span><i class="bi bi-menu-up"></i> Menu</span>
                     </a>
                 </li>
                 <li class="menu-item  ">

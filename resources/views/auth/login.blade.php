@@ -12,8 +12,7 @@
             <div class="text-center mb-3">
                 <img src="{{ asset('static/images/logo/logo.png') }}" class="img-fluid" width="200px" alt="Logo">
             </div>
-            <h4 class="">Log in.</h4>
-            <p class="mb-5">Log in with your data that you entered during registration.</p>
+            <h4 class="mb-3 text-center">Log in.</h4>
             <form id="login" autocomplete="off">
                 <div class="form-group mb-3">
                     <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
@@ -29,10 +28,6 @@
                     <button type="submit" class="btn btn-primary btn-block shadow-lg">Log in</button>
                 </div>
             </form>
-            <div class="text-center mt-4">
-                <p class="text-gray-600">Don't have an account? <a href="#" class="font-bold">Signup</a>.</p>
-                <p><a class="font-bold" href="#">Forgot password?</a>.</p>
-            </div>
         </div>
     </div>
 @endsection

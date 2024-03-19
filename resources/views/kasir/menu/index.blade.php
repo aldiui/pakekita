@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{ asset('extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('compiled/css/table-datatable-jquery.css') }}">
     <link rel="stylesheet" href="{{ asset('extensions/sweetalert2/sweetalert2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('extensions/choices.js/choices.css') }}">
 @endpush
 
 @section('main')
@@ -77,13 +76,27 @@
                                     <div class="fw-bold">Total</div>
                                     <div id="textGrandTotal">Rp. 0</div>
                                 </div>
-                                <div class="d-flex justify-content-between mb-3">
-                                    <div class="fw-bold">Kembalian</div>
-                                    <div id="textKembalian">Rp. 0</div>
+                                <div class="form-group mb-3">
+                                    <label for="bayar" class="form-label">Bayar <span
+                                            class="text-danger">*</span></label>
+                                    <div class="btn-group btn-block w-100">
+                                        <input type="radio" class="btn-check" name="pembayaran" id="pembayaran1"
+                                            autocomplete="off" value="Cash">
+                                        <label class="btn btn-outline-primary" for="pembayaran1">
+                                            <i class="bi bi-cash fs-3 mb-2"></i>
+                                            <div>Cash</div>
+                                        </label>
+                                        <input type="radio" class="btn-check" name="pembayaran" id="pembayaran2"
+                                            autocomplete="off" value="Transfer">
+                                        <label class="btn btn-outline-primary" for="pembayaran2">
+                                            <i class="bi bi-credit-card fs-3 mb-2"></i>
+                                            <div>Transfer</div>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="form-group mb-3 d-none" id="meja-input">
                                     <label for="meja_id" class="form-label">Meja</label>
-                                    <select class="choices" id="meja_id" name="meja_id">
+                                    <select class="form-control" id="meja_id" name="meja_id">
                                         <option value="">Pilih Meja</option>
                                         @foreach ($meja as $row)
                                             <option value="{{ $row->id }}">{{ $row->nama }}</option>
@@ -104,16 +117,14 @@
 
 @push('scripts')
     <script src="{{ asset('extensions/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script src="{{ asset('extensions/choices.js/choices.js') }}"></script>
-    <script src="{{ asset('static/js/pages/form-element-select.js') }}"></script>
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
 
     <script>
         $(document).ready(function() {
             $('#search, #kategori').on('input change', function() {
                 getMenus(1);
             });
-
-            getMenus(1);
 
             $("#createTransaksi").submit(function(e) {
                 setButtonLoadingState("#createTransaksi .btn.btn-success", true, "Proses");
@@ -123,7 +134,32 @@
 
                 const successCallback = function(response) {
                     setButtonLoadingState("#createTransaksi .btn.btn-success", false, "Proses");
-                    handleSuccess(response, null, null, "/kasir/transaksi");
+                    if (!response.data.pembayaran) {
+                        snap.pay(response.data, {
+                            onSuccess: function(result) {
+                                const successCallbackTransfer = function(response) {
+                                    handleSuccess(response, null, null,
+                                        "/kasir/transaksi");
+                                };
+
+                                const errorCallbackTransfer = function(error) {
+                                    console.log(error)
+                                }
+
+                                ajaxCall(`{{ route('kasir.transaksi.transfer') }}`, "POST",
+                                    data, successCallbackTransfer, errorCallbackTransfer
+                                );
+                            },
+                            onPending: function(result) {
+                                console.log(result)
+                            },
+                            onError: function(result) {
+                                console.log(result)
+                            }
+                        });
+                    } else {
+                        handleSuccess(response, null, null, "/kasir/transaksi");
+                    }
                 };
 
                 const errorCallback = function(error) {
@@ -132,7 +168,6 @@
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
-
         });
 
         $(document).on('click', '.pagination a', function(e) {

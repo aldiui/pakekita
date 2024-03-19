@@ -40,6 +40,7 @@ Route::prefix('kasir')->middleware(['auth', 'checkRole:kasir'])->group(function 
     Route::match(['get', 'put'], 'profil', [App\Http\Controllers\Kasir\ProfilController::class, 'index'])->name('kasir.profil');
     Route::resource('menu', App\Http\Controllers\Kasir\MenuController::class)->names('kasir.menu');
     Route::resource('transaksi', App\Http\Controllers\Kasir\TransaksiController::class)->names('kasir.transaksi');
+    Route::post('transaksi/transfer', [App\Http\Controllers\Kasir\TransaksiController::class, 'saveTransfer'])->name('kasir.transaksi.transfer');
     Route::put('profil/password', [App\Http\Controllers\Kasir\ProfilController::class, 'updatePassword'])->name('kasir.profil.password');
 });
 

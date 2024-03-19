@@ -18,11 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('meja_id')->nullable();
             $table->string('pembayaran');
-            $table->text('json');
+            $table->text('json')->nullable();
             $table->string('status')->default(0);
-            $table->integer('bayar')->nullable();
             $table->integer('total');
-            $table->integer('diskon')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

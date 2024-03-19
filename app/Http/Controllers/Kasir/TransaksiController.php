@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Kasir;
 
 use App\Http\Controllers\Controller;
+use App\Models\Menu;
 use App\Models\Transaksi;
 use App\Traits\ApiResponder;
 use DataTables;
@@ -31,9 +32,6 @@ class TransaksiController extends Controller
                     ->addColumn('tgl', function ($transaksi) {
                         return formatTanggal($transaksi->created_at);
                     })
-                    ->addColumn('pembayaran', function ($transaksi) {
-                        return 'Cash';
-                    })
                     ->addColumn('cetak', function ($transaksi) {
                         return '<a href="' . route('kasir.transaksi.show', $transaksi->kode) . '" class="btn btn-sm btn-info"><i class="bi bi-printer"></i></a>';
                     })
@@ -51,6 +49,84 @@ class TransaksiController extends Controller
         $validator = Validator::make($request->all(), [
             'pesanan' => 'required',
             'grandTotal' => 'required',
+            'pembayaran' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
+        }
+
+        $dataTransaksi = [
+            'pesanan' => $request->pesanan,
+            'bayar' => $request->bayar,
+            'pembayaran' => $request->pembayaran,
+            'total' => $request->grandTotal,
+            'user_id' => Auth::user()->id ?? null,
+        ];
+
+        if ($request->has('meja_id')) {
+            $dataTransaksi['meja_id'] = $request->meja_id;
+        }
+
+        $detailPesanan = [];
+        $data = $request->only(['menu_id', 'qty', 'total']);
+
+        foreach ($data['menu_id'] as $key => $menuId) {
+            $detailPesanan[] = [
+                'menu_id' => $menuId,
+                'qty' => $data['qty'][$key],
+                'total_harga' => $data['total'][$key],
+            ];
+        }
+
+        if ($request->pembayaran == 'Cash') {
+            $dataTransaksi['kode'] = 'TRX-' . strtoupper(uniqid());
+            $transaksi = Transaksi::create($dataTransaksi);
+            $transaksi->detailTransaksis()->createMany($detailPesanan);
+            $transaksi->update(['status' => 1]);
+            return $this->successResponse($transaksi, 'Data Transaksi ditambahkan.', 201);
+        }
+
+        $dataTransaksi['kode'] = 'TRX-' . date('Ymd') . '-' . rand(1111, 9999);
+
+        $itemDetails = [];
+        foreach ($detailPesanan as $detail) {
+            $menu = Menu::find($detail['menu_id']);
+            $itemDetails[] = [
+                'id' => $detail['menu_id'],
+                'price' => $detail['total_harga'],
+                'quantity' => $detail['qty'],
+                'name' => $menu->nama,
+            ];
+        }
+
+        \Midtrans\Config::$serverKey = config('services.midtrans.serverKey');
+        \Midtrans\Config::$isProduction = config('services.midtrans.isProduction');
+        \Midtrans\Config::$isSanitized = config('services.midtrans.isSanitized');
+        \Midtrans\Config::$is3ds = config('services.midtrans.is3ds');
+
+        $payload = [
+            'transaction_details' => [
+                'order_id' => $dataTransaksi['kode'],
+                'gross_amount' => $dataTransaksi['total'],
+            ],
+            'customer_details' => [
+                'first_name' => $dataTransaksi['pesanan'],
+            ],
+            'item_details' => $itemDetails,
+        ];
+
+        $snapToken = \Midtrans\Snap::getSnapToken($payload);
+
+        return $this->successResponse($snapToken, 'Data Transaksi ditambahkan.', 201);
+    }
+
+    public function saveTransfer(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'pesanan' => 'required',
+            'grandTotal' => 'required',
+            'pembayaran' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -58,25 +134,22 @@ class TransaksiController extends Controller
         }
 
         $transaksi = Transaksi::create([
+            'kode' => 'TRX-' . strtoupper(uniqid()),
             'pesanan' => $request->pesanan,
             'bayar' => $request->bayar,
-            'pembayaran' => 'Cash',
-            'json' => '[]',
+            'pembayaran' => $request->pembayaran,
             'total' => $request->grandTotal,
             'user_id' => Auth::user()->id ?? null,
-            'meja_id' => $request->meja_id,
-            'kode' => 'TRX-' . uniqid(),
+            'meja_id' => $request->meja_id ?? null,
         ]);
 
-        $detailPesanan = [];
         $data = $request->only(['menu_id', 'qty', 'total']);
-
         foreach ($data['menu_id'] as $key => $menuId) {
             $detailPesanan[] = [
-                'transaksi_id' => $transaksi->id,
                 'menu_id' => $menuId,
                 'qty' => $data['qty'][$key],
                 'total_harga' => $data['total'][$key],
+                'transaksi_id' => $transaksi->id,
             ];
         }
 
@@ -87,7 +160,7 @@ class TransaksiController extends Controller
 
     public function show($kode)
     {
-        $transaksi = Transaksi::where('kode', $kode)->with('pembayaran', 'detailTransaksis')->first();
+        $transaksi = Transaksi::where('kode', $kode)->with('detailTransaksis')->first();
 
         if (!$transaksi) {
             return $this->errorResponse(null, 'Data Transaksi tidak ditemukan.', 404);
@@ -110,10 +183,6 @@ class TransaksiController extends Controller
         }
         $content .= buatBaris1Kolom("-----------------------------------");
         $content .= buatBaris3Kolom("Total", "", formatRupiah($transaksi->total));
-        if ($transaksi->pembayaran_id == null) {
-            $content .= buatBaris3Kolom("Dibayar", "", formatRupiah($transaksi->bayar));
-            $content .= buatBaris3Kolom("Kembalian", "", formatRupiah($transaksi->bayar - $transaksi->total));
-        }
         $content .= buatBaris1Kolom("");
         $content .= buatBaris1Kolom("Terima kasih sudah memesan ke cafe kami, ditunggu kedatangannya kembali", "tengah");
 
