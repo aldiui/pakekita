@@ -27,11 +27,11 @@ class TransaksiController extends Controller
                     ->addColumn('tgl', function ($transaksi) {
                         return formatTanggal($transaksi->created_at);
                     })
-                    ->addColumn('pembayaran', function ($transaksi) {
-                        return 'Cash';
+                    ->addColumn('badge', function ($transaksi) {
+                        return statusBadge($transaksi->status);
                     })
                     ->addIndexColumn()
-                    ->rawColumns(['tgl', 'total_rupiah', 'pembayaran'])
+                    ->rawColumns(['tgl', 'total_rupiah', 'badge'])
                     ->make(true);
             }
         }

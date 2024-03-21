@@ -69,7 +69,7 @@
                                             <th width="5%">#</th>
                                             <th>Kode Transaksi</th>
                                             <th>Pesanan</th>
-                                            <th>Total Menu</th>
+                                            <th>Total</th>
                                             <th>Pembayaran</th>
                                             <th>Tanggal</th>
                                             <th>Status</th>
