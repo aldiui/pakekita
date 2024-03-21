@@ -135,13 +135,15 @@
                 const successCallback = function(response) {
                     setButtonLoadingState("#createTransaksi .btn.btn-success", false, "Proses");
                     if (!response.data.pembayaran) {
-                        snap.pay(response.data, {
+                        console.log(response.data);
+                        snap.pay(response.data.snapToken, {
                             onSuccess: function(result) {
+                                data.append("kode", response.data.kode);
+
                                 const successCallbackTransfer = function(response) {
                                     handleSuccess(response, null, null,
                                         "/kasir/transaksi");
                                 };
-
                                 const errorCallbackTransfer = function(error) {
                                     console.log(error)
                                 }

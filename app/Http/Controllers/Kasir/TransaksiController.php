@@ -32,11 +32,14 @@ class TransaksiController extends Controller
                     ->addColumn('tgl', function ($transaksi) {
                         return formatTanggal($transaksi->created_at);
                     })
+                    ->addColumn('badge', function ($transaksi) {
+                        return statusBadge($transaksi->status);
+                    })
                     ->addColumn('cetak', function ($transaksi) {
                         return '<a href="' . route('kasir.transaksi.show', $transaksi->kode) . '" class="btn btn-sm btn-info"><i class="bi bi-printer"></i></a>';
                     })
                     ->addIndexColumn()
-                    ->rawColumns(['tgl', 'total_rupiah', 'pembayaran', 'cetak'])
+                    ->rawColumns(['tgl', 'total_rupiah', 'cetak', 'badge'])
                     ->make(true);
             }
         }
@@ -62,6 +65,7 @@ class TransaksiController extends Controller
             'pembayaran' => $request->pembayaran,
             'total' => $request->grandTotal,
             'user_id' => Auth::user()->id ?? null,
+            'kode' => 'TRX' . date('Ymd') . rand(1111, 9999),
         ];
 
         if ($request->has('meja_id')) {
@@ -80,14 +84,11 @@ class TransaksiController extends Controller
         }
 
         if ($request->pembayaran == 'Cash') {
-            $dataTransaksi['kode'] = 'TRX-' . strtoupper(uniqid());
             $transaksi = Transaksi::create($dataTransaksi);
             $transaksi->detailTransaksis()->createMany($detailPesanan);
             $transaksi->update(['status' => 1]);
             return $this->successResponse($transaksi, 'Data Transaksi ditambahkan.', 201);
         }
-
-        $dataTransaksi['kode'] = 'TRX-' . date('Ymd') . '-' . rand(1111, 9999);
 
         $itemDetails = [];
         foreach ($detailPesanan as $detail) {
@@ -117,8 +118,12 @@ class TransaksiController extends Controller
         ];
 
         $snapToken = \Midtrans\Snap::getSnapToken($payload);
+        $snapTokenData = [
+            'snapToken' => $snapToken,
+            'kode' => $dataTransaksi['kode'],
+        ];
 
-        return $this->successResponse($snapToken, 'Data Transaksi ditambahkan.', 201);
+        return $this->successResponse($snapTokenData, 'Data Transaksi ditambahkan.', 201);
     }
 
     public function saveTransfer(Request $request)
@@ -134,7 +139,7 @@ class TransaksiController extends Controller
         }
 
         $transaksi = Transaksi::create([
-            'kode' => 'TRX-' . strtoupper(uniqid()),
+            'kode' => $request->kode,
             'pesanan' => $request->pesanan,
             'bayar' => $request->bayar,
             'pembayaran' => $request->pembayaran,

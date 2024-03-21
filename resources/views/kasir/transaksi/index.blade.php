@@ -70,9 +70,9 @@
                                             <th>Kode Transaksi</th>
                                             <th>Pesanan</th>
                                             <th>Total Menu</th>
-                                            <th>Total</th>
                                             <th>Pembayaran</th>
                                             <th>Tanggal</th>
+                                            <th>Status</th>
                                             <th width="5%">Cetak</th>
                                         </tr>
                                     </thead>
@@ -108,10 +108,6 @@
                     name: 'pesanan'
                 },
                 {
-                    data: 'detail_transaksis_count',
-                    name: 'detail_transaksis_count'
-                },
-                {
                     data: 'total_rupiah',
                     name: 'total_rupiah'
                 },
@@ -122,6 +118,10 @@
                 {
                     data: 'tgl',
                     name: 'tgl'
+                },
+                {
+                    data: 'badge',
+                    name: 'badge'
                 },
                 {
                     data: 'cetak',
