@@ -136,37 +136,10 @@
                         console.log(response.data);
                         snap.pay(response.data.snapToken, {
                             onSuccess: function(result) {
-                                data.append("kode", response.data.kode);
-                                data.append("json", JSON.stringify(result));
-
-                                const successCallbackTransfer = function(response) {
-                                    handleSuccess(response, null, null,
-                                        "/kasir/transaksi");
-                                };
-                                const errorCallbackTransfer = function(error) {
-                                    console.log(error)
-                                }
-
-                                ajaxCall(`{{ route('kasir.transaksi.transfer') }}`, "POST",
-                                    data, successCallbackTransfer, errorCallbackTransfer
-                                );
+                                handleSuccess(response, null, null,
+                                    "/");
                             },
-                            onPending: function(result) {
-                                data.append("kode", response.data.kode);
-                                data.append("json", JSON.stringify(result));
-
-                                const successCallbackTransfer = function(response) {
-                                    handleSuccess(response, null, null,
-                                        "/kasir/transaksi");
-                                };
-                                const errorCallbackTransfer = function(error) {
-                                    console.log(error)
-                                }
-
-                                ajaxCall(`{{ route('kasir.transaksi.transfer') }}`, "POST",
-                                    data, successCallbackTransfer, errorCallbackTransfer
-                                );
-                            },
+                            onPending: function(result) {},
                             onError: function(result) {
                                 console.log(result)
                             }
