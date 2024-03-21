@@ -96,7 +96,7 @@ class TransaksiController extends Controller
             $menu = Menu::find($detail['menu_id']);
             $itemDetails[] = [
                 'id' => $detail['menu_id'],
-                'price' => $detail['total_harga'],
+                'price' => $menu->harga_jual,
                 'quantity' => $detail['qty'],
                 'name' => $menu->nama,
             ];
