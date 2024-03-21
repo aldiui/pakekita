@@ -212,7 +212,7 @@ class TransaksiController extends Controller
 
         $responseData = json_decode($response, true);
 
-        if (isset($responseData['status']) && $responseData['status'] === 'success') {
+        if ($responseData['transaction_status'] == 'settlement') {
             $order_id = $responseData['order_id'];
             $transaksi = Transaksi::where('kode', $order_id)->first();
             if ($transaksi) {
