@@ -217,7 +217,7 @@ class TransaksiController extends Controller
             $transaksi = Transaksi::where('kode', $order_id)->first();
             if ($transaksi) {
                 $transaksi->update([
-                    'status' => $responseData['transaction_status'],
+                    'status' => 1,
                     'json' => $responseData,
                 ]);
             }
