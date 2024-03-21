@@ -44,7 +44,7 @@ class DashboardController extends Controller
         }
 
         $kategori = Kategori::where('jenis', 'Menu')->get();
-        $transaksiHariIni = Transaksi::whereDate('created_at', date('Y-m-d'))->sum("total");
+        $transaksiHariIni = Transaksi::where('status', '1')->whereDate('created_at', date('Y-m-d'))->sum("total");
         return view('admin.dashboard.index', compact('kategori', 'transaksiHariIni'));
     }
 }

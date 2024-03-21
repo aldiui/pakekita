@@ -248,10 +248,12 @@ const getMenus = (page, mode = null) => {
 };
 
 const formatRupiah = (angka) => {
-    var reverse = angka.toString().split("").reverse().join(""),
-        ribuan = reverse.match(/\d{1,3}/g);
-    ribuan = ribuan.join(".").split("").reverse().join("");
-    return "Rp " + ribuan;
+    const formatter = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+    });
+
+    return formatter.format(angka);
 };
 
 const grandTotal = () => {

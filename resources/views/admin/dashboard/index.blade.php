@@ -12,10 +12,32 @@
         </div>
         <div class="page-content">
             <section class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-clock-history me-2"></i>Transaksi Bulan ini</h5>
+                            <h5 class="card-title"><i class="bi bi-clock-history me-2"></i>Transaksi Hari ini</h5>
+                            <hr>
+                            {{ formatRupiah($transaksiHariIni) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-clock-history me-2"></i>Transaksi Bulan <span
+                                    class="label-bulan">{{ formatTanggal(date('Y-m-d'), 'F') }}</span></h5>
+                            <hr>
+                            <span id="total-transaksi">
+                                {{ formatRupiah($transaksiHariIni) }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-clock-history me-2"></i>Transaksi Bulan <span
+                                    class="label-bulan">{{ formatTanggal(date('Y-m-d'), 'F') }}</span></h5>
                             <hr>
                             <div class="row mb-3">
                                 <div class="col-lg-4 mb-3">
@@ -59,15 +81,6 @@
                                     <div id="chart-transaksi"></div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-clock-history me-2"></i>Transaksi Hari ini</h5>
-                            <hr>
-                            {{ formatRupiah($transaksiHariIni) }}
                         </div>
                     </div>
                 </div>
