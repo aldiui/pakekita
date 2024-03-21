@@ -127,44 +127,6 @@ class TransaksiController extends Controller
         return $this->successResponse($snapTokenData, 'Data Transaksi ditambahkan.', 201);
     }
 
-    // public function saveTransfer(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'pesanan' => 'required',
-    //         'grandTotal' => 'required',
-    //         'pembayaran' => 'required',
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
-    //     }
-
-    //     $transaksi = Transaksi::create([
-    //         'kode' => $request->kode,
-    //         'pesanan' => $request->pesanan,
-    //         'bayar' => $request->bayar,
-    //         'pembayaran' => $request->pembayaran,
-    //         'total' => $request->grandTotal,
-    //         'user_id' => Auth::user()->id ?? null,
-    //         'meja_id' => $request->meja_id ?? null,
-    //         'json' => json_encode($request->json),
-    //     ]);
-
-    //     $data = $request->only(['menu_id', 'qty', 'total']);
-    //     foreach ($data['menu_id'] as $key => $menuId) {
-    //         $detailPesanan[] = [
-    //             'menu_id' => $menuId,
-    //             'qty' => $data['qty'][$key],
-    //             'total_harga' => $data['total'][$key],
-    //             'transaksi_id' => $transaksi->id,
-    //         ];
-    //     }
-
-    //     $transaksi->detailTransaksis()->createMany($detailPesanan);
-
-    //     return $this->successResponse($transaksi, 'Data Transaksi ditambahkan.', 201);
-    // }
-
     public function show($kode)
     {
         $transaksi = Transaksi::where('kode', $kode)->with('detailTransaksis')->first();

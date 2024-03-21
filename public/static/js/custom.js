@@ -138,9 +138,9 @@ const handleSuccess = (
 
     if (redirect !== null) {
         if (redirect === "no") {
-            notification("success", response.message);
+            notification("success", response.message ?? response);
         } else {
-            notification("success", response.message);
+            notification("success", response.message ?? response);
             setTimeout(() => {
                 window.location.href = redirect;
             }, 1500);

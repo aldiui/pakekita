@@ -124,10 +124,14 @@
                         console.log(response.data);
                         snap.pay(response.data.snapToken, {
                             onSuccess: function(result) {
-                                handleSuccess(response, null, null,
+                                handleSuccess("Transaksi Berhasil", null,
+                                    null,
                                     "/");
                             },
                             onPending: function(result) {
+                                handleSuccess("Transaksi Berhasil", null,
+                                    null,
+                                    "/");
                             },
                             onError: function(result) {
                                 console.log(result)

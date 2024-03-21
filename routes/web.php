@@ -46,7 +46,6 @@ Route::prefix('kasir')->middleware(['auth', 'checkRole:kasir'])->group(function 
 
 Route::resource('menu', App\Http\Controllers\Kasir\MenuController::class)->names('menu');
 Route::resource('transaksi', App\Http\Controllers\Kasir\TransaksiController::class)->names('transaksi');
-Route::post('transaksi/transfer', [App\Http\Controllers\Kasir\TransaksiController::class, 'saveTransfer'])->name('transaksi.transfer');
 
 Route::get('/storage-link', function () {
     Artisan::call('storage:link');
