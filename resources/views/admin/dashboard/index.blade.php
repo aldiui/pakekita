@@ -28,7 +28,7 @@
                                     class="label-bulan">{{ formatTanggal(date('Y-m-d'), 'F') }}</span></h5>
                             <hr>
                             <span id="total-transaksi">
-                                {{ formatRupiah($transaksiHariIni) }}
+                                Rp. 0
                             </span>
                         </div>
                     </div>
@@ -64,7 +64,6 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="col-lg-4 mb-3">
                                     <div class="form-group">
                                         <label for="kategori" class="form-label">Kategori</label>
@@ -95,7 +94,7 @@
         $(document).ready(function() {
             renderData();
 
-            $("#bulan_filter, #tahun_filter").on("change", function() {
+            $("#bulan_filter, #tahun_filter, #kategori").on("change", function() {
                 renderData();
             });
         });
@@ -103,37 +102,18 @@
         const renderData = () => {
             const successCallback = function(response) {
                 renderChart(response.labels, response.transaksi);
+                $('#total-transaksi').html(response.total)
+                $('.label-bulan').html(response.bulan);
             };
 
             const errorCallback = function(error) {
                 console.error(error);
             };
 
-            const url = `/admin?bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
+            const url = `/admin?bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}&
+            kategori=${$("#kategori").val()}`;
 
             ajaxCall(url, "GET", null, successCallback, errorCallback);
-        };
-
-        const renderChart = (labels, transaksi) => {
-            const options = {
-                chart: {
-                    type: 'line',
-                    height: 350
-                },
-                series: [{
-                    name: 'Transaksi',
-                    data: transaksi
-                }],
-                xaxis: {
-                    categories: labels
-                },
-                title: {
-                    text: 'Grafik Transaksi Bulan Ini'
-                }
-            };
-
-            const chart = new ApexCharts(document.querySelector("#chart-transaksi"), options);
-            chart.render();
         };
     </script>
 @endpush

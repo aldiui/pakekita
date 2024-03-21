@@ -248,12 +248,10 @@ const getMenus = (page, mode = null) => {
 };
 
 const formatRupiah = (angka) => {
-    const formatter = new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-    });
-
-    return formatter.format(angka);
+    var reverse = angka.toString().split("").reverse().join(""),
+        ribuan = reverse.match(/\d{1,3}/g);
+    ribuan = ribuan.join(".").split("").reverse().join("");
+    return "Rp " + ribuan;
 };
 
 const grandTotal = () => {
@@ -345,4 +343,40 @@ const hitungKembalian = () => {
             : 0
         : 0;
     $("#textKembalian").html(formatRupiah(kembalian));
+};
+
+const resetChart = () => {
+    const chartElement = document.querySelector("#chart-transaksi");
+    if (chartElement) {
+        chartElement.innerHTML = "";
+    }
+};
+
+const renderChart = (labels, transaksi) => {
+    resetChart();
+
+    const options = {
+        chart: {
+            type: "line",
+            height: 350,
+        },
+        series: [
+            {
+                name: "Transaksi",
+                data: transaksi,
+            },
+        ],
+        xaxis: {
+            categories: labels,
+        },
+        title: {
+            text: "Grafik Transaksi Bulan Ini",
+        },
+    };
+
+    const chart = new ApexCharts(
+        document.querySelector("#chart-transaksi"),
+        options
+    );
+    chart.render();
 };

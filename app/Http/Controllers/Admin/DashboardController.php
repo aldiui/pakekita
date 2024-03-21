@@ -20,26 +20,43 @@ class DashboardController extends Controller
             $startDate = Carbon::createFromDate($tahun, $bulan, 1)->startOfMonth();
             $endDate = Carbon::createFromDate($tahun, $bulan, 1)->endOfMonth();
 
-            $transaksiPerBulan = Transaksi::where('status', '1')->whereBetween('created_at', [$startDate, $endDate])->get();
+            $transaksiPerBulan = Transaksi::where('status', '1')
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->with('detailTransaksis')
+                ->get();
 
             $labels = [];
-            $transaksi = [];
+            $transaksiPerHari = [];
 
-            $transaksiPerHari = $transaksiPerBulan->groupBy(function ($item) {
-                return $item->created_at->toDateString();
-            });
+            foreach ($transaksiPerBulan as $transaksi) {
+                foreach ($transaksi->detailTransaksis as $detailTransaksi) {
+                    $dateString = $transaksi->created_at->toDateString();
+                    $menu = $detailTransaksi->menu;
 
+                    if (!$kategori || $menu->kategori_id == $kategori) {
+                        $hargaJual = $menu->harga_jual;
+                        $transaksiPerHari[$dateString][] = $hargaJual;
+                    }
+                }
+            }
+
+            $transaksiTotalPerbulan = 0;
             $dates = Carbon::parse($startDate);
+            $transaksi = [];
             while ($dates <= $endDate) {
                 $dateString = $dates->toDateString();
+                $transaksiPerHariIni = isset($transaksiPerHari[$dateString]) ? array_sum($transaksiPerHari[$dateString]) : 0;
                 $labels[] = $dates->format('d');
-                $transaksi[] = $transaksiPerHari->has($dateString) ? $transaksiPerHari[$dateString]->sum('total') : 0;
+                $transaksi[] = $transaksiPerHariIni;
+                $transaksiTotalPerbulan += $transaksiPerHariIni;
                 $dates->addDay();
             }
 
             return response()->json([
                 'labels' => $labels,
                 'transaksi' => $transaksi,
+                'total' => formatRupiah($transaksiTotalPerbulan),
+                'bulan' => formatTanggal($startDate->format('F'), 'F'),
             ]);
         }
 

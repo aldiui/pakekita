@@ -17,7 +17,7 @@ class DashboardController extends Controller
             $startDate = Carbon::createFromDate($tahun, $bulan, 1)->startOfMonth();
             $endDate = Carbon::createFromDate($tahun, $bulan, 1)->endOfMonth();
 
-            $transaksiPerBulan = Transaksi::whereBetween('created_at', [$startDate, $endDate])->get();
+            $transaksiPerBulan = Transaksi::where('status', '1')->whereBetween('created_at', [$startDate, $endDate])->get();
 
             $labels = [];
             $transaksi = [];
@@ -37,10 +37,12 @@ class DashboardController extends Controller
             return response()->json([
                 'labels' => $labels,
                 'transaksi' => $transaksi,
+                'total' => formatRupiah($transaksiPerBulan->sum('total')),
+                'bulan' => formatTanggal($startDate->format('F'), 'F'),
             ]);
         }
 
-        $transaksiHariIni = Transaksi::whereDate('created_at', date('Y-m-d'))->sum("total");
+        $transaksiHariIni = Transaksi::where('status', '1')->whereDate('created_at', date('Y-m-d'))->sum("total");
         return view('kasir.dashboard.index', compact('transaksiHariIni'));
     }
 }
