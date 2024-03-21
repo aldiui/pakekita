@@ -146,6 +146,7 @@ class TransaksiController extends Controller
             'total' => $request->grandTotal,
             'user_id' => Auth::user()->id ?? null,
             'meja_id' => $request->meja_id ?? null,
+            'json' => json_encode($request->json),
         ]);
 
         $data = $request->only(['menu_id', 'qty', 'total']);
@@ -198,5 +199,30 @@ class TransaksiController extends Controller
         $printer->close();
 
         return response()->make($content, 200)->header('Content-Type', 'text/plain');
+    }
+
+    public function webhookMidtrans(Request $request)
+    {
+        \Midtrans\Config::$serverKey = config('services.midtrans.serverKey');
+        \Midtrans\Config::$isProduction = config('services.midtrans.isProduction');
+        \Midtrans\Config::$isSanitized = config('services.midtrans.isSanitized');
+        \Midtrans\Config::$is3ds = config('services.midtrans.is3ds');
+
+        $response = $request->getContent();
+
+        $responseData = json_decode($response, true);
+
+        if (isset($responseData['status']) && $responseData['status'] === 'success') {
+            $order_id = $responseData['order_id'];
+            $transaksi = Transaksi::where('kode', $order_id)->first();
+            if ($transaksi) {
+                $transaksi->update([
+                    'status' => $responseData['transaction_status'],
+                    'json' => $responseData,
+                ]);
+            }
+        }
+
+        return $this->successResponse(null, 'Pengecekan transaksi.', 200);
     }
 }

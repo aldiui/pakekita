@@ -125,6 +125,7 @@
                         snap.pay(response.data.snapToken, {
                             onSuccess: function(result) {
                                 data.append("kode", response.data.kode);
+                                data.append("json", JSON.stringify(result));
 
                                 const successCallbackTransfer = function(response) {
                                     handleSuccess(response, null, null,
@@ -139,7 +140,20 @@
                                 );
                             },
                             onPending: function(result) {
-                                console.log(result)
+                                data.append("kode", response.data.kode);
+                                data.append("json", JSON.stringify(result));
+
+                                const successCallbackTransfer = function(response) {
+                                    handleSuccess(response, null, null,
+                                        "/");
+                                };
+                                const errorCallbackTransfer = function(error) {
+                                    console.log(error)
+                                }
+
+                                ajaxCall(`{{ route('transaksi.transfer') }}`, "POST",
+                                    data, successCallbackTransfer, errorCallbackTransfer
+                                );
                             },
                             onError: function(result) {
                                 console.log(result)
