@@ -18,7 +18,7 @@
                             <h5 class="card-title"><i class="bi bi-clock-history me-2"></i>Transaksi Bulan ini</h5>
                             <hr>
                             <div class="row mb-3">
-                                <div class="col-lg-6 mb-3">
+                                <div class="col-lg-4 mb-3">
                                     <div class="form-group">
                                         <label for="bulan_filter" class="form-label">Bulan</label>
                                         <select name="bulan_filter" id="bulan_filter" class="form-control">
@@ -30,7 +30,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 mb-3">
+                                <div class="col-lg-4 mb-3">
                                     <div class="form-group">
                                         <label for="tahun_filter" class="form-label">Tahun</label>
                                         <select name="tahun_filter" id="tahun_filter" class="form-control">
@@ -39,6 +39,19 @@
                                                     {{ $i }}
                                                 </option>
                                             @endfor
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="kategori" class="form-label">Kategori</label>
+                                        <select name="kategori" id="kategori" class="form-control">
+                                            <option value="">Semua</option>
+                                            @foreach ($kategori as $row)
+                                                <option value="{{ $row->id }}">
+                                                    {{ $row->nama }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

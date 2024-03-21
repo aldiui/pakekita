@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kategori;
 use App\Models\Transaksi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -14,10 +15,12 @@ class DashboardController extends Controller
         if ($request->ajax()) {
             $bulan = $request->bulan;
             $tahun = $request->tahun;
+            $kategori = $request->kategori;
+
             $startDate = Carbon::createFromDate($tahun, $bulan, 1)->startOfMonth();
             $endDate = Carbon::createFromDate($tahun, $bulan, 1)->endOfMonth();
 
-            $transaksiPerBulan = Transaksi::whereBetween('created_at', [$startDate, $endDate])->get();
+            $transaksiPerBulan = Transaksi::where('status', '1')->whereBetween('created_at', [$startDate, $endDate])->get();
 
             $labels = [];
             $transaksi = [];
@@ -40,7 +43,8 @@ class DashboardController extends Controller
             ]);
         }
 
+        $kategori = Kategori::where('jenis', 'Menu')->get();
         $transaksiHariIni = Transaksi::whereDate('created_at', date('Y-m-d'))->sum("total");
-        return view('admin.dashboard.index', compact('transaksiHariIni'));
+        return view('admin.dashboard.index', compact('kategori', 'transaksiHariIni'));
     }
 }
