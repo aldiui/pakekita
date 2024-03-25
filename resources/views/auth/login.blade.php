@@ -24,7 +24,7 @@
                     <input id="password" type="password" class="form-control" name="password">
                     <small class="invalid-feedback" id="errorpassword"></small>
                 </div>
-                <div class="form-group mt-4">
+                <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block shadow-lg">Log in</button>
                 </div>
             </form>
