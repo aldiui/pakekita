@@ -35,7 +35,7 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
     Route::put('profil/password', [App\Http\Controllers\Admin\ProfilController::class, 'updatePassword'])->name('admin.profil.password');
 });
 
-Route::prefix('kasir')->middleware(['auth', 'checkRole:kasir'])->group(function () {
+Route::prefix('kasir')->middleware(['auth', 'checkRole:kasir,admin'])->group(function () {
     Route::get('/', [App\Http\Controllers\Kasir\DashboardController::class, 'index'])->name('kasir.dashboard');
     Route::match(['get', 'put'], 'profil', [App\Http\Controllers\Kasir\ProfilController::class, 'index'])->name('kasir.profil');
     Route::resource('menu', App\Http\Controllers\Kasir\MenuController::class)->names('kasir.menu');
