@@ -9,9 +9,6 @@
 @endpush
 
 @section('main')
-    @php
-        $bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-    @endphp
     <div class="content-wrapper container">
         <div class="page-heading">
             <div class="page-title">
@@ -49,7 +46,7 @@
                                     <div class="form-group">
                                         <label for="bulan_filter" class="form-label">Bulan</label>
                                         <select name="bulan_filter" id="bulan_filter" class="form-control">
-                                            @foreach ($bulans as $key => $value)
+                                            @foreach (bulan() as $key => $value)
                                                 <option value="{{ $key + 1 }}"
                                                     {{ $key + 1 == date('m') ? 'selected' : '' }}>
                                                     {{ $value }}</option>
