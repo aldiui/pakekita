@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DataTables;
+use App\Http\Controllers\Controller;
+use App\Models\DetailTransaksi;
 use App\Models\Kategori;
 use App\Models\Transaksi;
 use App\Traits\ApiResponder;
+use DataTables;
 use Illuminate\Http\Request;
-use App\Models\DetailTransaksi;
-use Barryvdh\DomPDF\Facade\Pdf;
-use App\Http\Controllers\Controller;
+use PDF;
 
 class TransaksiController extends Controller
 {
@@ -80,7 +80,7 @@ class TransaksiController extends Controller
         } elseif ($request->mode == "pdf") {
             $kategori = Kategori::find($kategori);
             $bulanTahun = formatTanggal($tahun . "-" . $bulan . "-01", 'F Y');
-            $pdf = Pdf::loadView('admin.transaksi.pdf', compact('transaksis', 'kategori', 'bulanTahun'));
+            $pdf = PDF::loadView('admin.transaksi.pdf', compact('transaksis', 'kategori', 'bulanTahun'));
 
             $options = [
                 'margin_top' => 0,
