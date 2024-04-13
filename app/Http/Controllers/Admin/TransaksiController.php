@@ -94,7 +94,7 @@ class TransaksiController extends Controller
 
             $namaFile = 'laporan_rekap_penjualan_' . $bulanTahun . '.pdf';
 
-            return $pdf->stream($namaFile, ['Attachment' => false]);
+            return $pdf->stream($namaFile);
         }
 
         $kategori = Kategori::where('jenis', 'Menu')->get();

@@ -23,11 +23,11 @@
                 @foreach ($transaksis as $transaksi)
                     <tr>
                         <td align ="center">{{ $loop->iteration }}</td>
-                        <td>{{ formatTanggal($transaksi->created_at) }}</td>
+                        <td align ="center">{{ formatTanggal($transaksi->created_at) }}</td>
                         <td>{{ $transaksi->transaksi->pesanan }} </td>
                         <td>{{ $transaksi->menu->nama }}</td>
                         <td>{{ $transaksi->menu->kategori->nama }}</td>
-                        <td>{{ $transaksi->qty }}</td>
+                        <td align ="center">{{ $transaksi->qty }}</td>
                         <td>{{ formatRupiah($transaksi->total_harga) }}</td>
                     </tr>
                 @endforeach
