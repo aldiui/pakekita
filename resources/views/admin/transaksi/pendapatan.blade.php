@@ -34,6 +34,8 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title mb-0">Data @yield('title')</h5>
+                                <a id="downloadPdf" class="btn btn-sm btn-danger" target="_blank"><i
+                                        class="bi bi-file-pdf me-2"></i>Pdf</a>
                             </div>
                             <hr>
                             <div class="row mb-3">
@@ -136,9 +138,18 @@
                 },
             ]);
 
+            renderData();
+
             $("#bulan_filter, #tahun_filter, #kategori_filter").on("change", function() {
                 $("#pendapatan-table").DataTable().ajax.reload();
+                renderData();
             });
         });
+
+        const renderData = () => {
+            const downloadPdf =
+                `/admin/pendapatan?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}&kategori=${$("#kategori_filter").val()}`;
+            $("#downloadPdf").attr("href", downloadPdf);
+        }
     </script>
 @endpush
