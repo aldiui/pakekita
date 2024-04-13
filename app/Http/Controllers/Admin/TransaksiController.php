@@ -8,7 +8,7 @@ use App\Models\Transaksi;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use App\Models\DetailTransaksi;
-use Barryvdh\DomPDF\Facade\PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 
 class TransaksiController extends Controller
