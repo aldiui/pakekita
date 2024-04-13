@@ -7,9 +7,9 @@ use App\Models\DetailTransaksi;
 use App\Models\Kategori;
 use App\Models\Transaksi;
 use App\Traits\ApiResponder;
+use Barryvdh\DomPDF\Facade\Pdf;
 use DataTables;
 use Illuminate\Http\Request;
-use PDF;
 
 class TransaksiController extends Controller
 {
