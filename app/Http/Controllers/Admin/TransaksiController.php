@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\DetailTransaksi;
+use DataTables;
 use App\Models\Kategori;
 use App\Models\Transaksi;
 use App\Traits\ApiResponder;
-use Barryvdh\DomPDF\Facade\Pdf;
-use DataTables;
 use Illuminate\Http\Request;
+use App\Models\DetailTransaksi;
+use Barryvdh\DomPDF\Facade\PDF;
+use App\Http\Controllers\Controller;
 
 class TransaksiController extends Controller
 {
