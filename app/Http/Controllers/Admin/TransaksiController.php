@@ -80,7 +80,7 @@ class TransaksiController extends Controller
         } elseif ($request->mode == "pdf") {
             $kategori = Kategori::find($kategori);
             $bulanTahun = formatTanggal($tahun . "-" . $bulan . "-01", 'F Y');
-            $pdf = PDF::loadView('admin.transaksi.pdf', compact('transaksis', 'kategori', 'bulanTahun'));
+            $pdf = Pdf::loadView('admin.transaksi.pdf', compact('transaksis', 'kategori', 'bulanTahun'));
 
             $options = [
                 'margin_top' => 0,
