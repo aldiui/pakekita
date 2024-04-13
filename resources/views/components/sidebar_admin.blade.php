@@ -19,6 +19,12 @@
                         <span>User</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{ request()->is('admin/pendapatan') ? 'active' : '' }}">
+                    <a href="{{ url('/admin/pendapatan') }}" class='sidebar-link'>
+                        <i class="bi bi-cash"></i>
+                        <span>Pendapatan</span>
+                    </a>
+                </li>
                 <li class="sidebar-title">Manajemen Barang</li>
                 <li class="sidebar-item {{ request()->is('admin/kategori') ? 'active' : '' }}">
                     <a href="{{ url('/admin/kategori') }}" class='sidebar-link'>

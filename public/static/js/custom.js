@@ -10,6 +10,7 @@ const datatableCall = (targetId, url, columns) => {
                 d.bulan = $("#bulan_filter").val() ?? null;
                 d.tahun = $("#tahun_filter").val() ?? null;
                 d.tanggal = $("#tanggal_filter").val() ?? null;
+                d.kategori = $("#kategori_filter").val() ?? null;
             },
         },
         columns: columns,
