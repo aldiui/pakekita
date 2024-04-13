@@ -90,7 +90,7 @@ class TransaksiController extends Controller
             ];
 
             $pdf->setOptions($options);
-            $pdf->setPaper('legal', 'landscape');
+            $pdf->setPaper('a4', 'landscape');
 
             $namaFile = 'laporan_rekap_penjualan_' . $bulanTahun . '.pdf';
 
