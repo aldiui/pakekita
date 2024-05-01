@@ -15,11 +15,11 @@ trait ApiResponder
         ], $code)->header('Content-Type', 'application/json');
     }
 
-    public function errorResponse($data = null, $message = null, $code = Response::HTTP_BAD_REQUEST)
+    public function errorResponse($data = null, $message = 'Error', $code = Response::HTTP_BAD_REQUEST)
     {
         return response()->json([
             'status' => $code,
-            'message' => $message ?? 'Error',
+            'message' => $message,
             'data' => $data,
         ], $code)->header('Content-Type', 'application/json');
     }
