@@ -12,7 +12,8 @@
                     <input type="hidden" id="id">
                     <div class="form-group">
                         <label for="image" class="form-label">Foto </label>
-                        <input type="file" name="image" id="image" class="dropify" data-height="200">
+                        <input type="file" name="foto" id="foto" class="dropify" data-height="200"
+                            accept=".jpg,.jpeg,.png">
                         <small class="invalid-feedback" id="errorimage"></small>
                     </div>
                     <div class="form-group mb-3">

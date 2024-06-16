@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Models\Kategori;
 use App\Models\Meja;
 use App\Models\Menu;
-use App\Models\Kategori;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Config;
 
 class HomeController extends Controller
 {
 
     public function index(Request $request)
     {
-        Config::set('app.name', 'Absensi');
 
         $query = Menu::with(['kategori']);
 

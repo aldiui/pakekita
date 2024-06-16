@@ -54,7 +54,7 @@ class BarangController extends Controller
             'kategori_id' => 'required|exists:kategoris,id',
             'unit_id' => 'required|exists:units,id',
             'image' => 'image|mimes:png,jpg,jpeg',
-        ]);
+        ]); 
 
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
